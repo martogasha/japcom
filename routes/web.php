@@ -25,7 +25,10 @@ Route::get('home', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-Route::get('/', [AuthController::class, 'login']);
+//client side routes
+Route::get('/', [IndexController::class, 'index']);
+
+//admin routes
 Route::get('admin', [AdminController::class, 'admin']);
 Route::get('customers', [AdminController::class, 'customers']);
 Route::get('addCustomer', [AdminController::class, 'addCustomer']);
