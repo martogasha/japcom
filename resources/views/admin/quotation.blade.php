@@ -12,6 +12,7 @@
                     <li>Quotation</li>
                 </ul>
             </div>
+            @include('flash-message')
             <!-- Breadcubs Area End Here -->
             <!-- Add New Teacher Area Start Here -->
             <div class="card height-auto">
@@ -34,47 +35,42 @@
                     <div class="row">
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Name of Customer *</label>
-                            <select class="select2">
-                                <option value="1">Maxmillan Kibe</option>
-                            </select>
-                        </div>
+                            <input type="text" placeholder="Name" class="form-control" id="customer_name">
 
+                        </div>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <label>Date *</label>
-                            <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker">
-                            <i class="far fa-calendar-alt"></i>
+                            <div class="form-group">
+                                <label for="dob">Estimate Date *</label>
+                                <input type="date" class="form-control" id="estimated_date"/>
+                            </div>
                         </div>
-
-
+                        <div class="col-xl-3 col-lg-6 col-12 form-group">
+                            <div class="form-group">
+                                <label for="dob">Expiry Date *</label>
+                                <input type="date" class="form-control" id="expiry_date"/>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="row">
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Select Product *</label>
-                                <select class="select2">
-                                    <option value="1">Router</option>
-                                    <option value="2">Cable</option>
-                                    <option value="3">CCTV</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Amount *</label>
-                                <input type="text" placeholder="" class="form-control">
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Quantity *</label>
-                                <select class="select2">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <br>
-                                <br>
-                                <button class="btn btn-success" id="add">Add</button>
-                            </div>
+                        <div class="row">
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Product *</label>
+                            <input type="text" placeholder="Product" class="form-control" id="product_name">
 
+                        </div>
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Amount *</label>
+                            <input type="text" placeholder="Amount" class="form-control" id="amount">
+                        </div>
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Quantity *</label>
+                            <select class="select2" id="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                            <button type="submit" class="btn btn-success" id="storeQuotationButton">Add</button>
                         </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
@@ -82,18 +78,19 @@
                             <tr>
 
                                 <th>Name</th>
-                                <th>Unit Price</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
-                                <th></th>
+                                <th>Total</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($products as $product)
                             <tr>
-                                <td>Router</td>
-                                <td>Ksh: 1500</td>
-                                <td>1</td>
-                                <td>1500</td>
+                                <td>{{$product->name}}</td>
+                                <td>{{$product->quantity}}</td>
+                                <td>Ksh: {{$product->amount}}</td>
+                                <td>Ksh: {{$product->amount*$product->quantity}}</td>
 
                                 <td>
                                     <div class="dropdown">
@@ -108,32 +105,18 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Cable</td>
-                                <td>Ksh: 500</td>
-                                <td>10</td>
-                                <td>5000</td>
-
-                                <td>
-                                    <div class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <span class="flaticon-more-button-of-three-dots"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{url('customerDetail')}}">Edit</a>
-                                            <a class="dropdown-item" href="{{url('customerDetail')}}">Remove</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
 
                             </tbody>
                         </table>
                     </div>
                     <div class="col-12 form-group mg-t-8">
-                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                        <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                        @if($quote)
+                        <a href="{{url('quotes',$quote->id)}}"> <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button></a>
+                        @else
+                            <a href="#"> <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button></a>
+                        @endif
+                            <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                     </div>
                 </div>
             </div>
@@ -149,23 +132,47 @@
 <!-- jquery-->
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
-<script src="js/plugins.js"></script>
+<script src="{{asset('js/plugins.js')}}"></script>
 <!-- Popper js -->
-<script src="js/popper.min.js"></script>
+<script src="{{asset('js/popper.min.js')}}"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Select 2 Js -->
-<script src="js/select2.min.js"></script>
+<script src="{{asset('js/select2.min.js')}}"></script>
 <!-- Date Picker Js -->
-<script src="js/datepicker.min.js"></script>
+<script src="{{asset('js/datepicker.min.js')}}"></script>
 <!-- Smoothscroll Js -->
-<script src="js/jquery.smoothscroll.min.html"></script>
+<script src="{{(asset('js/jquery.smoothscroll.min.html'))}}"></script>
 <!-- Scroll Up Js -->
-<script src="js/jquery.scrollUp.min.js"></script>
+<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
 <!-- Custom Js -->
 <script src="{{asset('js/main.js')}}"></script>
 
 </body>
+<script>
+    $('#storeQuotationButton').click(function () {
+       var customer_name = $('#customer_name').val();
+       var estimated_date = $('#estimated_date').val();
+       var expiry_date = $('#expiry_date').val();
+       var product_name = $('#product_name').val();
+       var quantity = $('#quantity').val();
+       var amount = $('#amount').val();
+        $.ajax({
+            type:"get",
+            url:"{{url('storeQuotation')}}",
+            data:{'customer_name':customer_name,'estimated_date':estimated_date,'expiry_date':expiry_date,'product_name':product_name,'quantity':quantity,'amount':amount},
+            success:function (data) {
+                location.reload();
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
+</script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/add-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:38 GMT -->
 </html>

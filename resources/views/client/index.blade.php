@@ -5,56 +5,43 @@
             <div class="ps-section__overlay">
                 <div class="ps-section__loading"></div>
             </div>
-            <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="15000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
-                <div class="ps-banner" style="background:#DAECFA;">
-                    <div class="container container-initial">
-                        <div class="ps-banner__block">
-                            <div class="ps-banner__content">
-                                <h2 class="ps-banner__title">Pay <br/> Internet Bills</h2>
-                                <div class="ps-banner__desc">It's Easy and Convinient</div>
-                                <div class="ps-banner__price">
-                                </div><a class="bg-warning ps-banner__shop" href="#">Login now</a>
-                            </div>
-                            <div class="ps-banner__thumnail"><img class="ps-banner__round" src="img/round2.png" alt="alt" /><img class="ps-banner__image" src="asset/img/promotion/slide1.png" alt="alt" />
-                            </div>
+            <div id="demo" class="carousel slide" data-ride="carousel">
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://edit.org/img/blog/2019032211-wifi-poster-key.jpg" alt="Los Angeles" style="height: 500px">
+                        <div class="carousel-caption">
+                            <h3>Los Angeles</h3>
+                            <p><button class="btn btn-info">Shop Now</button></p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{asset('img/jap.jpg')}}" alt="Chicago" style="height: 500px">
+                        <div class="carousel-caption">
+                            <h3>Chicago</h3>
+                            <p>Thank you, Chicago!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{asset('img/jpp.jpg')}}" alt="Chicago" style="height: 500px">
+                        <div class="carousel-caption">
+                            <h3>New York</h3>
+                            <p>We love the Big Apple!</p>
                         </div>
                     </div>
                 </div>
-                <div class="ps-banner" style="background:#F0F2F5;">
-                    <div class="container container-initial">
-                        <div class="ps-banner__block">
-                            <div class="ps-banner__content">
-                                <h2 class="ps-banner__title">Networking <br/> Accessories</h2>
-                                <div class="ps-banner__desc">Just a few seconds away.</div>
-                                <div class="ps-banner__btn-group">
-                                    <div class="ps-banner__btn"><img src="asset/img/icon/bacterial.svg" alt="alt" />Free Delivery</div>
-                                    <div class="ps-banner__btn"><img src="asset/img/icon/virus.svg" alt="alt" />100% Money Guarantee</div>
-                                </div><a class="bg-warning ps-banner__shop" href="#">Shop now</a>
-                                <div class="ps-banner__persen bg-yellow ps-top"><small>only</small>$25</div>
-                            </div>
-                            <div class="ps-banner__thumnail"><img class="ps-banner__round" src="img/round5.png" alt="alt" /><img class="ps-banner__image" src="asset/img/promotion/slide3.png" alt="alt" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ps-banner" style="background:#FFCC00;">
-                    <div class="container container-initial">
-                        <div class="ps-banner__block">
-                            <div class="ps-banner__content">
-                                <h2 class="ps-banner__title">Get rid of bacteria <br/>in your home</h2>
-                                <div class="ps-banner__desc">Get rid of all bacteria!</div>
-                                <div class="ps-banner__btn-group">
-                                    <div class="ps-banner__btn"><img src="asset/img/icon/bacterial.svg" alt="alt" />Anti-Bacterial</div>
-                                    <div class="ps-banner__btn"><img src="asset/img/icon/virus.svg" alt="alt" />Anti-Virus</div>
-                                </div><a class="bg-white ps-banner__shop" href="#">Shop now</a>
-                                <div class="ps-banner__persen bg-primary">-25%</div>
-                            </div>
-                            <div class="ps-banner__thumnail"><img class="ps-banner__round" src="img/round2.png" alt="alt" /><img class="ps-banner__image" src="asset/img/promotion/slide4.png" alt="alt" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
             </div>
+
         </section>
         <div class="ps-home__content">
             <div class="container">
@@ -62,11 +49,12 @@
                     <h3 class="ps-section__title">Shop for Best Deals</h3>
                     <div class="ps-section__content">
                         <div class="row m-0">
+                            @foreach($prods as $prod)
                             <div class="col-6 col-md-4 col-lg-2dot4 p-0">
                                 <div class="ps-section__product">
                                     <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
+                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="{{url('productDetail',$prod->id)}}">
+                                                <figure><img src="{{asset('uploads/product/'.$prod->photo)}}" alt="alt" /><img src="{{asset('uploads/product/'.$prod->photo)}}" alt="alt" />
                                                 </figure>
                                             </a>
                                             <div class="ps-product__actions">
@@ -80,8 +68,8 @@
                                             </div>
                                         </div>
                                         <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
+                                            <h5 class="ps-product__title"><a href="{{url('productDetail',$prod->id)}}">{{$prod->name}}</a></h5>
+                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh {{$prod->amount}}</span>
                                             </div>
                                             <div class="ps-product__rating">
                                                 <select class="ps-rating" data-read-only="true">
@@ -116,492 +104,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-4 col-lg-2dot4 p-0">
-                                <div class="ps-section__product">
-                                    <div class="ps-product ps-product--standard">
-                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                                <figure><img src="asset/img/products/054.jpg" alt="alt" /><img src="asset/img/products/057.jpg" alt="alt" />
-                                                </figure>
-                                            </a>
-                                            <div class="ps-product__actions">
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="#"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#" data-toggle="modal" data-target="#popupAddcart"><i class="fa fa-shopping-basket"></i></a></div>
-                                            </div>
-                                            <div class="ps-product__badge">
-                                                <div class="ps-badge ps-badge--sale">Sale</div>
-                                            </div>
-                                        </div>
-                                        <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="product1.html">Somersung Sonic X2000 Pro Black</a></h5>
-                                            <div class="ps-product__meta"><span class="ps-product__price">Ksh   299.99</span>
-                                            </div>
-                                            <div class="ps-product__rating">
-                                                <select class="ps-rating" data-read-only="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4" selected="selected">4</option>
-                                                    <option value="5">5</option>
-                                                </select><span class="ps-product__review">( Reviews)</span>
-                                            </div>
-                                            <div class="ps-product__desc">
-                                                <ul class="ps-product__list">
-                                                    <li>Study history up to 30 days</li>
-                                                    <li>Up to 5 users simultaneously</li>
-                                                    <li>Has HEALTH certificate</li>
-                                                </ul>
-                                            </div>
-                                            <div class="ps-product__actions ps-product__group-mobile">
-                                                <div class="ps-product__quantity">
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="icon-minus"></i></button>
-                                                        <input class="quantity" min="0" name="quantity" value="1" type="number" />
-                                                        <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="icon-plus"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                                                <div class="ps-product__item cart" data-toggle="tooltip" data-placement="left" title="Add to cart"><a href="#"><i class="fa fa-shopping-basket"></i></a></div>
-                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
-                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="compare.html"><i class="fa fa-align-left"></i></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
 
                         </div>
                         <div class="ps-shop__more"><a href="#">Show all</a></div>
@@ -1309,6 +813,13 @@
         </div>
     </div>
 </div>
+<style>
+    /* Make the image fully responsive */
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
 <script data-cfasync="false" src="http://nouthemes.net/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="asset/plugins/jquery.min.js"></script>
 <script src="asset/plugins/popper.min.js"></script>
 <script src="asset/plugins/bootstrap4/js/bootstrap.min.js"></script>
@@ -1321,7 +832,9 @@
 <!-- custom code-->
 <script src="asset/js/main.js"></script>
 </body>
-
+<script>
+    $('#carouselExampleControls').carousel();
+</script>
 
 <!-- Mirrored from nouthemes.net/html/mymedi/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 29 Jun 2021 05:21:51 GMT -->
 </html>

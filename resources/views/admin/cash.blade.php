@@ -21,17 +21,7 @@
                             <h3>Cash Payments</h3>
                         </div>
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                               aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
+                            <a href="{{url('addCash')}}"><button class="btn btn-primary">Add Cash Payment</button></a>
                         </div>
                     </div>
                     <form class="mg-b-20">
@@ -55,16 +45,19 @@
                                 <th>Name</th>
                                 <th>Amount</th>
                                 <th>Date Of Payment</th>
-                                <th></th>
+                                <th>action</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($cashs as $cash)
                             <tr>
 
-                                <td>Mark Willy</td>
-                                <td><b>kSH: 500</b></td>
-                                <td>02/05/2001</td>
+                                <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
+                                <td><b>Ksh: {{$cash->amount}}</b></td>
+                                <td>{{$cash->date}}</td>
+                                <td><button class="btn btn-success">Receipt</button></td>
                             </tr>
+                            @endforeach
 
                                                     </tbody>
                         </table>
@@ -80,6 +73,7 @@
     </div>
     <!-- Page Area End Here -->
 </div>
+<!-- Modal -->
 <!-- jquery-->
 <script src="js/jquery-3.3.1.min.js"></script>
 <!-- Plugins js -->

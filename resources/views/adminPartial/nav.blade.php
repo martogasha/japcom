@@ -9,28 +9,30 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/jp.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/jp.png')}}">
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="{{asset('css/main.css')}}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
     <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="fonts/flaticon.css">
+    <link rel="stylesheet" href="{{asset('fonts/flaticon.css')}}">
     <!-- Full Calender CSS -->
-    <link rel="stylesheet" href="css/fullcalendar.min.css">
+    <link rel="stylesheet" href="{{asset('css/fullcalendar.min.css')}}">
     <!-- Animate CSS -->
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/select2.min.css">
-    <link rel="stylesheet" href="css/datepicker.min.css">
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/datepicker.min.css')}}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{asset('style.css')}}">
     <!-- Modernize js -->
-    <script src="js/modernizr-3.6.0.min.js"></script>
+    <script src="{{asset('js/modernizr-3.6.0.min.js')}}"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+
 </head>
 
 <body>
@@ -43,7 +45,7 @@
         <div class="nav-bar-header-one" >
             <div class="header-logo" style="background-color: white">
                 <a href="{{url('admin')}}">
-                    <img src="img/jp.png" alt="logo"><span>Japcom Networks</span>
+                    <img src="{{asset('img/jp.png')}}" alt="logo"><span>Japcom Networks</span>
                 </a>
             </div>
             <div class="toggle-button sidebar-toggle">
@@ -242,6 +244,32 @@
                         <a href="{{url('admin')}}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                     </li>
                     <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Products</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('products')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
+                                    Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('addProduct')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add Product</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Employees</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('employees')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
+                                    employees</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('addEmployee')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add Employee</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Customers</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
@@ -287,7 +315,7 @@
                                 <a href="{{url('quotation')}}" class="nav-link"><i class="fas fa-angle-right"></i>Create Quotation</a>
                             </li>
                             <li class="nav-item">
-                                <a href="parents-details.html" class="nav-link"><i
+                                <a href="{{url('viewQuotation')}}" class="nav-link"><i
                                         class="fas fa-angle-right"></i>All Quotations</a>
                             </li>
                         </ul>

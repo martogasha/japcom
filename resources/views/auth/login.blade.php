@@ -39,16 +39,18 @@
         <div class="login-box">
             <div class="item-logo">
                 <img src="img/jp.png" alt="logo"><h3>Japcom Networks</h3>
+                @include('flash-message')
             </div>
-            <form action="{{url('admin')}}" class="login-form">
+            <form action="{{route('Login')}}" class="login-form" method="post">
+                @csrf
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" placeholder="Enter usrename" class="form-control">
+                    <label>Email</label>
+                    <input type="text" placeholder="Enter usrename" name="email" class="form-control">
                     <i class="far fa-envelope"></i>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="text" placeholder="Enter password" class="form-control">
+                    <input type="password" placeholder="Enter password" name="password" class="form-control">
                     <i class="fas fa-lock"></i>
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-between">
