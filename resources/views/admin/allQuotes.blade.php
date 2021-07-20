@@ -48,9 +48,9 @@
                         </div>
                     </form>
                     <div class="row">
-                        <h4 style="text-decoration: underline" id="unpaidInvoices">Pending</h4>
+                        <a href="{{url('viewQuotation')}}"><h4 id="unpaidInvoices">Pending</h4></a>
                         <a href="{{url('expiredInvoice')}}"> <h4 style="padding-left: 100px" id="unpaidInvoices">Expired</h4></a>
-                        <a href="{{url('allQuotes')}}"><h4 style="padding-left: 100px" id="allInvoices">All Quotations</h4></a>
+                        <a href="{{url('allQuotes')}}"><h4 style="padding-left: 100px;text-decoration: underline" id="allInvoices">All Quotations</h4></a>
                     </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
@@ -67,9 +67,14 @@
                             <tbody>
                             @foreach($quotations as $quotation)
                             <tr>
-                                <td class="badge badge-pill badge-info d-block mg-t-8">Pending</td>
-                                <td>{{$quotation->expiry_date}}</td>
-                                <td>00{{$quotation->id}}</td>
+                                @if($quotation->statas==1)
+                                <td class="badge badge-pill badge-danger d-block mg-t-8">Expired</td>
+                                @else
+                                    <td class="badge badge-pill badge-info d-block mg-t-8">Pending</td>
+
+                                @endif
+                                    <td>{{$quotation->expiry_date}}</td>
+                                    <td>00{{$quotation->id}}</td>
                                 <td>{{$quotation->name}}</td>
                                 <td>{{$quotation->estimate_date}}</td>
                                     <td>
@@ -121,29 +126,7 @@
 <script src="js/main.js"></script>
 
 </body>
-<script>
-    $(document).ready(function () {
-        var date2 = new Date();
-        date2.setDate(date2.getDate());
-        var dd = String(date2.getDate()).padStart(2, '0');
-        var mm = String(date2.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = date2.getFullYear();
-        due_date = mm + '/' + dd + '/' + yyyy;
-        $.ajax({
-            type:"get",
-            url:"{{url('currentDat')}}",
-            data:{'current':due_date},
-            success:function (data) {
-            },
-            error:function (error) {
-                console.log(error)
-                alert('error')
 
-            }
-
-        });
-    });
-</script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->
 </html>

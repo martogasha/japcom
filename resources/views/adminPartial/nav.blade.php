@@ -83,25 +83,34 @@
                 <li class="navbar-item dropdown header-admin">
                     <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                        aria-expanded="false">
+                        @if(\Illuminate\Support\Facades\Auth::check())
                         <div class="admin-title">
-                            <h5 class="item-title">Stevne Zone</h5>
+                            <h5 class="item-title">{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h5>
+                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
                             <span>Admin</span>
+                            @else
+                                <span>Employee</span>
+
+                            @endif
                         </div>
+                        @endif
                         <div class="admin-img">
                             <img src="img/figure/admin.jpg" alt="Admin">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="item-header">
-                            <h6 class="item-title">Steven Zone</h6>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                            <h6 class="item-title">{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h6>
+                        @endif
                         </div>
                         <div class="item-content">
                             <ul class="settings-list">
-                                <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
-                                <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
-                                <li><a href="#"><i class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a></li>
-                                <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                <li><a href="login.html"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                <li><a href="{{url('profile')}}"><i class="flaticon-user"></i>My Profile</a></li>
+                                <form action="{{route('logout')}}" method="post" id="logoutButton">
+                                    @csrf
+                                <li><a href="javascript:document.getElementById('logoutButton').submit();"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -309,14 +318,23 @@
                         </ul>
                     </li>
                     <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Quotations</span></a>
+                        <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Estimate</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
-                                <a href="{{url('quotation')}}" class="nav-link"><i class="fas fa-angle-right"></i>Create Quotation</a>
+                                <a href="{{url('quotation')}}" class="nav-link"><i class="fas fa-angle-right"></i>Create Estimate</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('viewQuotation')}}" class="nav-link"><i
-                                        class="fas fa-angle-right"></i>All Quotations</a>
+                                        class="fas fa-angle-right"></i>All Estimate</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Invoice</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('viewInvoice')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>All invoices</a>
                             </li>
                         </ul>
                     </li>

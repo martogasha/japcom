@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Cat;
 use App\Models\Cash;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Qproduct;
 use App\Models\Quotation;
 use App\Models\User;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Session;
@@ -16,7 +19,35 @@ use Session;
 class AdminController extends Controller
 {
     public function admin(){
-        return view('admin.index');
+        if (Auth::check()) {
+            if (Auth::user()->role==0 || Auth::user()->role==1) {
+                return view('admin.index');
+            }
+        }
+        else{
+            return redirect(url('login'));
+        }
+    }
+    public function profile(){
+        if (Auth::check()) {
+            if (Auth::user()->role==0 || Auth::user()->role==1) {
+                return view('admin.profile');
+            }
+        }
+        else{
+            return redirect(url('login'));
+
+        }
+    }
+    public function editProfile(Request $request , $id){
+        $edit = User::find($id);
+        $edit->first_name = $request->first_name;
+        $edit->last_name = $request->last_name;
+        $edit->phone = $request->phone;
+        $edit->email = $request->email;
+        $edit->password = Hash::make($request->password);
+        $edit->save();
+        return redirect()->back()->with('success','profile updated success');
     }
     public function customers(){
         $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->get();
@@ -114,11 +145,14 @@ class AdminController extends Controller
 
     }
     public function addCash(){
-        $users = User::where('role',1)->get();
+        $users = User::where('role',2)->get();
         return view('admin.addCash',[
             'users'=>$users
         ]);
 
+    }
+    public function receipt(){
+        return view('admin.receipt');
     }
     public function getUserInvoice(Request $request){
         if ($request->ajax()){
@@ -169,10 +203,147 @@ class AdminController extends Controller
 
     }
     public function viewQuotation(){
-        $quotations = Quotation::all();
+        $quotations = Quotation::where('statas',0)->get();
+        $dates = Invoice::all();
+        foreach ($dates as $date){
+
+            // Declare and define two dates
+            $date1 = strtotime($date->current_time);
+            $date2 = strtotime($date->payment_due);
+
+// Formulate the Difference between two dates
+            $diff = abs($date2 - $date1);
+
+
+// To get the year divide the resultant date into
+// total seconds in a year (365*60*60*24)
+            $years = floor($diff / (365*60*60*24));
+
+
+// To get the month, subtract it with years and
+// divide the resultant date into
+// total seconds in a month (30*60*60*24)
+            $months = floor(($diff - $years * 365*60*60*24)
+                / (30*60*60*24));
+
+
+// To get the day, subtract it with years and
+// months and divide the resultant date into
+// total seconds in a days (60*60*24)
+            $days = floor(($diff - $years * 365*60*60*24 -
+                    $months*30*60*60*24)/ (60*60*24));
+
+            $update = Invoice::where('id',$date->id)->update(['time_difference'=>$days]);
+        }
         return view('admin.viewQuotes',[
             'quotations'=>$quotations
         ]);
+    }
+    public function allQuotes(){
+        $quotations = Quotation::all();
+        return view('admin.allQuotes',[
+            'quotations'=>$quotations
+        ]);
+    }
+    public function expiredQuotes(){
+        $quotations = Quotation::where('status');
+        return view('admin.expiredQuotes',[
+            'quotations'=>$quotations
+        ]);
+    }
+    public function viewInvoice(){
+        $quotations = Invoice::where('status',0)->get();
+        return view('admin.viewInvoice',[
+            'quotations'=>$quotations
+        ]);
+    }
+    public function printInvoice($id){
+        $quote = Invoice::where('id',$id)->first();
+        $products = Qproduct::where('quotation_id',$quote->quotation_id)->get();
+        $total = Qproduct::where('quotation_id',$quote->quotation_id)->sum('total');
+        return view('admin.invoice',[
+            'quote'=>$quote,
+            'products'=>$products,
+            'total'=>$total,
+        ]);
+    }
+    public function allInvoices(){
+        $quotations = Invoice::all();
+        return view('admin.allInvoice',[
+            'quotations'=>$quotations
+        ]);
+    }
+    public function currentDate(Request $request){
+        if ($request->ajax()){
+            $update = Invoice::where('id','>',0)->update(['current_time'=>$request->current]);
+            $dates = Invoice::all();
+            foreach ($dates as $date){
+
+                // Declare and define two dates
+                $date1 = strtotime($date->current_time);
+                $date2 = strtotime($date->payment_due);
+
+// Formulate the Difference between two dates
+                $diff = abs($date2 - $date1);
+
+
+// To get the year divide the resultant date into
+// total seconds in a year (365*60*60*24)
+                $years = floor($diff / (365*60*60*24));
+
+
+// To get the month, subtract it with years and
+// divide the resultant date into
+// total seconds in a month (30*60*60*24)
+                $months = floor(($diff - $years * 365*60*60*24)
+                    / (30*60*60*24));
+
+
+// To get the day, subtract it with years and
+// months and divide the resultant date into
+// total seconds in a days (60*60*24)
+                $days = floor(($diff - $years * 365*60*60*24 -
+                        $months*30*60*60*24)/ (60*60*24));
+                $update = Invoice::where('id',$date->id)->update(['time_difference'=>$days]);
+            }
+        }
+    }
+    public function currentDat(Request $request){
+        if ($request->ajax()){
+            $update = Quotation::where('id','>',0)->update(['current_date'=>$request->current]);
+            $dates = Quotation::all();
+            foreach ($dates as $date){
+
+                // Declare and define two dates
+                $date1 = strtotime($date->current_date);
+                $date2 = strtotime($date->expiry_date);
+
+// Formulate the Difference between two dates
+                $diff = abs($date1 - $date2);
+
+
+// To get the year divide the resultant date into
+// total seconds in a year (365*60*60*24)
+                $years = floor($diff / (365*60*60*24));
+
+
+// To get the month, subtract it with years and
+// divide the resultant date into
+// total seconds in a month (30*60*60*24)
+                $months = floor(($diff - $years * 365*60*60*24)
+                    / (30*60*60*24));
+
+
+// To get the day, subtract it with years and
+// months and divide the resultant date into
+// total seconds in a days (60*60*24)
+                $days = floor(($diff - $years * 365*60*60*24 -
+                        $months*30*60*60*24)/ (60*60*24));
+                if ($days>0) {
+                    $update = Quotation::where('id', $date->id)->update(['time_difference' => $days]);
+                }
+            }
+        }
     }
     public function quotes($id){
         $quote = Quotation::where('id',$id)->first();
@@ -185,8 +356,26 @@ class AdminController extends Controller
             'total'=>$total,
         ]);
     }
-    public function invoice(){
-        return view('admin.invoce');
+    public function invoice(Request $request , $id){
+        $storeInvoice = Invoice::create([
+           'quotation_id'=>$id,
+           'invoice_date'=>$request->invoice_date,
+           'payment_due'=>$request->payment_due,
+           'amount'=>$request->amount,
+           'status'=>0,
+           'statas'=>0,
+        ]);
+        $invoiceId = Invoice::where('quotation_id',$id)->first();
+
+        $quote = Invoice::where('id',$invoiceId->id)->first();
+        $products = Qproduct::where('quotation_id',$id)->get();
+        $total = Qproduct::where('quotation_id',$id)->sum('total');
+        $updateQuotationStatus = Quotation::where('id',$id)->where('status',0)->update(['status'=>1]);
+        return view('admin.invoice',[
+            'quote'=>$quote,
+            'products'=>$products,
+            'total'=>$total,
+        ]);
     }
     public function storeCustomer(Request $request){
         if ($request->ajax()){
@@ -207,7 +396,7 @@ class AdminController extends Controller
            'package_amount'=>$request->amount_supposed_to_pay,
            'amount_supposed_to_be_paid'=>$request->amount_supposed_to_pay - $request->amount,
            'balance'=>$request->amount_supposed_to_pay - $request->amount,
-           'role'=>1,
+           'role'=>2,
            'password'=>Hash::make('123456'),
         ]);
     }
@@ -222,6 +411,23 @@ class AdminController extends Controller
 
         ';
         return response($output);
+    }
+    public function getInvoiceId(Request $request){
+        if ($request->ajax()){
+            $output = "";
+            $getId = Invoice::find($request->id);
+            $output = '
+                <label><b>'.$getId->quotation->name.'</b></label>
+              <input type="date" class="form-control" name="date"/>
+                            <input type="hidden" value="'.$getId->id.'" name="invoice_id">
+            ';
+        }
+        return response($output);
+    }
+    public function updateInvoiceDueDate(Request $request){
+        $getId = Invoice::find($request->invoice_id);
+        $updatePaymenDue = Invoice::where('id',$request->invoice_id)->update(['payment_due'=>$request->date]);
+        return redirect(url('viewInvoice'))->with('success','Payment Due Date Updated Success');
     }
     public function updateDueDate(Request $request){
         if ($request->ajax()){

@@ -1,24 +1,25 @@
 @include('adminPartial.nav')
-<title>quotation List | Japcom</title>
+<title>Invoice List | Japcom</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Quotations</h3>
+                <h3>Invoices</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li>All Quotations</li>
+                    <li>All Invoices</li>
                 </ul>
             </div>
+            @include('flash-message');
             <!-- Breadcubs Area End Here -->
             <!-- Student Table Area Start Here -->
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>All Quotations</h3>
+                            <h3>All Invoices</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -48,40 +49,42 @@
                         </div>
                     </form>
                     <div class="row">
-                        <h4 style="text-decoration: underline" id="unpaidInvoices">Pending</h4>
-                        <a href="{{url('expiredInvoice')}}"> <h4 style="padding-left: 100px" id="unpaidInvoices">Expired</h4></a>
-                        <a href="{{url('allQuotes')}}"><h4 style="padding-left: 100px" id="allInvoices">All Quotations</h4></a>
+                    <h4 style="text-decoration: underline" id="unpaidInvoices">Unpaid</h4>
+                        <a href="{{url('allInvoices')}}"><h4 style="padding-left: 100px" id="allInvoices">All Invoices</h4></a>
                     </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
                             <thead>
                             <tr>
                                 <th>Status</th>
-                                <th>Expiry_date</th>
-                                <th>Estimate Number</th>
+                                <th>Due</th>
+                                <th>Date</th>
+                                <th>Number</th>
                                 <th>Name</th>
-                                <th>Estimated_date</th>
+                                <th>Amount due</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
                             @foreach($quotations as $quotation)
                             <tr>
-                                <td class="badge badge-pill badge-info d-block mg-t-8">Pending</td>
-                                <td>{{$quotation->expiry_date}}</td>
+                                    <td class="badge badge-pill badge-danger d-block mg-t-8">Overdue</td>
+                                <td style="color: red">{{$quotation->time_difference}} Days ago</td>
+                                <td>{{$quotation->payment_due}}</td>
+                                    <input type="hidden" value="{{$quotation->payment_due}}" id="payment_due">
+                                    <input type="hidden" value="{{$quotation->id}}" id="invoice_id">
                                 <td>00{{$quotation->id}}</td>
-                                <td>{{$quotation->name}}</td>
-                                <td>{{$quotation->estimate_date}}</td>
-                                    <td>
+                                <td>{{$quotation->quotation->name}}</td>
+                                <td>SH {{$quotation->amount}}</td>
+                                <td>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                            aria-expanded="false">
                                             <span class="flaticon-more-button-of-three-dots"></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{url('quotes',$quotation->id)}}"><i
+                                            <a class="dropdown-item" href="{{url('printInvoice',$quotation->id)}}"><i
                                                     class="fas fa-eye text-orange-red"></i>View</a>
-                                            <a class="dropdown-item" href="#"><i
+                                            <a class="dropdown-item view" href="#updateInvoiceDueDate" id="{{$quotation->id}}" data-toggle="modal"><i
                                                     class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                             <a class="dropdown-item" href="#"><i
                                                     class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
@@ -104,6 +107,37 @@
         </div>
     </div>
     <!-- Page Area End Here -->
+</div>
+<!-- Modal -->
+<div class="modal fade" id="updateInvoiceDueDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="{{url('updateInvoiceDueDate')}}" method="post">
+                @csrf
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update Payment Due Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-12 col-12 form-group" id="hyi">
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- jquery-->
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -131,7 +165,7 @@
         due_date = mm + '/' + dd + '/' + yyyy;
         $.ajax({
             type:"get",
-            url:"{{url('currentDat')}}",
+            url:"{{url('currentDate')}}",
             data:{'current':due_date},
             success:function (data) {
             },
@@ -142,6 +176,25 @@
             }
 
         });
+    });
+    $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+
+        $.ajax({
+            type:"get",
+            url:"{{url('getInvoiceId')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#hyi').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+
     });
 </script>
 

@@ -38,18 +38,18 @@
                             <input type="text" placeholder="Name" class="form-control" id="customer_name">
 
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <div class="form-group">
-                                <label for="dob">Estimate Date *</label>
-                                <input type="date" class="form-control" id="estimated_date"/>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">Estimate Date *</label>
+                                    <input type="date" class="form-control" id="estimated_date"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
-                            <div class="form-group">
-                                <label for="dob">Expiry Date *</label>
-                                <input type="date" class="form-control" id="expiry_date"/>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">Expiry Date *</label>
+                                    <input type="date" class="form-control" id="expiry_date"/>
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                         <div class="row">

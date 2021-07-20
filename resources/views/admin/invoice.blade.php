@@ -1,5 +1,5 @@
 @include('adminPartial.nav')
-<title>Quotation | Japcom</title>
+<title>{{$quote->name}} Invoice | Japcom Networks</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
@@ -9,8 +9,7 @@
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li>All Quotations</li>
-                    <<button class="btn btn-success" style="float: right" data-toggle="modal" data-target="#invoiceModal">INVOICE</button>
+                    <li>{{$quote->name}} Invoice</li>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
@@ -19,7 +18,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>All Quotations</h3>
+                            <h3>{{$quote->name}} Invoice</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -68,11 +67,12 @@
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2" style="text-align: right">
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125" style="color: black;font-size: 50px">
-                                                    QUOTATION
+                                                    INVOICE
                                                 </div>
 
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black">JAPCOM NETWORKS</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90">Nairobi, Nairobi Area 00100<br></div>
+                                                <div class="my-2"></i> <span class="text-600 text-90" >Kenya</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90">0729381059/0717749765/0729444986</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" >sales@jnl.co.ke</div>
 
@@ -86,7 +86,7 @@
                                         <div class="col-sm-6">
                                             <div>
                                                 <span class="text-sm text-grey-m2 align-middle">BILL TO:</span>
-                                                <span class="text-600 text-110 text-blue align-middle"  ><br>{{$quote->name}}</span>
+                                                <span class="text-600 text-110 text-blue align-middle"  ><br>{{$quote->quotation->name}}</span>
                                             </div>
                                         </div>
                                         <!-- /.col -->
@@ -98,8 +98,8 @@
                                                     Estimate Number :0{{$quote->id}}
                                                 </div>
 
-                                                <div class="my-2"></i> <span class="text-600 text-90">Estimate Date:</span> {{$quote->estimate_date}}</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> {{$quote->expiry_date}}</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Estimate Date:</span> {{$quote->invoice_date}}</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> {{$quote->payment_due}}</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH{{$total}}.00</b></div>
 
                                             </div>
@@ -205,49 +205,6 @@
         </div>
     </div>
     <!-- Page Area End Here -->
-</div>
-<!-- Modal -->
-<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <form action="{{url('invoice',$quote->id)}}" method="post">
-            @csrf
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Generate Invoice</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-12 form-group">
-                        <div class="form-group">
-                            <label for="dob">Invoice Date *</label>
-                            <input type="date" class="form-control" name="invoice_date" id="estimated_date"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12 form-group">
-                        <div class="form-group">
-                            <label for="dob">Payment Due *</label>
-                            <input type="date" class="form-control" name="payment_due" id="expiry_date"/>
-                        </div>
-                    </div>
-                    <div class="col-12 form-group">
-                        <div class="form-group">
-                            <label for="dob">Amount *</label>
-                            <input type="text" class="form-control" value="{{$total}}" name="amount" id="amount"/>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="generateInvoice">Save changes</button>
-            </div>
-        </div>
-        </form>
-    </div>
 </div>
 <style>
     body{

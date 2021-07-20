@@ -34,50 +34,33 @@
                             </div>
                         </div>
                     </div>
-                    <form class="mg-b-20">
-                        <div class="row gutters-8">
-                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by location ..." class="form-control">
-                            </div>
-                            <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Name ..." class="form-control">
-                            </div>
-                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                                <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                            </div>
-                        </div>
-                    </form>
+                    <select class="form-control form-control-lg col-6">
+                        <option>Large select</option>
+                    </select>
+                    <br>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
                             <thead>
                             <tr>
-
+                                <th>Status</th>
+                                <th>Balance</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Package</th>
                                 <th>Amount</th>
                                 <th>Payment Date</th>
                                 <th>Due Date</th>
-                                <th>Status</th>
-                                <th>Balance</th>
                                 <th>Condition</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($customers as $customer)
                             <tr>
-
-                                <td>{{$customer->first_name}} {{$customer->last_name}}</td>
-                                <td>{{$customer->location}}</td>
-                                <td>{{$customer->bandwidth}} Mbps</td>
-                                <td>Ksh: {{$customer->amount}}</td>
-                                <td>{{$customer->payment_date}}</td>
-                                <td>{{$customer->due_date}}</td>
                                 @if($customer->balance>0 && $customer->balance<$customer->package_amount)
-                                <td class="badge badge-pill badge-warning d-block mg-t-8">Pending</td>
+                                    <td class="badge badge-pill badge-warning d-block mg-t-8">Pending</td>
                                 @else
                                     @if($customer->balance<=0)
-                                    <td class="badge badge-pill badge-success d-block mg-t-8">Paid</td>
+                                        <td class="badge badge-pill badge-success d-block mg-t-8">Paid</td>
                                     @else
                                         @if($customer->package_amount<=$customer->balance)
                                             <td class="badge badge-pill badge-danger d-block mg-t-8">UnPaid</td>
@@ -85,11 +68,17 @@
                                     @endif
                                 @endif
                                 @if($customer->balance<=0)
-                                <td><b style="color: green">Ksh: {{$customer->balance}}</b></td>
+                                    <td><b style="color: green">Ksh: {{$customer->balance}}</b></td>
                                 @else
                                     <td><b style="color: red">Ksh: {{$customer->balance}}</b></td>
 
                                 @endif
+                                <td>{{$customer->first_name}} {{$customer->last_name}}</td>
+                                <td>{{$customer->location}}</td>
+                                <td>{{$customer->bandwidth}} Mbps</td>
+                                <td>Ksh: {{$customer->amount}}</td>
+                                <td>{{$customer->payment_date}}</td>
+                                <td>{{$customer->due_date}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -203,7 +192,7 @@
         var date2 = new Date($('#update_due_date').val());
         var datediff = date2 - date1;
         var days  = datediff/1000/60/60/24;
-        rounded_date = Math.ceil(days);
+          = Math.ceil(days);
         date2.setDate(date2.getDate());
         var dd = String(date2.getDate()).padStart(2, '0');
         var mm = String(date2.getMonth() + 1).padStart(2, '0'); //January is 0!

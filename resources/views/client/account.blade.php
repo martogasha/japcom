@@ -1,6 +1,7 @@
 @include('clientPartial.nav')
 <title>Home - Japcom Networks</title>
     <div class="ps-account">
+        @if(\Illuminate\Support\Facades\Auth::check())
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6">
@@ -56,6 +57,8 @@
             </div>
         </div>
     </div>
+@endif
+
     <footer class="ps-footer ps-footer--1">
         <div class="ps-footer--top">
             <div class="container">

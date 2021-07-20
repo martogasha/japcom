@@ -67,14 +67,14 @@
                                     <input type="date" class="form-control" id="payment_date"/>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Paid Months *</label>
-                                <select class="select2" id="paid_months">
-                                    <option value="1">One Month</option>
-                                    <option value="2">Two Months</option>
-                                    <option value="3">Three Months</option>
-                                </select>
-                            </div>
+                                <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>Paid Months *</label>
+                                    <select class="select2" id="paid_months">
+                                        <option value="1">One Month</option>
+                                        <option value="2">Two Months</option>
+                                        <option value="3">Three Months</option>
+                                    </select>
+                                </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <div class="form-group">
                                     <label for="dob">Due Date *</label>
@@ -82,10 +82,14 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Amount</label>
+                                <label>Amount Supposed to be Paid</label>
+                                <input type="text" placeholder="Ksh" class="form-control" id="amount_supposed_to_pay">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Amount Paid</label>
                                 <input type="text" placeholder="Ksh" class="form-control" id="amount">
                             </div>
-                            <input type="hidden" id="amount_supposed_to_pay">
+
                             <div class="col-12 form-group mg-t-8">
                                 <button type="button" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark" id="addCustomer">Save</button>
                                 <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>

@@ -1,15 +1,15 @@
 @include('adminPartial.nav')
-<title>quotation List | Japcom</title>
+<title>Invoice List | Japcom</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Quotations</h3>
+                <h3>Invoices</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li>All Quotations</li>
+                    <li>All Invoices</li>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>All Quotations</h3>
+                            <h3>All Invoices</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -48,31 +48,37 @@
                         </div>
                     </form>
                     <div class="row">
-                        <h4 style="text-decoration: underline" id="unpaidInvoices">Pending</h4>
-                        <a href="{{url('expiredInvoice')}}"> <h4 style="padding-left: 100px" id="unpaidInvoices">Expired</h4></a>
-                        <a href="{{url('allQuotes')}}"><h4 style="padding-left: 100px" id="allInvoices">All Quotations</h4></a>
+                        <a href="{{url('viewInvoice')}}"> <h4>Unpaid</h4></a>
+                        <a href="{{url('allInvoices')}}"><h4 style="padding-left: 100px;text-decoration: underline" id="allInvoices">All Invoices</h4></a>
                     </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
                             <thead>
                             <tr>
                                 <th>Status</th>
-                                <th>Expiry_date</th>
-                                <th>Estimate Number</th>
+                                <th>Due</th>
+                                <th>Date</th>
+                                <th>Number</th>
                                 <th>Name</th>
-                                <th>Estimated_date</th>
+                                <th>Amount due</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
                             @foreach($quotations as $quotation)
                             <tr>
-                                <td class="badge badge-pill badge-info d-block mg-t-8">Pending</td>
-                                <td>{{$quotation->expiry_date}}</td>
+                                @if($quotation->status==0)
+                                    <td class="badge badge-pill badge-danger d-block mg-t-8">Overdue</td>
+                                @else
+                                    <td class="badge badge-pill badge-success d-block mg-t-8">Paid</td>
+                                @endif
+                                <td style="color: red">{{$quotation->time_difference}} Days ago</td>
+                                <td>{{$quotation->payment_due}}</td>
+                                    <input type="hidden" value="{{$quotation->payment_due}}" id="payment_due">
+                                    <input type="hidden" value="{{$quotation->id}}" id="invoice_id">
                                 <td>00{{$quotation->id}}</td>
-                                <td>{{$quotation->name}}</td>
-                                <td>{{$quotation->estimate_date}}</td>
-                                    <td>
+                                <td>{{$quotation->quotation->name}}</td>
+                                <td>SH {{$quotation->amount}}</td>
+                                <td>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                            aria-expanded="false">
@@ -131,7 +137,7 @@
         due_date = mm + '/' + dd + '/' + yyyy;
         $.ajax({
             type:"get",
-            url:"{{url('currentDat')}}",
+            url:"{{url('currentDate')}}",
             data:{'current':due_date},
             success:function (data) {
             },

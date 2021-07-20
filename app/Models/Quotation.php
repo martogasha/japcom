@@ -12,6 +12,8 @@ class Quotation extends Model
         'name',
         'estimate_date',
         'expiry_date',
+        'current_date',
+        'time_difference',
         'status',
         'statas',
     ];

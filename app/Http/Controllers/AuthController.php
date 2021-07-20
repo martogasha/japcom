@@ -14,7 +14,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ])){
-            if ($user->role==0){
+            if ($user->role==0 || $user->role==1){
                 return redirect(url('admin'));
             }
             else{
