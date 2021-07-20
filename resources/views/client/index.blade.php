@@ -195,7 +195,7 @@
                                         <li><a href="#">Bestsellers</a></li>
                                         <li><a href="#">Discount</a></li>
                                         <li><a href="#">Latest products</a></li>
-                                        <li><a href="#">Sale</a></li>
+                                        <li><a href="{{url('login')}}">Login</a></li>
                                     </ul>
                                 </div>
                             </div>

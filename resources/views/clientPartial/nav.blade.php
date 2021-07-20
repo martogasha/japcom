@@ -35,7 +35,7 @@
     <header class="ps-header ps-header--1">
         <div class="ps-header__top">
             <div class="container">
-                <div class="ps-header__text">Need help? <strong>0020 500 - MYMEDI - 000</strong></div>
+                <div class="ps-header__text">Need help?</div>
             </div>
         </div>
         <div class="ps-header__middle">
@@ -44,7 +44,11 @@
                 <div class="ps-header__right">
                     <ul class="ps-header__icons">
                         <li><a class="ps-header__item open-search" href="#"><i class="icon-magnifier"></i></a></li>
+                        @if(\Illuminate\Support\Facades\Auth::check())
                         <li><a class="ps-header__item" href="{{url('account')}}"><i class="icon-user"></i></a>
+                            @else
+                            <li><a class="ps-header__item" href="{{url('login')}}"><i class="icon-enter"></i></a>
+                                @endif
                             <div class="ps-login--modal">
                                 <form method="get" action="http://nouthemes.net/html/mymedi/do_action">
                                     <div class="form-group">
