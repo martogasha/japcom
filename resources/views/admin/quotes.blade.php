@@ -43,12 +43,14 @@
                                         <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                                         Print
                                     </a>
-                                    <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                                    <a class="btn bg-white btn-light mx-1px text-95" href="#" id="cmd">
                                         <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
                                         Export
                                     </a>
                                 </div>
                             </div>
+                            <div id="editor"></div>
+
                         </div>
 
                         <div class="container px-0" id="view_quotation">
@@ -58,7 +60,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div>
-                                                <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo">
+                                                <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo"></span>
                                                 <span class="text-600 text-110 text-blue align-middle"><br style="color:blue">Japcom Networks Limited</span>
                                             </div>
                                         </div>
@@ -382,24 +384,60 @@
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <!-- Custom Js -->
 <script src="{{asset('js/main.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 </body>
 <script>
-    var doc = new jsPDF();
-    var specialElementHandlers = {
-        '#editor': function (element, renderer) {
-            return true;
-        }
-    };
+    $("#cmd").click(function () {
+        // $("#content2").addClass('ml-215'); // JS solution for smaller screen but better to add media queries to tackle the issue
+        getScreenshotOfElement(
+            $("div#view_quotation").get(0),
+            0,
+            0,
+            $("#view_quotation").width() + 45,  // added 45 because the container's (content2) width is smaller than the image, if it's not added then the content from right side will get cut off
+            $("#view_quotation").height() + 30, // same issue as above. if the container width / height is changed (currently they are fixed) then these values might need to be changed as well.
+            function (data) {
+                var pdf = new jsPDF("l", "pt", [
+                    $("#view_quotation").width(),
+                    $("#view_quotation").height(),
+                ]);
 
-    $('#print_quotation').click(function () {
-        doc.fromHTML($('#view_quotation').html(), 15, 15, {
-            'width': 170,
-            'elementHandlers': specialElementHandlers
-        });
-        doc.save('sample-file.pdf');
+                pdf.addImage(
+                    "data:image/png;base64," + data,
+                    "PNG",
+                    0,
+                    0,
+                    $("#view_quotation").width(),
+                    $("#view_quotation").height()
+                );
+                pdf.save("quotation.pdf");
+            }
+        );
     });
+    function getScreenshotOfElement(element, posX, posY, width, height, callback) {
+        html2canvas(element, {
+            onrendered: function (canvas) {
+                // $("#content2").removeClass('ml-215');  // uncomment this if resorting to ml-125 to resolve the issue
+                var context = canvas.getContext("2d");
+                var imageData = context.getImageData(posX, posY, width, height).data;
+                var outputCanvas = document.createElement("canvas");
+                var outputContext = outputCanvas.getContext("2d");
+                outputCanvas.width = width;
+                outputCanvas.height = height;
+
+                var idata = outputContext.createImageData(width, height);
+                idata.data.set(imageData);
+                outputContext.putImageData(idata, 0, 0);
+                callback(outputCanvas.toDataURL().replace("data:image/png;base64,", ""));
+            },
+            width: width,
+            height: height,
+            useCORS: true,
+            taintTest: false,
+            allowTaint: false,
+        });
+    }
 </script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->

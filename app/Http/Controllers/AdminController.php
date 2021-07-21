@@ -151,6 +151,9 @@ class AdminController extends Controller
         ]);
 
     }
+    public function pdf(){
+        return view('admin.pdf');
+    }
     public function receipt(){
         return view('admin.receipt');
     }

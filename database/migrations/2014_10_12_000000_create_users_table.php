@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('bandwidth')->nullable();
             $table->string('payment_date')->nullable();
             $table->string('due_date')->nullable();
+            $table->string('sms_date')->nullable();
             $table->integer('time_difference')->nullable();
             $table->string('date_to_send_sms')->nullable();
             $table->integer('amount')->nullable();

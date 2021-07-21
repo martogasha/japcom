@@ -40,6 +40,7 @@ Route::get('addEmployee', [AdminController::class, 'addEmployee']);
 Route::get('employees', [AdminController::class, 'employees']);
 Route::get('addCash', [AdminController::class, 'addCash']);
 Route::get('receipt', [AdminController::class, 'receipt']);
+Route::get('pdf', [AdminController::class, 'pdf']);
 Route::get('getUserInvoice', [AdminController::class, 'getUserInvoice']);
 Route::get('products', [AdminController::class, 'product']);
 Route::get('shop', [AdminController::class, 'shop']);
