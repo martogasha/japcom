@@ -154,6 +154,9 @@ class AdminController extends Controller
     public function pdf(){
         return view('admin.pdf');
     }
+    public function ttt(){
+        return view('admin.ttt');
+    }
     public function receipt(){
         return view('admin.receipt');
     }

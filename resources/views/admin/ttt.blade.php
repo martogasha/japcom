@@ -1,83 +1,55 @@
 @include('adminPartial.nav')
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-
-<div class="page-content container">
-    <div class="page-header text-blue-d2">
-        <h1 class="page-title text-secondary-d1">
-            Invoice
-            <small class="page-info">
-                <i class="fa fa-angle-double-right text-80"></i>
-                ID: #111-222
-            </small>
-        </h1>
-
-        <div class="page-tools">
-            <div class="action-buttons">
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
-                    <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                    Print
-                </a>
-                <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
-                    <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                    Export
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container px-0">
+<div id="content">
+    <div class="container px-0" id="view_quotation">
         <div class="row mt-4">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <!-- .row -->
-
-                <hr class="row brc-default-l1 mx-n1 mb-4" />
-
                 <div class="row">
                     <div class="col-sm-6">
-                                <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo"></span>
-                                <span class="text-600 text-110 text-black align-middle"><br style="color:black">Japcom Networks Limited</span>
+                        <div>
+                            <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo"></span>
+                            <span class="text-600 text-110 text-blue align-middle"><br style="color:blue">Japcom Networks Limited</span>
+                        </div>
                     </div>
                     <!-- /.col -->
 
                     <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                         <hr class="d-sm-none" />
                         <div class="text-grey-m2" style="text-align: right">
-                            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125" style="font-size: 50px">
-                                Invoice
+                            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125" style="color: black;font-size: 50px">
+                                QUOTATION
                             </div>
 
-                            <div class="my-2"><span class="text-600 text-90">JAPCOM NETWORKS</span></div>
-                            <div class="my-2"><span class="text-600 text-90">Nairobi, Nairobi Area 00100</span></div>
-                            <div class="my-2"><span class="text-600 text-90">Kenya</span></div>
-                            <div class="my-2"><span class="text-600 text-90">0729381059/0717749765/0729444986</span></div>
-                            <div class="my-2"><span class="text-600 text-90">sales@jnl.co.ke</span></div>
+                            <div class="my-2"></i> <span class="text-600 text-90" style="color: black">JAPCOM NETWORKS</div>
+                            <div class="my-2"></i> <span class="text-600 text-90">Nairobi, Nairobi Area 00100<br></div>
+                            <div class="my-2"></i> <span class="text-600 text-90">0729381059/0717749765/0729444986</div>
+                            <div class="my-2"></i> <span class="text-600 text-90" >sales@jnl.co.ke</div>
 
                         </div>
                     </div>
                     <!-- /.col -->
                 </div>
-
                 <hr class="row brc-default-l1 mx-n1 mb-4" />
 
                 <div class="row">
                     <div class="col-sm-6">
                         <div>
                             <span class="text-sm text-grey-m2 align-middle">BILL TO:</span>
-                            <span class="text-600 text-110 text-black align-middle" style="color: black"><br>dsfgaf</span>
+                            <span class="text-600 text-110 text-blue align-middle"  ><br>dggaregerag</span>
                         </div>
                     </div>
                     <!-- /.col -->
 
-                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end" style="text-align: right">
+                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                         <hr class="d-sm-none" />
                         <div class="text-grey-m2">
                             <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                Estimate Number :045
+                                Estimate Number :0634
                             </div>
 
-                            <div class="my-2"></i> <span class="text-600 text-90">Estimate Date:</span> 54643565</div>
-                            <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> 463565</div>
-                            <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH4324.00</b></div>
+                            <div class="my-2"></i> <span class="text-600 text-90">Estimate Date:</span> 34664565</div>
+                            <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> 4545334</div>
+                            <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH673.00</b></div>
 
                         </div>
                     </div>
@@ -87,20 +59,20 @@
                 <div class="mt-4">
                     <div class="row text-600 text-white bgc-default-tp1 py-25">
                         <div class="d-none d-sm-block col-1">#</div>
-                        <div class="col-9 col-sm-5">Description</div>
-                        <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
-                        <div class="d-none d-sm-block col-sm-2">Unit Price</div>
-                        <div class="col-2">Amount</div>
+                        <div class="col-9 col-sm-5" style="color: black">Description</div>
+                        <div class="d-none d-sm-block col-4 col-sm-2" style="color: black">Qty</div>
+                        <div class="d-none d-sm-block col-sm-2" style="color: black">Unit Price</div>
+                        <div class="col-2" style="color: black">Amount</div>
                     </div>
 
                     <div class="text-95 text-secondary-d3">
-                        <div class="row mb-2 mb-sm-0 py-25">
-                            <div class="d-none d-sm-block col-1">1</div>
-                            <div class="col-9 col-sm-5">Domain registration</div>
-                            <div class="d-none d-sm-block col-2">2</div>
-                            <div class="d-none d-sm-block col-2 text-95">$10</div>
-                            <div class="col-2 text-secondary-d2" style="text-align: right">SH20</div>
-                        </div>
+                            <div class="row mb-2 mb-sm-0 py-25">
+                                <div class="d-none d-sm-block col-1">1</div>
+                                <div class="col-9 col-sm-5">sghg</div>
+                                <div class="d-none d-sm-block col-2">1</div>
+                                <div class="d-none d-sm-block col-2 text-95">SH67.00</div>
+                                <div class="col-2 text-secondary-d2">SH34536.00</div>
+                            </div>
 
                     </div>
 
@@ -135,17 +107,24 @@
             -->
 
                     <div class="row mt-3">
-                        <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
-                        </div>
+                        <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0"></div>
 
                         <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
-
-                            <div class="row my-2 align-items-center bgc-primary-l3 p-2" style="text-align: right">
-                                <div class="col-7 text-right">
-                                    <b>Total Amount</b>
+                            <div class="row my-2">
+                                <div class="col-7 text-right" style="color: black">
+                                    Total
                                 </div>
                                 <div class="col-5">
-                                    <span class="text-150 text-success-d3 opacity-2"><b>SH2,4758645</b></span>
+                                    <span class="text-120 text-secondary-d1">SH66376.00</span>
+                                </div>
+                            </div>
+
+                            <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                <div class="col-7 text-right" style="color: black">
+                                    <b>Grand Total (KES):</b>
+                                </div>
+                                <div class="col-5">
+                                    <span><b style="font-size: 18px">SH7667.00</b></span>
                                 </div>
                             </div>
                         </div>
@@ -155,14 +134,17 @@
                     <br>
                     <br>
                     <br>
-                    <div>
-                        <span class="text-secondary-d1 text-105" style="padding-left: 300px">Thank you for your business</span>
-                    </div>
+                    <br>
+                    <br>
+                    <span class="text-secondary-d1 text-105" style="padding-left: 300px">We deliver as promised</span>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+<div id="editor"></div>
+<button id="cmd">Generate PDF</button>
 <style>
     body{
         margin-top:20px;
@@ -170,7 +152,7 @@
     }
     .text-secondary-d1 {
         color: #728299!important;
-        }
+    }
     .page-header {
         margin: 0 0 1rem;
         padding-bottom: 1rem;
@@ -226,7 +208,7 @@
         font-size: 110%!important;
     }
     .text-blue {
-        color: #478fcc!important;
+        color: black!important;
     }
     .pb-25, .py-25 {
         padding-bottom: .75rem!important;
@@ -236,7 +218,7 @@
         padding-top: .75rem!important;
     }
     .bgc-default-tp1 {
-        background-color: rgba(121,169,197,.92)!important;
+        background-color: rgba(8,238,235,255)!important;
     }
     .bgc-default-l4, .bgc-h-default-l4:hover {
         background-color: #f3f8fa!important;
@@ -282,17 +264,41 @@
     }
 </style>
 
-<!-- jquery-->
-<script src="js/jquery-3.3.1.min.js"></script>
+<!--Add External Libraries - JQuery and jspdf
+check out url - https://scotch.io/@nagasaiaytha/generate-pdf-from-html-using-jquery-and-jspdf
+-->
+<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
-<script src="js/plugins.js"></script>
+<script src="{{asset('js/plugins.js')}}"></script>
 <!-- Popper js -->
-<script src="js/popper.min.js"></script>
+<script src="{{asset('js/popper.min.js')}}"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Scroll Up Js -->
-<script src="js/jquery.scrollUp.min.js"></script>
+<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
 <!-- Data Table Js -->
-<script src="js/jquery.dataTables.min.js"></script>
+<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <!-- Custom Js -->
-<script src="js/main.js"></script>
+<script src="{{asset('js/main.js')}}"></script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+<script>
+
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#cmd').click(function () {
+        doc.fromHTML($('#content').html(), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    });
+
+
+
+</script>
