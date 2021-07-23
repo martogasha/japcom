@@ -1,14 +1,15 @@
 @include('adminPartial.nav')
+<title>{{$user->first_name}} {{$user->last_name}} Statements - Japcom Networks</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Customer Statements</h3>
+                <h3>{{$user->first_name}} {{$user->last_name}} Statements</h3>
                 <ul>
                     <li>
                         <a href="index.html">Home</a>
                     </li>
-                    <li>All Library Books</li>
+                    <li>{{$user->first_name}} {{$user->last_name}}</li>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
@@ -17,7 +18,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>All Books</h3>
+                            <h3>Statements for <b style="color: red;">{{$user->first_name}} {{$user->last_name}}</b></h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button"
@@ -58,16 +59,18 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($cashes as $cash)
                             <tr>
-
-                                <td>English Grammer</td>
-                                <td>Ksh 5</td>
-                                <td>12.02.2019</td>
-                                <td>Paaid</td>
+                                <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
+                                <td>Ksh {{$cash->amount}}</td>
+                                <td>{{$cash->date}}</td>
+                                <td><span class="badge badge-success">PAID</span>
+                                </td>
                                 <td>
-                                    <button class="btn btn-success">Receipt</button>
+                                    <a href="{{url('receipt',$cash->id)}}"> <button class="btn btn-info">Receipt</button></a>
                                 </td>
                             </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -82,19 +85,19 @@
     <!-- Page Area End Here -->
 </div>
 <!-- jquery-->
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
-<script src="js/plugins.js"></script>
+<script src="{{asset('js/plugins.js')}}"></script>
 <!-- Popper js -->
-<script src="js/popper.min.js"></script>
+<script src="{{asset('js/popper.min.js')}}"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Scroll Up Js -->
-<script src="js/jquery.scrollUp.min.js"></script>
+<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
 <!-- Data Table Js -->
-<script src="js/jquery.dataTables.min.js"></script>
+<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <!-- Custom Js -->
-<script src="js/main.js"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
 </body>
 

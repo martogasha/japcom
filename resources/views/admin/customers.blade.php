@@ -89,7 +89,7 @@
                                             <span class="flaticon-more-button-of-three-dots"></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><i
+                                            <a class="dropdown-item" href="{{url('customerDetail',$customer->id)}}"><i
                                                     class="fas fa-times text-orange-red"></i>View</a>
                                             <a class="dropdown-item view" href="#updateDueDate" data-toggle="modal" data-target="#updateDueDate" id="{{$customer->id}}"><i
                                                     class="fas fa-cogs text-dark-pastel-green" ></i>Edit Due</a>

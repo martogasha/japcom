@@ -194,8 +194,11 @@ class AdminController extends Controller
     public function ttt(){
         return view('admin.ttt');
     }
-    public function receipt(){
-        return view('admin.receipt');
+    public function receipt($id){
+        $receipt = Cash::find($id);
+        return view('admin.receipt',[
+            'receipt'=>$receipt
+        ]);
     }
     public function getUserInvoice(Request $request){
         if ($request->ajax()){
@@ -219,8 +222,13 @@ class AdminController extends Controller
         return response($output);
 
     }
-    public function customerDetail(){
-        return view('admin.customerDetail');
+    public function customerDetail($id){
+        $user = User::find($id);
+        $cashes = Cash::where('user_id',$user->id)->get();
+        return view('admin.customerDetail',[
+            'user'=>$user,
+            'cashes'=>$cashes
+        ]);
 
     }
     public function expenses(){
