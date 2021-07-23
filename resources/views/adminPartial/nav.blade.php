@@ -338,6 +338,15 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Billing</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('bill')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Bill Customer</a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </div>

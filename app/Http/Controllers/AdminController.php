@@ -160,6 +160,42 @@ class AdminController extends Controller
         ]);
 
     }
+    public function deletePro(Request $request){
+        if ($request->ajax()){
+            $delete = Qproduct::find($request->id);
+            $delete->delete();
+        }
+    }
+    public function editQProduct(Request $request){
+        $edit = Qproduct::find($request->id);
+        $edit->name = $request->name;
+        $edit->quantity = $request->quantity;
+        $edit->amount = $request->amount;
+        $edit->save();
+        return redirect()->back()->with('success','Updated');
+    }
+    public function getQProducts(Request $request){
+        if ($request->ajax()){
+            $output = "";
+            $get = Qproduct::find($request->id);
+            $output = '
+                    <input type="hidden" value="'.$get->id.'" name="id">
+                      <div class="col-lg-12 col-12 form-group">
+                    <label>Name</label>
+                    <input type="text" value="'.$get->name.'" class="form-control" name="name">
+                </div>
+                <div class="col-lg-12 col-12 form-group">
+                    <label>Quantity</label>
+                    <input type="text" value="'.$get->quantity.'" class="form-control" name="quantity">
+                </div>
+                <div class="col-lg-12 col-12 form-group">
+                    <label>Amount</label>
+                    <input type="text" value="'.$get->amount.'" class="form-control" name="amount">
+                </div>
+            ';
+        }
+        return response($output);
+    }
     public function billing(Request $request){
 
         $getUsers = User::all();

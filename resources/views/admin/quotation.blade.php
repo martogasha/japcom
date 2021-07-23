@@ -99,8 +99,8 @@
                                             <span class="flaticon-more-button-of-three-dots"></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{url('customerDetail')}}">Edit</a>
-                                            <a class="dropdown-item" href="{{url('customerDetail')}}">Remove</a>
+                                            <a class="dropdown-item view" id="{{$product->id}}" href="#editModal" data-toggle="modal">Edit</a>
+                                            <a class="dropdown-item delete" id="{{$product->id}}" href="#deleteModal" data-toggle="modal">Remove</a>
                                         </div>
                                     </div>
                                 </td>
@@ -129,6 +129,47 @@
     </div>
     <!-- Page Area End Here -->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form action="{{route('editQProduct')}}" method="post">
+        @csrf
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="basic1">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: red">ARE YOU SURE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="deleteP">DELETE</button>
+                </div>
+            </div>
+        </div>
+</div>
 <!-- jquery-->
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
@@ -150,6 +191,40 @@
 
 </body>
 <script>
+    $(document).on('click','.view',function () {
+       $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('getQProducts')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#basic1').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
+    $(document).on('click','.delete',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('deletePro')}}",
+            data:{'id':$value},
+            success:function (data) {
+                alert('ok')
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
     $('#storeQuotationButton').click(function () {
        var customer_name = $('#customer_name').val();
        var estimated_date = $('#estimated_date').val();
