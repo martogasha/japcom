@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use Dompdf\Dompdf;
+
 
 class AdminController extends Controller
 {
@@ -150,6 +152,41 @@ class AdminController extends Controller
             'users'=>$users
         ]);
 
+    }
+    public function bill(){
+        $users = User::where('role',2)->get();
+        return view('admin.bill',[
+            'users'=>$users
+        ]);
+
+    }
+    public function billing(Request $request){
+
+        $getUsers = User::all();
+        foreach ($getUsers as $getUser){
+            $currentBalance = $getUser->balance;
+            $packageAmount = $getUser->package_amount;
+            $newBalance = $currentBalance + $packageAmount;
+            $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$newBalance]);
+        }
+
+        return redirect()->back()->with('success','ALL CUSTOMERS BILLED SUCCESSFULLY');
+    }
+    public function downloadPdf(Request $request){
+        // reference the Dompdf namespace
+
+// instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('admin.receipt'));
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream();
     }
     public function pdf(){
         return view('admin.pdf');

@@ -1,24 +1,23 @@
 @include('adminPartial.nav')
-<title>Customer List | Japcom</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Teacher</h3>
+                <h3>Customer Statements</h3>
                 <ul>
                     <li>
                         <a href="index.html">Home</a>
                     </li>
-                    <li>Customer Details</li>
+                    <li>All Library Books</li>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
-            <!-- Student Table Area Start Here -->
+            <!-- Teacher Table Area Start Here -->
             <div class="card height-auto">
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>About Me</h3>
+                            <h3>All Books</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button"
@@ -31,87 +30,50 @@
                             </div>
                         </div>
                     </div>
-                    <div class="single-info-details">
-                        <div class="item-img">
-                            <img src="img/figure/teacher.jpg" alt="teacher">
-                        </div>
-                        <div class="item-content">
-                            <div class="header-inline item-header">
-                                <h3 class="text-dark-medium font-medium">Steven Johnson</h3>
-                                <div class="header-elements">
-                                    <ul>
-                                        <li><a href="#"><i class="far fa-edit"></i></a></li>
-                                        <li><a href="#"><i class="fas fa-print"></i></a></li>
-                                        <li><a href="#"><i class="fas fa-download"></i></a></li>
-                                    </ul>
-                                </div>
+                    <form class="mg-b-20">
+                        <div class="row gutters-8">
+                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <input type="text" placeholder="Search by ID ..." class="form-control">
                             </div>
-                            <p>Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen sodale
-                                word moun taiery.Aliquam erat volutpaturabiene natis massa sedde  sodale
-                                word moun taiery.</p>
-                            <div class="info-table table-responsive">
-                                <table class="table text-nowrap">
-                                    <tbody>
-                                    <tr>
-                                        <td>Name:</td>
-                                        <td class="font-medium text-dark-medium">Steven Johnson</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gender:</td>
-                                        <td class="font-medium text-dark-medium">Male</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Father Name:</td>
-                                        <td class="font-medium text-dark-medium">Steve Jones</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mother Name:</td>
-                                        <td class="font-medium text-dark-medium">Naomi Rose</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Religion:</td>
-                                        <td class="font-medium text-dark-medium">Islam</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joining Date:</td>
-                                        <td class="font-medium text-dark-medium">07.08.2016</td>
-                                    </tr>
-                                    <tr>
-                                        <td>E-mail:</td>
-                                        <td class="font-medium text-dark-medium">stevenjohnson@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Subject:</td>
-                                        <td class="font-medium text-dark-medium">English</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Class:</td>
-                                        <td class="font-medium text-dark-medium">2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Section:</td>
-                                        <td class="font-medium text-dark-medium">Pink</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ID No:</td>
-                                        <td class="font-medium text-dark-medium">10005</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address:</td>
-                                        <td class="font-medium text-dark-medium">House #10, Road #6, Australia</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Phone:</td>
-                                        <td class="font-medium text-dark-medium">+ 88 98568888418</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                                <input type="text" placeholder="Search by Name ..." class="form-control">
+                            </div>
+                            <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <input type="text" placeholder="Search by Phone ..." class="form-control">
+                            </div>
+                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+                                <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                             </div>
                         </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table display data-table text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                                <td>English Grammer</td>
+                                <td>Ksh 5</td>
+                                <td>12.02.2019</td>
+                                <td>Paaid</td>
+                                <td>
+                                    <button class="btn btn-success">Receipt</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <!-- Student Table Area End Here -->
+            <!-- Teacher Table Area End Here -->
             <footer class="footer-wrap-layout1">
                 <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
             </footer>
@@ -129,11 +91,13 @@
 <script src="js/bootstrap.min.js"></script>
 <!-- Scroll Up Js -->
 <script src="js/jquery.scrollUp.min.js"></script>
+<!-- Data Table Js -->
+<script src="js/jquery.dataTables.min.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
 
 </body>
 
 
-<!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/teacher-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:38 GMT -->
+<!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-book.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:40 GMT -->
 </html>

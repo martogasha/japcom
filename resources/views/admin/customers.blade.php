@@ -1,5 +1,7 @@
 @include('adminPartial.nav')
 <title>Customers List | Japcom</title>
+<!------ Include the above in your HEAD tag ---------->
+
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
@@ -34,10 +36,11 @@
                             </div>
                         </div>
                     </div>
-                    <select class="form-control form-control-lg col-6">
-                        <option>Large select</option>
-                    </select>
-                    <br>
+                    <div class="row-fluid">
+                        <div class="col-xl-3 col-lg-6 col-12 form-group">
+                            <label>Search</label>
+                            <input type="text" placeholder="Search" class="form-control" id="myInput">
+                        </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
                             <thead>
@@ -53,7 +56,7 @@
                                 <th>Condition</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
                             @foreach($customers as $customer)
                             <tr>
                                 @if($customer->balance>0 && $customer->balance<$customer->package_amount)
@@ -140,7 +143,16 @@
         </div>
     </div>
 </div>
+<style>
+    .select2-container .select2-selection--single{
+        height:34px !important;
+    }
+    .select2-container--default .select2-selection--single{
+        border: 1px solid #ccc !important;
+        border-radius: 0px !important;
+    }
 
+</style>
 <!-- jquery-->
 <script src="js/jquery-3.3.1.min.js"></script>
 <!-- Plugins js -->
@@ -155,67 +167,17 @@
 <script src="js/jquery.dataTables.min.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
-
 </body>
 
 <script>
-    $(document).on('click','.view',function () {
-        $value = $(this).attr('id');
-        var date1 = new Date();
-        var date2 = new Date($('#update_due_date').val());
-        var datediff = date2 - date1;
-        var days  = datediff/1000/60/60/24;
-        rounded_date = Math.ceil(days);
-        date2.setDate(date2.getDate());
-        var dd = String(date2.getDate()).padStart(2, '0');
-        var mm = String(date2.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = date2.getFullYear();
-        due_date = mm + '/' + dd + '/' + yyyy;
-        $.ajax({
-            type:"get",
-            url:"{{url('dueDate')}}",
-            data:{'id':$value},
-            success:function (data) {
-                $('#basic').html(data);
-            },
-            error:function (error) {
-                console.log(error)
-                alert('error')
-
-            }
-
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
     });
-    $('#updateTimeButton').on('click',function () {
-        $value = $('#customer_id').val();
-        var date1 = new Date();
-        var date2 = new Date($('#update_due_date').val());
-        var datediff = date2 - date1;
-        var days  = datediff/1000/60/60/24;
-          = Math.ceil(days);
-        date2.setDate(date2.getDate());
-        var dd = String(date2.getDate()).padStart(2, '0');
-        var mm = String(date2.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = date2.getFullYear();
-        due_date = mm + '/' + dd + '/' + yyyy;
-        $.ajax({
-            type:"get",
-            url:"{{url('updateDueDate')}}",
-            data:{'id':$value,'due_date':due_date,'time_difference':rounded_date},
-            success:function (data) {
-             alert('Due Date Updated Success');
-             $('#updateDueDate').modal('hide');
-             location.reload();
-            },
-            error:function (error) {
-                console.log(error)
-                alert('error')
-
-            }
-
-        });
-    });
-
 </script>
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->
 </html>
