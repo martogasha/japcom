@@ -33,8 +33,12 @@
                     </div>
                     <form class="mg-b-20">
                         <div class="row gutters-8">
-                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by ID ..." class="form-control">
+                            <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
+                                <label>Paid Months *</label>
+                                <select class="select2" id="paid_months">
+                                    <option value="1">Unpaid</option>
+                                    <option value="2">Paid</option>
+                                </select>
                             </div>
                             <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
                                 <input type="text" placeholder="Search by Name ..." class="form-control">
@@ -51,24 +55,57 @@
                         <table class="table display data-table text-nowrap">
                             <thead>
                             <tr>
-                                <th>Customer Name</th>
+                                <th>Month</th>
+                                <th>Invoice/Payment</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th>Status</th>
+                                <th>Balance</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($cashes as $cash)
+                            @foreach($invoices as $invoice)
                             <tr>
-                                <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
-                                <td>Ksh {{$cash->amount}}</td>
-                                <td>{{$cash->date}}</td>
-                                <td><span class="badge badge-success">PAID</span>
+                                <td>
+                                    <span class="badge badge-primary">{{date("m",strtotime($invoice->invoice_date))}}</span>
+
+                                </td>
+
+                                <td>Invoice
+                                    <hr>
+                                    <p class="text-muted mb-0">Paid</p>
+                                </td>
+                                <td>Ksh {{$invoice->amount}}
+                                    <hr>
+                                    @if(!is_null($invoice->cash_id))
+                                    <p class="text-muted mb-0">Ksh: {{$invoice->cash->amount}}</p>
+                                    @else
+                                        <span class="badge badge-danger">Not Paid</span>
+                                    @endif
+
+                                </td>
+                                <td>{{$invoice->invoice_date}}
+                                    <hr>
+                                    @if(!is_null($invoice->cash_id))
+                                    <p class="text-muted mb-0">{{$invoice->cash->date}}</p>
+                                    @else
+                                        <span class="badge badge-danger">Not Paid</span>
+
+                                    @endif
+
+                                </td>
+                                @if($invoice->status==0)
+                                <td><span class="badge badge-danger"><b>Ksh: {{$invoice->balance}}</b></span>
+                                    @else
+                                    <td><span class="badge badge-success">Paid</span></td>
+
+                                    @endif
                                 </td>
                                 <td>
-                                    <a href="{{url('receipt',$cash->id)}}"> <button class="btn btn-info">Receipt</button></a>
+                                    <a href="{{url('receipt',$invoice->id)}}"> <button class="btn btn-primary">Receipt</button></a>
+                                    <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                 </td>
+
                             </tr>
                             @endforeach
                             </tbody>
@@ -100,7 +137,14 @@
 <script src="{{asset('js/main.js')}}"></script>
 
 </body>
+<script>
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 
+    const d = new Date();
+    document.write("The current month is " + monthNames[d.getMonth()]);
+</script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-book.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:40 GMT -->
 </html>

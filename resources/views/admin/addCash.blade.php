@@ -91,7 +91,7 @@
         var value = $(this).val();
         $.ajax({
             type:"get",
-            url:"{{url('getUserInvoice')}}",
+            url:"{{url('getInvoice')}}",
             data:{'id':value},
             success:function (data) {
                 $('.userDetails').html(data);

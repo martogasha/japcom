@@ -38,6 +38,8 @@
                                             @endforeach
                                         </select>
                             </div>
+                                <form action="{{route('billingEach')}}" method="post">
+                                    @csrf
                                 <div class="userDetails">
 
                             </div>
@@ -46,6 +48,7 @@
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                                 <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                             </div>
+                                </form>
                         </div>
                         </div>
                 </div>
@@ -80,6 +83,7 @@
 
 </body>
 <script>
+
     $('.select2').change(function () {
         var value = $(this).val();
         $.ajax({

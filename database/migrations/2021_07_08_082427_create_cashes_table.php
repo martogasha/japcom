@@ -16,8 +16,12 @@ class CreateCashesTable extends Migration
         Schema::create('cashes', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('invoice_id')->nullable();
             $table->integer('amount');
+            $table->integer('invoice_balance')->nullable();
             $table->string('date');
+            $table->string('reason')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

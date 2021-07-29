@@ -233,7 +233,8 @@
                 url:"{{url('storeCustomer')}}",
                 data:{'first_name':first_name,'last_name':last_name,'phone':phone,'email':email,'location':location,'bandwidth':bandwidth,'payment_date':payment_date,'due_date':due_date,'sms_date':sms_date,'time_difference':rounded_date,'amount':amount,'amount_supposed_to_pay':amount_supposed_to_pay},
                 success:function (data) {
-                    alert('ok');
+                    alert('Customer Added Success')
+                    location.reload();
                 },
                 error:function (error) {
                     console.log(error)

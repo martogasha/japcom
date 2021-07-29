@@ -15,10 +15,22 @@ class Invoice extends Model
         'amount',
         'time_difference',
         'current_time',
+        'cash_id',
+        'cash_amount',
+        'mpesa_amount',
+        'user_id',
+        'usage_time',
+        'balance',
         'status',
         'statas',
     ];
     public function quotation(){
         return $this->belongsTo(Quotation::class);
+    }
+    public function cash(){
+        return $this->belongsTo(Cash::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

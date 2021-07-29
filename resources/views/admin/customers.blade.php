@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="row-fluid">
-                        <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <div class="col-lg-12 col-12 form-group">
                             <label>Search</label>
                             <input type="text" placeholder="Search" class="form-control" id="myInput">
                         </div>
@@ -80,8 +80,17 @@
                                 <td>{{$customer->location}}</td>
                                 <td>{{$customer->bandwidth}} Mbps</td>
                                 <td>Ksh: {{$customer->amount}}</td>
-                                <td>{{$customer->payment_date}}</td>
-                                <td>{{$customer->due_date}}</td>
+                                    @if($customer->payment_date==0)
+                                <td><span class="badge badge-danger">Not Paid</span></td>
+                                    @else
+                                        <td>{{$customer->payment_date}}</td>
+                                    @endif
+                                    @if($customer->due_date==0)
+                                        <td><span class="badge badge-danger">Not Paid</span>
+                                        </td>
+                                    @else
+                                        <td>{{$customer->due_date}}</td>
+                                    @endif
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"

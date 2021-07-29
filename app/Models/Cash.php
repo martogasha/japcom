@@ -11,7 +11,11 @@ class Cash extends Model
     protected $fillable = [
         'user_id',
         'amount',
+        'invoice_id',
+        'invoice_balance',
+        'reason',
         'date',
+        'status',
     ];
     public function user(){
        return $this->belongsTo(User::class);
