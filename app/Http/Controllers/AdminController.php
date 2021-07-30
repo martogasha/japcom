@@ -771,7 +771,7 @@ class AdminController extends Controller
             $userBalance = Invoice::where('user_id',$store->id)->where('status',0)->sum('balance');
             $updateUserBalance = User::where('id',$store->id)->update(['balance'=>$userBalance]);
             $getInv = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
-            if ($getInv->balance<=0){
+                if ($getInv->balance<=0){
                 $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>1000]);
                 $updateStatus = Invoice::where('id',$getInv->id)->update(['status'=>1]);
                 $getI = Invoice::where('user_id',$store->id)->where('balance','<=',0)->first();

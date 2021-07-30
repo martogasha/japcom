@@ -61,6 +61,7 @@
                                 <th>Date</th>
                                 <th>Balance</th>
                                 <th>Action</th>
+                                <th>usage_time</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -105,6 +106,7 @@
                                     <a href="{{url('receipt',$invoice->id)}}"> <button class="btn btn-primary">Receipt</button></a>
                                     <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                 </td>
+                                    <td>{{$invoice->usage_time}}</td>
 
                             </tr>
                             @endforeach
