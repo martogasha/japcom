@@ -754,32 +754,49 @@ class AdminController extends Controller
         $getMinUsage = Invoice::where('user_id',$store->id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         $currentBalance = $getInvoice->balance - $request->amount;
-        if ($currentBalance>=0){
-            $createPayment = Cash::create([
-                'user_id'=>$store->id,
-                'invoice_id'=>$getInvoice->id,
-                'amount'=>$request->amount,
-                'date'=>$request->payment_date,
-                'reason'=>'Internet Subscription',
-            ]);
-            $updateBalance = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['balance'=>$currentBalance]);
-            $updateIBalance = Cash::where('invoice_id',$getInvoice->id)->where('id',$createPayment->id)->update(['invoice_balance'=>$currentBalance]);
-            $updateCashAmount = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['cash_id'=>$createPayment->id]);
-            $updateCash = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['cash_amount'=>$request->amount]);
-            $updateUserAmount = User::where('id',$store->id)->update(['amount'=>$request->amount]);
-            $updateUserDate = User::where('id',$store->id)->update(['payment_date'=>$request->payment_date]);
-            $userBalance = Invoice::where('user_id',$store->id)->where('status',0)->sum('balance');
-            $updateUserBalance = User::where('id',$store->id)->update(['balance'=>$userBalance]);
-            $getInv = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
-                if ($getInv->balance<=0){
-                $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>1000]);
-                $updateStatus = Invoice::where('id',$getInv->id)->update(['status'=>1]);
-                $getI = Invoice::where('user_id',$store->id)->where('balance','<=',0)->first();
-                $updateUserA = User::where('id',$store->id)->update(['amount'=>$request->amount]);
-                $updateUserD = User::where('id',$store->id)->update(['payment_date'=>$request->payment_date]);
-                $updateUserBal = User::where('id',$store->id)->update(['balance'=>$getI->balance]);
-                $updateB = Invoice::where('id',$getI->id)->update(['balance'=>0]);
+        if ($request->amount==0){
+
+        }
+        else{
+            if ($currentBalance<=0){
+                $createPayment = Cash::create([
+                    'user_id'=>$store->id,
+                    'invoice_id'=>$getInvoice->id,
+                    'amount'=>$request->amount,
+                    'date'=>$request->payment_date,
+                    'reason'=>'Internet Subscription',
+                ]);
+                $updateBal = Invoice::where('user_id',$store->id)->update(['usage_time'=>1000]);
+                $updateStatus = Invoice::where('user_id',$store->id)->update(['status'=>1]);
+                $updateBalance = Invoice::where('user_id',$store->id)->update(['balance'=>$currentBalance]);
+                $updateIBalance = Cash::where('invoice_id',$getInvoice->id)->where('id',$createPayment->id)->update(['invoice_balance'=>$currentBalance]);
+                $updateCashAmount = Invoice::where('user_id',$store->id)->update(['cash_id'=>$createPayment->id]);
+                $updateCash = Invoice::where('user_id',$store->id)->update(['cash_amount'=>$request->amount]);
+                $updateUserAmount = User::where('id',$store->id)->update(['amount'=>$request->amount]);
+                $updateUserDate = User::where('id',$store->id)->update(['payment_date'=>$request->payment_date]);
+                $updateUserBalance = User::where('id',$store->id)->update(['balance'=>$currentBalance]);
             }
+            else{
+                $getInv = Invoice::where('user_id',$store->id)->where('status',0)->first();
+                $currentBal = $getInv->balance - $request->amount;
+                if ($currentBal>0){
+                    $createPayment = Cash::create([
+                        'user_id'=>$store->id,
+                        'invoice_id'=>$getInv->id,
+                        'amount'=>$request->amount,
+                        'date'=>$request->payment_date,
+                        'reason'=>'Internet Subscription',
+                    ]);
+                    $updateBalance = Invoice::where('id',$getInv->id)->update(['balance'=>$currentBal]);
+                    $updateIBalance = Cash::where('invoice_id',$getInv->id)->where('id',$createPayment->id)->update(['invoice_balance'=>$currentBal]);
+                    $updateCashAmount = Invoice::where('id',$getInv->id)->update(['cash_id'=>$createPayment->id]);
+                    $updateCash = Invoice::where('id',$getInv->id)->update(['cash_amount'=>$request->amount]);
+                    $updateUserA = User::where('id',$store->id)->update(['amount'=>$request->amount]);
+                    $updateUserD = User::where('id',$store->id)->update(['payment_date'=>$request->payment_date]);
+                    $updateUserBal = User::where('id',$store->id)->update(['balance'=>$currentBal]);
+                }
+            }
+
         }
     }
     public function dueDate(Request $request){
