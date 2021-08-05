@@ -21,9 +21,6 @@
                         <div class="item-title">
                             <h3>Payments for Invoice Number <b style="color: red">0{{$invoice->id}}</b></h3>
                         </div>
-                        <div class="dropdown">
-                            <a href="{{url('addCash')}}"><button class="btn btn-primary">Add Cash Payment</button></a>
-                        </div>
                     </div>
                     <form class="mg-b-20">
                         <div class="row gutters-8">
@@ -56,7 +53,7 @@
                                 <td><b>Ksh: {{$cash->amount}}</b></td>
                                 <td>{{$cash->date}}</td>
                                 <td style="color: red">Ksh: {{$cash->invoice_balance}}</td>
-                                <td><button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"">Receipt</button></td>
+                                <td><a href="{{url('getReceipt',$cash->id)}}"><button class="btn btn-success receipt">Receipt</button></a></td>
                             </tr>
                             @endforeach
 
@@ -77,123 +74,34 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="container">
-                <div class="row">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-                    <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-                        <div class="row">
-                            <div class="receipt-header">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="receipt-left">
-                                        <img class="img-responsive" alt="iamgurdeeposahan" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" style="width: 71px; border-radius: 43px;">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                                    <div class="receipt-right">
-                                        <h5>TechiTouch.</h5>
-                                        <p>+91 12345-6789 <i class="fa fa-phone"></i></p>
-                                        <p>info@gmail.com <i class="fa fa-envelope-o"></i></p>
-                                        <p>Australia <i class="fa fa-location-arrow"></i></p>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="page-content container">
+                <div class="page-header text-blue-d2">
+                    <h1 class="page-title text-secondary-d1">
+                        Receipt
+                        <small class="page-info">
+                            <i class="fa fa-angle-double-right text-80"></i>
+                            ID: #111-222
+                        </small>
+                    </h1>
+
+                    <div class="page-tools">
+                        <div class="action-buttons">
+                            <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
+                                <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                                Print
+                            </a>
+                            <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                                <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                                Export
+                            </a>
+                            <button type="button" id="cmd">kudhfk</button>
                         </div>
-
-                        <div class="row">
-                            <div class="receipt-header receipt-header-mid">
-                                <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                                    <div class="receipt-right">
-                                        <h5>Gurdeep Singh <small>  |   Lucky Number : 156</small></h5>
-                                        <p><b>Mobile :</b> +91 12345-6789</p>
-                                        <p><b>Email :</b> info@gmail.com</p>
-                                        <p><b>Address :</b> Australia</p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <div class="receipt-left">
-                                        <h1>Receipt</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="col-md-9">Payment for August 2016</td>
-                                    <td class="col-md-3"><i class="fa fa-inr"></i> 15,000/-</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-9">Payment for June 2016</td>
-                                    <td class="col-md-3"><i class="fa fa-inr"></i> 6,00/-</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-9">Payment for May 2016</td>
-                                    <td class="col-md-3"><i class="fa fa-inr"></i> 35,00/-</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right">
-                                        <p>
-                                            <strong>Total Amount: </strong>
-                                        </p>
-                                        <p>
-                                            <strong>Late Fees: </strong>
-                                        </p>
-                                        <p>
-                                            <strong>Payable Amount: </strong>
-                                        </p>
-                                        <p>
-                                            <strong>Balance Due: </strong>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p>
-                                            <strong><i class="fa fa-inr"></i> 65,500/-</strong>
-                                        </p>
-                                        <p>
-                                            <strong><i class="fa fa-inr"></i> 500/-</strong>
-                                        </p>
-                                        <p>
-                                            <strong><i class="fa fa-inr"></i> 1300/-</strong>
-                                        </p>
-                                        <p>
-                                            <strong><i class="fa fa-inr"></i> 9500/-</strong>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td class="text-right"><h2><strong>Total: </strong></h2></td>
-                                    <td class="text-left text-danger"><h2><strong><i class="fa fa-inr"></i> 31.566/-</strong></h2></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="row">
-                            <div class="receipt-header receipt-header-mid receipt-footer">
-                                <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                                    <div class="receipt-right">
-                                        <p><b>Date :</b> 15 Aug 2016</p>
-                                        <h5 style="color: rgb(140, 140, 140);">Thank you for your business!</h5>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4">
-                                    <div class="receipt-left">
-                                        <h1>Signature</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+                </div>
+
+                <div class="container px-0" id="receipt">
                 </div>
             </div>
         </div>
@@ -201,91 +109,123 @@
 </div>
 
     <style>
-        .text-danger strong {
-            color: #9f181c;
+        body{
+            margin-top:20px;
+            color: #484b51;
         }
-        .receipt-main {
-            background: #ffffff none repeat scroll 0 0;
-            border-bottom: 12px solid #333333;
-            border-top: 12px solid #9f181c;
-            padding: 40px 30px !important;
-            position: relative;
-            box-shadow: 0 1px 21px #acacac;
-            color: #333333;
-            font-family: open sans;
+        .text-secondary-d1 {
+            color: #728299!important;
         }
-        .receipt-main p {
-            color: #333333;
-            font-family: open sans;
-            line-height: 1.42857;
+        .page-header {
+            margin: 0 0 1rem;
+            padding-bottom: 1rem;
+            padding-top: .5rem;
+            border-bottom: 1px dotted #e2e2e2;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -ms-flex-align: center;
+            align-items: center;
         }
-        .receipt-footer h1 {
-            font-size: 15px;
-            font-weight: 400 !important;
-            margin: 0 !important;
-        }
-        .receipt-main::after {
-            background: #414143 none repeat scroll 0 0;
-            content: "";
-            height: 5px;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: -13px;
-        }
-        .receipt-main thead {
-            background: #414143 none repeat scroll 0 0;
-        }
-        .receipt-main thead th {
-            color:#fff;
-        }
-        .receipt-right h5 {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0 0 7px 0;
-        }
-        .receipt-right p {
-            font-size: 12px;
-            margin: 0px;
-        }
-        .receipt-right p i {
-            text-align: center;
-            width: 18px;
-        }
-        .receipt-main td {
-            padding: 9px 20px !important;
-        }
-        .receipt-main th {
-            padding: 13px 20px !important;
-        }
-        .receipt-main td {
-            font-size: 13px;
-            font-weight: initial !important;
-        }
-        .receipt-main td p:last-child {
-            margin: 0;
+        .page-title {
             padding: 0;
-        }
-        .receipt-main td h2 {
-            font-size: 20px;
-            font-weight: 900;
             margin: 0;
-            text-transform: uppercase;
+            font-size: 1.75rem;
+            font-weight: 300;
         }
-        .receipt-header-mid .receipt-left h1 {
-            font-weight: 100;
-            margin: 34px 0 0;
-            text-align: right;
-            text-transform: uppercase;
-        }
-        .receipt-header-mid {
-            margin: 24px 0;
-            overflow: hidden;
+        .brc-default-l1 {
+            border-color: #dce9f0!important;
         }
 
-        #container {
-            background-color: #dcdcdc;
+        .ml-n1, .mx-n1 {
+            margin-left: -.25rem!important;
         }
+        .mr-n1, .mx-n1 {
+            margin-right: -.25rem!important;
+        }
+        .mb-4, .my-4 {
+            margin-bottom: 1.5rem!important;
+        }
+
+        hr {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 0;
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
+
+        .text-grey-m2 {
+            color: #888a8d!important;
+        }
+
+        .text-success-m2 {
+            color: #86bd68!important;
+        }
+
+        .font-bolder, .text-600 {
+            font-weight: 600!important;
+        }
+
+        .text-110 {
+            font-size: 110%!important;
+        }
+        .text-blue {
+            color: #478fcc!important;
+        }
+        .pb-25, .py-25 {
+            padding-bottom: .75rem!important;
+        }
+
+        .pt-25, .py-25 {
+            padding-top: .75rem!important;
+        }
+        .bgc-default-tp1 {
+            background-color: rgba(121,169,197,.92)!important;
+        }
+        .bgc-default-l4, .bgc-h-default-l4:hover {
+            background-color: #f3f8fa!important;
+        }
+        .page-header .page-tools {
+            -ms-flex-item-align: end;
+            align-self: flex-end;
+        }
+
+        .btn-light {
+            color: #757984;
+            background-color: #f5f6f9;
+            border-color: #dddfe4;
+        }
+        .w-2 {
+            width: 1rem;
+        }
+
+        .text-120 {
+            font-size: 120%!important;
+        }
+        .text-primary-m1 {
+            color: #4087d4!important;
+        }
+
+        .text-danger-m1 {
+            color: #dd4949!important;
+        }
+        .text-blue-m2 {
+            color: #68a3d5!important;
+        }
+        .text-150 {
+            font-size: 150%!important;
+        }
+        .text-60 {
+            font-size: 60%!important;
+        }
+        .text-grey-m1 {
+            color: #7b7d81!important;
+        }
+        .align-bottom {
+            vertical-align: bottom!important;
+        }
+
     </style>
 <!-- Modal -->
 <!-- jquery-->
@@ -304,7 +244,25 @@
 <script src="{{asset('js/main.js')}}"></script>
 
 </body>
+<script>
+        window.onload = function () {
+        document.getElementById("cmd")
+            .addEventListener("click", () => {
+                    const invoice = this.document.getElementById("rrr");
+                console.log(invoice);
+                console.log(window);
+                var opt = {
+                    margin: 1,
+                    filename: 'myfile.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+                };
+                html2pdf().from(invoice).set(opt).save();
+            })
+    }
 
+</script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->
 </html>

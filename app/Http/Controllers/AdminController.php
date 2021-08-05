@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use Dompdf\Dompdf;
+use function GuzzleHttp\Promise\all;
 
 
 class AdminController extends Controller
@@ -227,7 +228,7 @@ class AdminController extends Controller
                     'status'=>0,
                     'statas'=>0,
                 ]);
-                $nextDate =  date('Y-m-d', strtotime($getUser->due_date. ' + 1 month'));
+                $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
                 $updateDueDate = User::where('id',$getUser->id)->update(['due_date'=>$nextDate]);
                 $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$newBalance]);
                 $updateAmount = User::where('id',$getUser->id)->update(['amount'=>0]);
@@ -297,7 +298,7 @@ class AdminController extends Controller
                             'reason'=>'INTERNET SUBSCRIPTION',
                             'status'=>1,
                         ]);
-                        $nextDate =  date('Y-m-d', strtotime($getUser->due_date. ' + 1 month'));
+                        $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
                         $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$newBalance]);
                         $updateAmount = User::where('id',$getUser->id)->update(['amount'=>0]);
                         $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>0]);
@@ -313,7 +314,7 @@ class AdminController extends Controller
                             'status'=>0,
                             'statas'=>0,
                         ]);
-                        $nextDate =  date('Y-m-d', strtotime($getUser->due_date. ' + 1 month'));
+                        $nextDate =  date('d/m/Y', strtotime($getUser->due_date. ' + 1 month'));
                         $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$newBalance]);
                         $updateAmount = User::where('id',$getUser->id)->update(['amount'=>0]);
                         $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>0]);
@@ -737,7 +738,7 @@ class AdminController extends Controller
             $usage_time = $days;
         }
         $createInvoice = Invoice::create([
-            'invoice_date'=>$request->due_date,
+            'invoice_date'=>$request->payment_date,
             'amount'=>$request->amount_supposed_to_pay,
             'user_id'=>$store->id,
             'usage_time'=>$usage_time,
@@ -745,11 +746,11 @@ class AdminController extends Controller
             'status'=>0,
             'statas'=>0,
         ]);
-        $nextDate =  date('Y-m-d', strtotime($request->due_date. ' + 1 month'));
+        $nextDate =  date('m/d/Y', strtotime($request->due_date));
         $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
         $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);
         $updatePaymentDate = User::where('id',$store->id)->update(['payment_date'=>0]);
-        $updateDueDate = User::where('id',$store->id)->update(['due_date'=>$nextDate]);
+            $updateDueDate = User::where('id',$store->id)->update(['due_date'=>$nextDate]);
 
         $getMinUsage = Invoice::where('user_id',$store->id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
@@ -858,12 +859,12 @@ class AdminController extends Controller
         $updateUserBalance = User::where('id',$request->user_id)->update(['balance'=>$userBalance]);
         $getInv = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         if ($getInv->balance==0){
-            $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>1000]);
+            $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>2147483647]);
             $updateStatus = Invoice::where('id',$getInv->id)->update(['status'=>1]);
         }
         else{
             if ($getInv->balance<0){
-                $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>1000]);
+                $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>2147483647]);
                 $updateStatus = Invoice::where('id',$getInv->id)->update(['status'=>1]);
                 $getMinUs = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
                 $getIn = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUs)->first();
@@ -890,12 +891,12 @@ class AdminController extends Controller
                     $getMinUs1 = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
                     $getIn1 = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUs1)->first();
                     if ($getIn1->balance==0){
-                        $updateBal = Invoice::where('id',$getIn1->id)->update(['usage_time'=>1000]);
+                        $updateBal = Invoice::where('id',$getIn1->id)->update(['usage_time'=>2147483647]);
                         $updateStatus = Invoice::where('id',$getIn1->id)->update(['status'=>1]);
                     }
                     else{
                         if ($getIn1->balance<0){
-                            $updateBal = Invoice::where('id',$getIn1->id)->update(['usage_time'=>1000]);
+                            $updateBal = Invoice::where('id',$getIn1->id)->update(['usage_time'=>2147483647]);
                             $updateStatus = Invoice::where('id',$getIn1->id)->update(['status'=>1]);
                             $getMinUs2 = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
                             $getIn2 = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUs2)->first();
@@ -922,12 +923,12 @@ class AdminController extends Controller
                                 $getMinUs2 = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
                                 $getIn2 = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUs2)->first();
                                 if ($getIn2->balance==0){
-                                    $updateBal = Invoice::where('id',$getIn2->id)->update(['usage_time'=>1000]);
+                                    $updateBal = Invoice::where('id',$getIn2->id)->update(['usage_time'=>2147483647]);
                                     $updateStatus = Invoice::where('id',$getIn2->id)->update(['status'=>1]);
                                 }
                                 else{
                                     if ($getIn2->balance<0){
-                                        $updateBal = Invoice::where('id',$getIn2->id)->update(['usage_time'=>1000]);
+                                        $updateBal = Invoice::where('id',$getIn2->id)->update(['usage_time'=>2147483647]);
                                         $updateStatus = Invoice::where('id',$getIn2->id)->update(['status'=>1]);
                                         $getMinUs3 = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
                                         $getIn3 = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUs3)->first();
@@ -985,6 +986,24 @@ class AdminController extends Controller
         return view('admin.invoicePayment',[
             'cashs'=>$cashs,
             'invoice'=>$invoice
+        ]);
+    }
+    public function filterInvoice(Request $request){
+        $user = User::find($request->user_id);
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $start_date = date("m/d/Y", strtotime($startDate));
+        $end_date = date("m/d/Y", strtotime($endDate));
+        $invoices  = Invoice::whereBetween('invoice_date', array($start_date, $end_date))->where('user_id',$user->id)->get();
+        return view('admin.customerDetail',[
+            'invoices'=>$invoices,
+            'user'=>$user,
+        ]);
+    }
+    public function getReceipt($id){
+        $receipt = Cash::find($id);
+        return view('admin.rec',[
+            'receipt'=>$receipt
         ]);
     }
 }

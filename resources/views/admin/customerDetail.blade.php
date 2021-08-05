@@ -31,26 +31,30 @@
                             </div>
                         </div>
                     </div>
-                    <form class="mg-b-20">
+                    <form action="{{url('filterInvoice')}}" method="post">
+                        @csrf
+                        <input type="hidden" value="{{$user->id}}" name="user_id">
                         <div class="row gutters-8">
                             <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                <label>Paid Months *</label>
-                                <select class="select2" id="paid_months">
-                                    <option value="1">Unpaid</option>
-                                    <option value="2">Paid</option>
-                                </select>
-                            </div>
-                            <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Name ..." class="form-control">
+                                <div class="form-group">
+                                    <label for="dob">Start Date *</label>
+                                    <input type="date" class="form-control" name="start_date"/>
+                                </div>                            </div>
+                            <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">End Date *</label>
+                                    <input type="date" class="form-control" name="end_date"/>
+                                </div>
                             </div>
                             <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Phone ..." class="form-control">
-                            </div>
-                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                                 <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                             </div>
                         </div>
                     </form>
+                    <div class="row">
+                    <h4>Unpaid</h4>
+                    <h4 style="padding-left: 20px">Paid</h4>
+                    </div>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
                             <thead>
@@ -103,7 +107,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{url('receipt',$invoice->id)}}"> <button class="btn btn-primary">Receipt</button></a>
                                     <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                 </td>
                                     <td>{{$invoice->usage_time}}</td>
