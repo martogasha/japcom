@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cat;
 use App\Models\Cash;
+use App\Models\Inv;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Qproduct;
@@ -576,13 +577,13 @@ class AdminController extends Controller
         ]);
     }
     public function viewInvoice(){
-        $quotations = Invoice::where('status',0)->get();
+        $quotations = Inv::where('status',0)->get();
         return view('admin.viewInvoice',[
             'quotations'=>$quotations
         ]);
     }
     public function printInvoice($id){
-        $quote = Invoice::where('id',$id)->first();
+        $quote = Inv::where('id',$id)->first();
         $products = Qproduct::where('quotation_id',$quote->quotation_id)->get();
         $total = Qproduct::where('quotation_id',$quote->quotation_id)->sum('total');
         return view('admin.invoice',[
@@ -599,8 +600,8 @@ class AdminController extends Controller
     }
     public function currentDate(Request $request){
         if ($request->ajax()){
-            $update = Invoice::where('id','>',0)->update(['current_time'=>$request->current]);
-            $dates = Invoice::all();
+            $update = Inv::where('id','>',0)->update(['current_time'=>$request->current]);
+            $dates = Inv::all();
             foreach ($dates as $date){
 
                 // Declare and define two dates
@@ -628,7 +629,7 @@ class AdminController extends Controller
 // total seconds in a days (60*60*24)
                 $days = floor(($diff - $years * 365*60*60*24 -
                         $months*30*60*60*24)/ (60*60*24));
-                $update = Invoice::where('id',$date->id)->update(['time_difference'=>$days]);
+                $update = Inv::where('id',$date->id)->update(['time_difference'=>$days]);
             }
         }
     }
@@ -681,7 +682,7 @@ class AdminController extends Controller
         ]);
     }
     public function invoice(Request $request , $id){
-        $storeInvoice = Invoice::create([
+        $storeInvoice = Inv::create([
            'quotation_id'=>$id,
            'invoice_date'=>$request->invoice_date,
            'payment_due'=>$request->payment_due,
@@ -689,9 +690,9 @@ class AdminController extends Controller
            'status'=>0,
            'statas'=>0,
         ]);
-        $invoiceId = Invoice::where('quotation_id',$id)->first();
+        $invoiceId = Inv::where('quotation_id',$id)->first();
 
-        $quote = Invoice::where('id',$invoiceId->id)->first();
+        $quote = Inv::where('id',$invoiceId->id)->first();
         $products = Qproduct::where('quotation_id',$id)->get();
         $total = Qproduct::where('quotation_id',$id)->sum('total');
         $updateQuotationStatus = Quotation::where('id',$id)->where('status',0)->update(['status'=>1]);

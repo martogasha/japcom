@@ -382,6 +382,9 @@
 
 </body>
 <script>
+    $('#expiry_date').on('change',function () {
+        alert('ok')
+    })
     window.onload = function () {
         document.getElementById("cmd")
             .addEventListener("click", () => {
@@ -390,7 +393,7 @@
                 console.log(window);
                 var opt = {
                     margin: 1,
-                    filename: 'myfile.pdf',
+                    filename: 'quotation.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: { scale: 2 },
                     jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }

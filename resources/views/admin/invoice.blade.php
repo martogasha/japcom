@@ -42,9 +42,9 @@
                                         <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
                                         Print
                                     </a>
-                                    <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="PDF">
+                                    <a class="btn bg-white btn-light mx-1px text-95" href="#" id="PDF">
                                         <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
-                                        Export
+                                        Download
                                     </a>
                                 </div>
                             </div>
@@ -339,24 +339,26 @@
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <!-- Custom Js -->
 <script src="{{asset('js/main.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 
 </body>
 <script>
-    var doc = new jsPDF();
-    var specialElementHandlers = {
-        '#editor': function (element, renderer) {
-            return true;
-        }
-    };
-
-    $('#print_quotation').click(function () {
-        doc.fromHTML($('#view_quotation').html(), 15, 15, {
-            'width': 170,
-            'elementHandlers': specialElementHandlers
-        });
-        doc.save('sample-file.pdf');
-    });
+    window.onload = function () {
+        document.getElementById("print_quotation")
+            .addEventListener("click", () => {
+                const invoice = this.document.getElementById("view_quotation");
+                console.log(invoice);
+                console.log(window);
+                var opt = {
+                    margin: 1,
+                    filename: 'invoice.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+                };
+                html2pdf().from(invoice).set(opt).save();
+            })
+    }
 </script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->
