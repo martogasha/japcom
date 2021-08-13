@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mpesa;
 use Illuminate\Http\Request;
 use Kopokopo\SDK\K2;
 
@@ -38,7 +39,7 @@ class MpesaController extends Controller
             'url' => 'https://jnl.co.ke/storeWebhooks',
             'scope' => 'till',
             'scopeReference' => '526055',
-            'accessToken' => '5U7f6KFFAIWsaLlC24Voex_SCY_xnSudd_xAHrBJbUU'
+            'accessToken' => 'QKE95IlNtuqNZyc0OeZfW0RWeeh1vfKitD2XD8xV5qI',
         ]);
 //        dd($response);
 
@@ -47,14 +48,16 @@ class MpesaController extends Controller
         $webhooks = $K2->Webhooks();
 
         $options = [
-            'location' => 'https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/2534e882-a4e3-4264-b67b-85acafb43fb8',
-            'accessToken' => '5U7f6KFFAIWsaLlC24Voex_SCY_xnSudd_xAHrBJbUU',
+            'location' => 'https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/cb670f61-d8bf-434b-9d1e-4f7226243259',
+            'accessToken' => 'QKE95IlNtuqNZyc0OeZfW0RWeeh1vfKitD2XD8xV5qI',
         ];
         $response = $webhooks->getStatus($options);
 
-        print_r($response);
+        dd($response);
     }
-    public function storeWebhooks(){
-
+    public function storeWebhooks(Request $request){
+        $store = Mpesa::create([
+            'ido'=>$request->status,
+        ]);
     }
 }
