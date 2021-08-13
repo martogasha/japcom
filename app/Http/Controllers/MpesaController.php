@@ -36,7 +36,7 @@ class MpesaController extends Controller
 //To subscribe to a webhook
         $response = $webhooks->subscribe([
             'eventType' => 'buygoods_transaction_received',
-            'url' => 'http://localhost:8000/storeWebhooks',
+            'url' => 'https://jnl.co.ke/storeWebhooks',
             'scope' => 'till',
             'scopeReference' => '526055',
             'accessToken' => '7f_4uIuio44vLR7J_M28hmqOPgK_tb6BrTZvulEAUo0',
