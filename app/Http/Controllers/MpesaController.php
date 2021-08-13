@@ -36,10 +36,10 @@ class MpesaController extends Controller
 //To subscribe to a webhook
         $response = $webhooks->subscribe([
             'eventType' => 'buygoods_transaction_received',
-            'url' => 'https://jnl.co.ke/storeWebhooks',
+            'url' => 'http://localhost:8000/storeWebhooks',
             'scope' => 'till',
             'scopeReference' => '526055',
-            'accessToken' => 'QKE95IlNtuqNZyc0OeZfW0RWeeh1vfKitD2XD8xV5qI',
+            'accessToken' => '7f_4uIuio44vLR7J_M28hmqOPgK_tb6BrTZvulEAUo0',
         ]);
 //        dd($response);
 
@@ -48,10 +48,17 @@ class MpesaController extends Controller
         $webhooks = $K2->Webhooks();
 
         $options = [
-            'location' => 'https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/cb670f61-d8bf-434b-9d1e-4f7226243259',
-            'accessToken' => 'QKE95IlNtuqNZyc0OeZfW0RWeeh1vfKitD2XD8xV5qI',
+            'location' => 'https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/5e7db541-8f47-4483-9819-07836f65db56',
+            'accessToken' => '7f_4uIuio44vLR7J_M28hmqOPgK_tb6BrTZvulEAUo0',
         ];
         $response = $webhooks->getStatus($options);
+//        dd($response);
+        $webhooks = $K2->Webhooks();
+
+        $webhook_payload = file_get_contents('https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/5e7db541-8f47-4483-9819-07836f65db56');
+
+        // This will both validate and process the payload for you
+        $response = $webhooks->webhookHandler($webhook_payload, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
 
         dd($response);
     }
