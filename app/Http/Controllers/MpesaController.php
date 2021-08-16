@@ -52,7 +52,7 @@ class MpesaController extends Controller
         //  Using Kopo Kopo Connect - https://github.com/kopokopo/k2-connect-php (Recommended)
         $webhooks = $K2->Webhooks();
 
-        $webhook_payload = file_get_contents('https://jnl.co.ke/storeWebhooks');
+        $webhook_payload = file_get_contents('php://input');
 
         // This will both validate and process the payload for you
         $response = $webhooks->webhookHandler($webhook_payload, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
