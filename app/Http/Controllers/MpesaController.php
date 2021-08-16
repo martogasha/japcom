@@ -12,11 +12,6 @@ class MpesaController extends Controller
         return view('admin.mpesa');
     }
     public function webhook(){
-        //Store your client id and client secret as environment variables
-
-//Including the kopokopo sdk
-
-// do not hard code these values
         $options = [
             'clientId' => 'a5p1aivM46UQ_ekoLb8w_t7Owu9gQ_tgCJZz0fr14wc',
             'clientSecret' => '6YOgHVamcthVPu-8qKj0v76k0VBprBpJ2tvB5Jpo1jU',
@@ -39,23 +34,25 @@ class MpesaController extends Controller
             'url' => 'https://jnl.co.ke/storeWebhooks',
             'scope' => 'till',
             'scopeReference' => '526055',
-            'accessToken' => '7f_4uIuio44vLR7J_M28hmqOPgK_tb6BrTZvulEAUo0',
+            'accessToken' => 'WLq26txH2gY2y4vtheCe0fWt4QWV99DoezQr-YwLwfQ',
         ]);
-//        dd($response);
+        dd($response);
 
+
+    }
+    public function getWebhooks(){
+        $options = [
+            'clientId' => '60gnT8vjNBq_9fT9xcX84kTZca57LeCXuJ4_e5jaUBM',
+            'clientSecret' => 'e_Tqybes1UoheErqhG_eW9rLpDVyerJCTpnH5S95A_A',
+            'apiKey' => '44b903d2b9eee2478f35609eae66f8f6bo2bed2d',
+            'baseUrl' => 'https://app.kopokopo.com'
+        ];
+        $K2 = new K2($options);
 
         //  Using Kopo Kopo Connect - https://github.com/kopokopo/k2-connect-php (Recommended)
         $webhooks = $K2->Webhooks();
 
-        $options = [
-            'location' => 'https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/5e7db541-8f47-4483-9819-07836f65db56',
-            'accessToken' => '7f_4uIuio44vLR7J_M28hmqOPgK_tb6BrTZvulEAUo0',
-        ];
-        $response = $webhooks->getStatus($options);
-//        dd($response);
-        $webhooks = $K2->Webhooks();
-
-        $webhook_payload = file_get_contents('https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/5e7db541-8f47-4483-9819-07836f65db56');
+        $webhook_payload = file_get_contents('https://jnl.co.ke/storeWebhooks');
 
         // This will both validate and process the payload for you
         $response = $webhooks->webhookHandler($webhook_payload, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
