@@ -13,10 +13,10 @@ class MpesaController extends Controller
     }
     public function webhook(){
         $options = [
-            'clientId' => '60gnT8vjNBq_9fT9xcX84kTZca57LeCXuJ4_e5jaUBM',
-            'clientSecret' => 'e_Tqybes1UoheErqhG_eW9rLpDVyerJCTpnH5S95A_A',
-            'apiKey' => '44b903d2b9eee2478f35609eae66f876b02bed2d',
-            'baseUrl' => 'https://app.kopokopo.com'
+            'clientId' => 'a5p1aivM46UQ_ekoLb8w_t7Owu9gQ_tgCJZz0fr14wc',
+            'clientSecret' => '6YOgHVamcthVPu-8qKj0v76k0VBprBpJ2tvB5Jpo1jU',
+            'apiKey' => '7SZBriQZw_tlSuZWyKVvFvI2tHRmV2ZW8SDTsQr_Vtg',
+            'baseUrl' => 'https://sandbox.kopokopo.com'
         ];
 
         $K2 = new K2($options);
