@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //mpesa routes
-Route::get('webhook', [MpesaController::class, 'webhook']);
+Route::get('webhook', [MpesaController::class, 'subscribe']);
 Route::get('getWebhooks', [MpesaController::class, 'getWebhooks']);
 Route::post('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
 
