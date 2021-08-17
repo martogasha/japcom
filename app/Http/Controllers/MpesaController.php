@@ -11,26 +11,19 @@ class MpesaController extends Controller
     public function index(){
         return view('admin.mpesa');
     }
-    public function webhook(){
+    public function subscribe(){
         $options = [
-            'clientId' => 'a5p1aivM46UQ_ekoLb8w_t7Owu9gQ_tgCJZz0fr14wc',
-            'clientSecret' => '6YOgHVamcthVPu-8qKj0v76k0VBprBpJ2tvB5Jpo1jU',
-            'apiKey' => '7SZBriQZw_tlSuZWyKVvFvI2tHRmV2ZW8SDTsQr_Vtg',
-            'baseUrl' => 'https://sandbox.kopokopo.com'
+            'clientId' => '60gnT8vjNBq_9fT9xcX84kTZca57LeCXuJ4_e5jaUBM',
+            'clientSecret' => 'e_Tqybes1UoheErqhG_eW9rLpDVyerJCTpnH5S95A_A',
+            'apiKey' => '44b903d2b9eee2478f35609eae66f876b02bed2d',
+            'baseUrl' => 'https://api.kopokopo.com'
         ];
-
         $K2 = new K2($options);
-// Get one of the services
         $tokens = $K2->TokenService();
-
-// Use the service
         $result = $tokens->getToken();
         $access = $result['data'];
         $accessToken = $access['accessToken'];
-//        dd($accessToken);
         $webhooks = $K2->Webhooks();
-
-//To subscribe to a webhook
         $response = $webhooks->subscribe([
             'eventType' => 'buygoods_transaction_received',
             'url' => 'https://jnl.co.ke/storeWebhooks',
@@ -52,8 +45,7 @@ class MpesaController extends Controller
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
 
         $store = Mpesa::create([
-            'ido'=>$request['status'],
-            'topic'=>$request->$response['status'],
+            'status'=>$request->$response['status'],
         ]);
     }
 }
