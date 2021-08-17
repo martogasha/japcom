@@ -15,7 +15,7 @@ class MpesaController extends Controller
         $options = [
             'clientId' => '60gnT8vjNBq_9fT9xcX84kTZca57LeCXuJ4_e5jaUBM',
             'clientSecret' => 'e_Tqybes1UoheErqhG_eW9rLpDVyerJCTpnH5S95A_A',
-            'apiKey' => '44b903d2b9eee2478f35609eae66f8f6bo2bed2d',
+            'apiKey' => '44b903d2b9eee2478f35609eae66f876b02bed2d',
             'baseUrl' => 'https://app.kopokopo.com'
         ];
 
@@ -39,40 +39,21 @@ class MpesaController extends Controller
             'accessToken' => $accessToken,
         ]);
         $location = $response['location'];
-//        dd($response['location']);
-
-        //  Using Kopo Kopo Connect - https://github.com/kopokopo/k2-connect-php (Recommended)
-        $webhooks = $K2->Webhooks();
-
-        $webhook_payload = file_get_contents($location);
-
-        // This will both validate and process the payload for you
-        $response = $webhooks->webhookHandler($webhook_payload, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-
-        dd($response);
-    }
-    public function getWebhooks(){
-        $options = [
-            'clientId' => '60gnT8vjNBq_9fT9xcX84kTZca57LeCXuJ4_e5jaUBM',
-            'clientSecret' => 'e_Tqybes1UoheErqhG_eW9rLpDVyerJCTpnH5S95A_A',
-            'apiKey' => '44b903d2b9eee2478f35609eae66f8f6bo2bed2d',
-            'baseUrl' => 'https://app.kopokopo.com'
-        ];
-        $K2 = new K2($options);
-
-        //  Using Kopo Kopo Connect - https://github.com/kopokopo/k2-connect-php (Recommended)
-        $webhooks = $K2->Webhooks();
-
-        $webhook_payload = file_get_contents('php://input');
-
-        // This will both validate and process the payload for you
-        $response = $webhooks->webhookHandler($webhook_payload, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-
-        dd($response);
+        dd($response['location']);
     }
     public function storeWebhooks(Request $request){
+        global $K2;
+        global $response;
+
+        $webhooks = $K2->Webhooks();
+
+        $json_str = file_get_contents('php://input');
+
+        $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
+
         $store = Mpesa::create([
-            'ido'=>$request->status,
+            'ido'=>$request['status'],
+            'topic'=>$request->$response['status'],
         ]);
     }
 }
