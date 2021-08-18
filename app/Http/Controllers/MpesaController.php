@@ -51,9 +51,10 @@ class MpesaController extends Controller
         $json_str = file_get_contents('php://input');
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-
+        $mpsa = $response['data'];
         $store = Mpesa::create([
             'idno'=>$request->$response['status'],
+            'topic'=>$request->$mpsa['id'],
         ]);
     }
 }
