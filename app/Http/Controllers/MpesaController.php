@@ -31,8 +31,7 @@ class MpesaController extends Controller
             'scopeReference' => '526055',
             'accessToken' => $accessToken,
         ]);
-        $location = $response['location'];
-        dd($response['location']);
+        dd($response);
     }
     public function storeWebhooks(Request $request){
         global $K2;
