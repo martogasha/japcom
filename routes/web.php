@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //mpesa routes
 Route::get('webhook', [MpesaController::class, 'subscribe']);
 Route::get('getWebhooks', [MpesaController::class, 'getWebhooks']);
-Route::post('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
+Route::get('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
 
 Route::get('home', function () {
     return view('welcome');
