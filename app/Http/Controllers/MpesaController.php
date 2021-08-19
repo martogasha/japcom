@@ -48,7 +48,7 @@ class MpesaController extends Controller
 
         $webhooks = $K2->Webhooks();
 
-        $json_str = file_get_contents('https://sandbox.kopokopo.com/api/v1/webhook_subscriptions/b2a26855-35de-45a6-a144-31246358fd4a');
+        $json_str = file_get_contents('php://input');
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $mpsa = $response['data'];
