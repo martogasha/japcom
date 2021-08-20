@@ -31,6 +31,7 @@ class MpesaController extends Controller
             'scopeReference' => '526055',
             'accessToken' => $accessToken,
         ]);
+        dd($response);
         $location = $response['location'];
         $stk = $K2->StkService();
 
