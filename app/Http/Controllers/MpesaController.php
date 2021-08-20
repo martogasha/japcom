@@ -26,7 +26,7 @@ class MpesaController extends Controller
         $webhooks = $K2->Webhooks();
         $response = $webhooks->subscribe([
             'eventType' => 'buygoods_transaction_received',
-            'url' => 'https://jnl.co.ke/storeWebhooks',
+            'url' => 'https://jnl.co.ke/api/storeWebhooks',
             'scope' => 'till',
             'scopeReference' => '526055',
             'accessToken' => $accessToken,
@@ -48,7 +48,7 @@ class MpesaController extends Controller
 
         $webhooks = $K2->Webhooks();
 
-        $json_str = file_get_contents('https://jnl.co.ke/storeWebhooks');
+        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $mpesa = $response['data'];
