@@ -48,8 +48,8 @@ class MpesaController extends Controller
 
     public function storeWebhooks(Request $request){
         $store = Mpesa::create([
-            'idno'=>$request->id,
-            'topic'=>$request->topic,
+            'idno'=>$request->$response['status'],
+            'topic'=>$request->$mpesa['id'],
         ]);
     }
     public function authenticate(){

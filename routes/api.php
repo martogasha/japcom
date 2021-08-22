@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('webhook', [MpesaController::class, 'subscribe']);
 Route::get('getWebhooks', [MpesaController::class, 'getWebhooks']);
 Route::get('authenticate', [MpesaController::class, 'authenticate']);
-Route::post('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
+Route::get('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
