@@ -39,8 +39,9 @@ class MpesaController extends Controller
             'accessToken' => $accessToken,
         ];
         $response = $stk->getStatus($options);
-
-        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
+        $opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
+        $context = stream_context_create($opts);
+        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks', false,$context);
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         dd($response);
