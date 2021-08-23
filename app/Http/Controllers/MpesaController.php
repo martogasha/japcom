@@ -13,9 +13,9 @@ class MpesaController extends Controller
     }
     public function subscribe(){
         $options = [
-            'clientId' => 'a5p1aivM46UQ_ekoLb8w_t7Owu9gQ_tgCJZz0fr14wc',
-            'clientSecret' => '6YOgHVamcthVPu-8qKj0v76k0VBprBpJ2tvB5Jpo1jU',
-            'apiKey' => '7SZBriQZw_tlSuZWyKVvFvI2tHRmV2ZW8SDTsQr_Vtg',
+            'clientId' => 'uB3gE_6pTvJzNe_jg8mbsmx5XmIxKEl2i-oifvaJrp4',
+            'clientSecret' => 'n9JT6PbxN6poV623rvYUYOngyXXWhytASBbD98DJxs0',
+            'apiKey' => 'vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds',
             'baseUrl' => 'https://sandbox.kopokopo.com'
         ];
         $K2 = new K2($options);
