@@ -40,7 +40,7 @@ class MpesaController extends Controller
         ];
         $response = $stk->getStatus($options);
         $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
-        $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
+        $response = $webhooks->webhookHandler($json_str, $_SERVER['vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds']);
         dd($response);
     }
 
