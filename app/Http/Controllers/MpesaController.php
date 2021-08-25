@@ -39,10 +39,8 @@ class MpesaController extends Controller
             'accessToken' => $accessToken,
         ];
         $response = $stk->getStatus($options);
-        $opts = array('http'=>array('header' => "User-Agent:MyAgent/1.0\r\n"));
-        $context = stream_context_create($opts);
-        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks', false,$context);
-
+        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
+        $json_str = json_encode($json_str)->header('X-KopoKopo-Signature','vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds');
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         dd($response);
     }
@@ -61,7 +59,7 @@ class MpesaController extends Controller
 
         $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
 
-        $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
+        $response = $webhooks->webhookHandler($json_str, $_SERVER['vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds']);
         dd($response);
     }
 }
