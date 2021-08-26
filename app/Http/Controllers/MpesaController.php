@@ -42,7 +42,7 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(){
+    public function storeWebhooks(Request $request){
         global $K2;
         global $response;
 
@@ -52,7 +52,8 @@ class MpesaController extends Controller
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $store = Mpesa::create([
-            'idno'=>$response['status'],
+            'idno'=>$request->$response['status'],
+            'topic'=>$response['status'],
         ]);
     }
     public function authenticate(){
