@@ -33,6 +33,7 @@ class CreateMpesasTable extends Migration
             $table->string('senderLastName')->nullable();
             $table->string('linkSelf')->nullable();
             $table->string('linkResource')->nullable();
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }
