@@ -13,10 +13,10 @@ class MpesaController extends Controller
     }
     public function subscribe(){
         $options = [
-            'clientId' => 'uB3gE_6pTvJzNe_jg8mbsmx5XmIxKEl2i-oifvaJrp4',
-            'clientSecret' => 'n9JT6PbxN6poV623rvYUYOngyXXWhytASBbD98DJxs0',
-            'apiKey' => 'vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds',
-            'baseUrl' => 'https://sandbox.kopokopo.com'
+            'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
+            'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
+            'apiKey' => '7d36be1a6e076c4aca556ee07818b21b4e58bcfe',
+            'baseUrl' => 'https://api.kopokopo.com'
         ];
         $K2 = new K2($options);
         $tokens = $K2->TokenService();
