@@ -42,7 +42,7 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(Request $request){
+    public function storeWebhooks(){
         global $K2;
         global $response;
 
