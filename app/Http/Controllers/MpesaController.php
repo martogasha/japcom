@@ -44,7 +44,7 @@ class MpesaController extends Controller
 
     public function storeWebhooks(Request $request){
         $store = Mpesa::create([
-            'topic'=>$request->status
+            'topic'=>$request['status']
         ]);
         global $K2;
         global $response;
