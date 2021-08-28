@@ -42,15 +42,21 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(){
-        global $K2;
+    public function storeWebhooks(Request $request){
+        $options = [
+            'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
+            'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
+            'apiKey' => '7d36be1a6e076c4aca556ee07818b21b4e58bcfe',
+            'baseUrl' => 'https://api.kopokopo.com'
+        ];
+        $K2 = new K2($options);
         global $response;
 
         $webhooks = $K2->Webhooks();
 
         $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
         $store = Mpesa::create([
-            'data'=>$json_str
+            'data'=>$request->$json_str
         ]);
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
