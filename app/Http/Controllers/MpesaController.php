@@ -42,7 +42,7 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(){
+    public function storeWebhooks(Request $request){
         $options = [
             'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
             'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
@@ -59,9 +59,8 @@ class MpesaController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $body = curl_exec($ch);
         $response = $webhooks->webhookHandler($body, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-        $data =  json_encode($response);
         $store = Mpesa::create([
-            'data'=>$data
+            'topic'=>$request->$response['status']
         ]);
 
     }
