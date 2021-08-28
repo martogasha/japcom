@@ -59,8 +59,9 @@ class MpesaController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $body = curl_exec($ch);
         $response = $webhooks->webhookHandler($body, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
+        $data = json_encode($response);
         $store = Mpesa::create([
-            'topic'=>$request->$response['status']
+            'topic'=>$request->$data['status']
         ]);
 
     }
