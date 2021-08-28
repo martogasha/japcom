@@ -43,13 +43,7 @@ class MpesaController extends Controller
     }
 
     public function storeWebhooks(){
-        $options = [
-            'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
-            'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
-            'apiKey' => '7d36be1a6e076c4aca556ee07818b21b4e58bcfe',
-            'baseUrl' => 'https://api.kopokopo.com'
-        ];
-        $K2 = new K2($options);
+        global $K2;
         global $response;
 
         $webhooks = $K2->Webhooks();
@@ -58,6 +52,7 @@ class MpesaController extends Controller
         $store = Mpesa::create([
             'data'=>$json_str
         ]);
+
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $data =  json_encode($response);
         $store = Mpesa::create([
