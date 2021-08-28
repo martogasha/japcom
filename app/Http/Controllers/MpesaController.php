@@ -61,7 +61,7 @@ class MpesaController extends Controller
         $response = $webhooks->webhookHandler($body, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $data =  json_encode($response);
         $store = Mpesa::create([
-            'topic'=>$data['status']
+            'data'=>$data
         ]);
 
     }
