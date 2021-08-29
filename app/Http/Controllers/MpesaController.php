@@ -55,6 +55,7 @@ class MpesaController extends Controller
         $webhooks = $K2->Webhooks();
 
         $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
+        var_dump($json_str);
         $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
         $data =  json_encode($response);
         $store = Mpesa::create([
