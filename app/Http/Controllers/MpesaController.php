@@ -33,7 +33,6 @@ class MpesaController extends Controller
         ]);
         $location = $response['location'];
         $stk = $K2->StkService();
-
         $options = [
             'location' => $location,
             'accessToken' => $accessToken,
