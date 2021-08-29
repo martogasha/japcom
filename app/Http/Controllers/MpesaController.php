@@ -42,7 +42,7 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(Request $request){
+    public function storeWebhooks(){
         $options = [
             'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
             'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
@@ -53,16 +53,12 @@ class MpesaController extends Controller
         global $response;
 
         $webhooks = $K2->Webhooks();
-        $url = 'https://jnl.co.ke/api/storeWebhooks';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $body = curl_exec($ch);
-        $response = $webhooks->webhookHandler($body, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-        $data = json_encode($response);
+
+        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
+        $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
+        $data =  json_encode($response);
         $store = Mpesa::create([
-            'topic'=>$request->$data['data']['id'],
+            'topic'=>$data['status']
         ]);
 
     }
