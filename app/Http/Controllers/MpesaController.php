@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mpesa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Kopokopo\SDK\K2;
 
 class MpesaController extends Controller
@@ -41,26 +42,9 @@ class MpesaController extends Controller
         dd($response);
     }
 
-    public function storeWebhooks(){
-        $options = [
-            'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
-            'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
-            'apiKey' => '7d36be1a6e076c4aca556ee07818b21b4e58bcfe',
-            'baseUrl' => 'https://api.kopokopo.com'
-        ];
-        $K2 = new K2($options);
-        global $response;
-
-        $webhooks = $K2->Webhooks();
-
-        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
-        var_dump($json_str);
-        $response = $webhooks->webhookHandler($json_str, $_SERVER['HTTP_X_KOPOKOPO_SIGNATURE']);
-        $data =  json_encode($response);
-        $store = Mpesa::create([
-            'topic'=>$data['status']
-        ]);
-
+    public function storeWebhooks(Request $request){
+        $input = $request->json();
+        Log::info($input);
     }
     public function authenticate(){
         global $K2;

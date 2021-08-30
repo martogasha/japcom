@@ -12,7 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'https://jnl.co.ke/api/storeWebhooks',
-        'https://jnl.co.ke/api/webhook',
+        'api/storeWebhooks',
+        'api/webhook',
     ];
 }
