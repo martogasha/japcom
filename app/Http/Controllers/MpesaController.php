@@ -46,6 +46,9 @@ class MpesaController extends Controller
         try{
             $input = $request->json()->all();
             Log::info($input);
+            $store = Mpesa::create([
+               'amount'=>$input['amount']
+            ]);
         }catch (\Exception $exception){
             $input = $request->all();
             Log::info($input);

@@ -24,7 +24,7 @@ class CreateMpesasTable extends Migration
             $table->string('reference')->nullable();
             $table->string('originationTime')->nullable();
             $table->string('senderPhoneNumber')->nullable();
-            $table->string('amount')->nullable();
+            $table->integer('amount')->nullable();
             $table->string('currency')->nullable();
             $table->string('tillNumber')->nullable();
             $table->string('system')->nullable();
