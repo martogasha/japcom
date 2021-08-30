@@ -45,7 +45,6 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request){
         try{
             $input = $request->json()->all();
-            Log::info($input);
             $store = Mpesa::create([
                'amount'=>$input['amount']
             ]);
