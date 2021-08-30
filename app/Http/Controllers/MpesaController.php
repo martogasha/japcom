@@ -45,7 +45,7 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request){
             $input = $request->json()->all();
             $store = Mpesa::create([
-               'amount'=>$input['data']['amount']
+               'amount'=>$input->amount,
             ]);
     }
     public function authenticate(){
