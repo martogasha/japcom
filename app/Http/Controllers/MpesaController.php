@@ -43,15 +43,10 @@ class MpesaController extends Controller
     }
 
     public function storeWebhooks(Request $request){
-        try{
             $input = $request->json()->all();
             $store = Mpesa::create([
                'amount'=>$input['amount']
             ]);
-        }catch (\Exception $exception){
-            $input = $request->all();
-            Log::info($input);
-        }
     }
     public function authenticate(){
         global $K2;
