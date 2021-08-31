@@ -66,12 +66,7 @@
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> 0{{$receipt->id}}</div>
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> {{$receipt->date}}</div>
-                            @if($receipt->invoice_balance>0)
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-danger badge-pill px-25">Unpaid</span></div>
-                            @else
                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">paid</span></div>
-
-                            @endif
                         </div>
                     </div>
                     <!-- /.col -->
@@ -140,7 +135,6 @@
                         </div>
 
                         <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
-                            @if($receipt->invoice_balance<=0)
                             <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                 <div class="col-7 text-right">
                                     Total Amount
@@ -149,7 +143,6 @@
                                     <span class="text-150 text-success-d3 opacity-2"><b>SH{{$receipt->amount}}</b></span>
                                 </div>
                             </div>
-                            @else
                                 <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                     <div class="col-7 text-right">
                                         <b style="color: red">Balance</b>
@@ -158,7 +151,6 @@
                                         <span class="text-150 text-success-d3 opacity-2"><b style="color: red">SH{{$receipt->invoice_balance}}</b></span>
                                     </div>
                                 </div>
-                            @endif
                         </div>
                     </div>
 
