@@ -49,7 +49,7 @@
                             @foreach($cashs as $cash)
                             <tr>
 
-                                <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
+                                <td>{{$cash->senderFirstName}} {{$cash->senderMiddleName}} {{$cash->senderLastName}}</td>
                                 <td><b>Ksh: {{$cash->amount}}</b></td>
                                 <td>{{$cash->date}}</td>
                                 <td style="color: red">Ksh: {{$cash->invoice_balance}}</td>
