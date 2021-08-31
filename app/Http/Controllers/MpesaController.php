@@ -52,7 +52,11 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request){
             $input = $request->json()->all();
             $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
+            $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
             if ($getReference){
+                if ($getRef){
+
+                }
 
             }
             else{
