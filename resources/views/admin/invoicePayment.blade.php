@@ -38,6 +38,7 @@
                             <thead>
                             <tr>
 
+                                <th>Payment_method</th>
                                 <th>Name</th>
                                 <th>Amount</th>
                                 <th>Date Of Payment</th>
@@ -49,7 +50,8 @@
                             @foreach($cashs as $cash)
                             <tr>
 
-                                <td>{{$cash->senderFirstName}} {{$cash->senderMiddleName}} {{$cash->senderLastName}}</td>
+                                <td>{{$cash->payment_method}}</td>
+                                <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
                                 <td><b>Ksh: {{$cash->amount}}</b></td>
                                 <td>{{$cash->date}}</td>
                                 <td style="color: red">Ksh: {{$cash->invoice_balance}}</td>
