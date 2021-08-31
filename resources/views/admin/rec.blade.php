@@ -143,6 +143,7 @@
                                     <span class="text-150 text-success-d3 opacity-2"><b>SH{{$receipt->amount}}</b></span>
                                 </div>
                             </div>
+                            @if($receipt->invoice_balance>0)
                                 <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                     <div class="col-7 text-right">
                                         <b style="color: red">Balance</b>
@@ -151,6 +152,7 @@
                                         <span class="text-150 text-success-d3 opacity-2"><b style="color: red">SH{{$receipt->invoice_balance}}</b></span>
                                     </div>
                                 </div>
+                                @endif
                         </div>
                     </div>
 
