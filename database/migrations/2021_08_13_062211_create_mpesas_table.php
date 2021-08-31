@@ -33,7 +33,8 @@ class CreateMpesasTable extends Migration
             $table->string('senderLastName')->nullable();
             $table->string('linkSelf')->nullable();
             $table->string('linkResource')->nullable();
-            $table->json('data')->nullable();
+            $table->integer('invoice_id')->nullable();
+            $table->integer('invoice_balance')->nullable();
             $table->timestamps();
         });
     }

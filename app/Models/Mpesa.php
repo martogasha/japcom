@@ -27,5 +27,7 @@ class Mpesa extends Model
         'senderLastName',
         'linkSelf',
         'linkResource',
+        'invoice_id',
+        'invoice_balance',
     ];
 }
