@@ -6,6 +6,7 @@ use App\Cat;
 use App\Models\Cash;
 use App\Models\Inv;
 use App\Models\Invoice;
+use App\Models\Mpesa;
 use App\Models\Product;
 use App\Models\Qproduct;
 use App\Models\Quotation;
@@ -982,7 +983,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success','PAYMENT ADDED SUCCESS');
     }
     public function invoicePayment($id){
-        $cashs = Cash::where('invoice_id',$id)->get();
+        $cashs = Mpesa::where('invoice_id',$id)->get();
         $invoice = Invoice::find($id);
         return view('admin.invoicePayment',[
             'cashs'=>$cashs,

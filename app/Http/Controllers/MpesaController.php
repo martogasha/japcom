@@ -50,6 +50,10 @@ class MpesaController extends Controller
 
     public function storeWebhooks(Request $request){
             $input = $request->json()->all();
+            $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
+            if ($getReference){
+
+            }
             $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
         $getMinUsage = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
