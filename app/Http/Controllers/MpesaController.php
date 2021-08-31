@@ -13,7 +13,10 @@ use Kopokopo\SDK\K2;
 class MpesaController extends Controller
 {
     public function index(){
-        return view('admin.mpesa');
+        $mpesas = Mpesa::all();
+        return view('admin.mpesa',[
+            'mpesas'=>$mpesas
+        ]);
     }
     public function subscribe(){
         $options = [

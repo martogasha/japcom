@@ -64,14 +64,16 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($mpesas as $mpesa)
                             <tr>
 
-                                <td>JHBSDJFBU78</td>
-                                <td>Mark Willy</td>
-                                <td>0790268795</td>
-                                <td><b>kSH: 500</b></td>
-                                <td>02/05/2001</td>
+                                <td>{{$mpesa->reference}}</td>
+                                <td>{{$mpesa->senderFirstName}} {{$mpesa->senderMiddleName}} {{$mpesa->senderLastName}}</td>
+                                <td>{{$mpesa->senderPhoneNumber}}</td>
+                                <td><b>kSH: {{$mpesa->amount}}</b></td>
+                                <td>{{$mpesa->originationTime}}</td>
                             </tr>
+                            @endforeach
 
                                                     </tbody>
                         </table>
