@@ -83,7 +83,7 @@ class MpesaController extends Controller
                     'user_id'=>$getUserIdentification->id,
                     'invoice_id'=>$getInvoice->id,
                     'reference'=>$input['event']['resource']['reference'],
-                    'date'=>$input['event']['resource']['origination_time'],
+                    'date'=>date("d/m/Y", strtotime($dateFormat)),
                     'amount'=>$createPayment->amount,
                     'status'=>1,
                     'payment_method'=>'Mpesa',
