@@ -72,8 +72,7 @@
                             @foreach($invoices as $invoice)
                             <tr>
                                 <td>
-                                    <span class="badge badge-primary">{{date("m",strtotime($invoice->invoice_date))}}</span>
-
+                                    <span class="badge badge-primary">{{\Carbon\Carbon::parse($invoice->invoice_date)->format('F')}}</span>
                                 </td>
 
                                 <td>Invoice
@@ -143,12 +142,8 @@
 
 </body>
 <script>
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
-
-    const d = new Date();
-    document.write("The current month is " + monthNames[d.getMonth()]);
+    const today = new Date()
+    today.toLocaleString('default', { month: 'long' })
 </script>
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-book.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:40 GMT -->

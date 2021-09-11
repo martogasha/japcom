@@ -15,8 +15,7 @@ class CashController extends Controller
         ]);
     }
     public function test(){
-        $posts = Http::get("https://test.synatechafrica.com/clients");
-        return $posts;
+        return view('admin.ttt');
     }
     public function testOne(){
         $posts = Http::post("https://test.synatechafrica.com/clients");

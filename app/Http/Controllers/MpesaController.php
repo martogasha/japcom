@@ -66,7 +66,8 @@ class MpesaController extends Controller
                 $currentBalance = $getInvoice->balance - $input['event']['resource']['amount'];
                 $createPayment = Mpesa::create([
                     'reference'=>$input['event']['resource']['reference'],
-                    'originationTime'=>$input['event']['resource']['origination_time'],
+                    $dateFormat = $input['event']['resource']['origination_time'],
+                    'originationTime'=>date_format($dateFormat, "d/m/Y"),
                     'senderFirstName'=>$input['event']['resource']['sender_first_name'],
                     'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
                     'senderLastName'=>$input['event']['resource']['sender_last_name'],

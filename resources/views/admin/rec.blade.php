@@ -156,7 +156,7 @@
                         </div>
                     </div>
 
-                    <hr />
+                    <hr/>
 
                     <div>
                         <span class="text-secondary-d1 text-105">We Deliver as promised</span>
