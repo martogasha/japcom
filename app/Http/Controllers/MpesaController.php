@@ -67,7 +67,7 @@ class MpesaController extends Controller
                 $createPayment = Mpesa::create([
                     'reference'=>$input['event']['resource']['reference'],
                     $dateFormat = $input['event']['resource']['origination_time'],
-                    'originationTime'=>date_format($dateFormat, "d/m/Y"),
+                    'originationTime'=>date_format(strtotime($dateFormat), "d/m/Y"),
                     'senderFirstName'=>$input['event']['resource']['sender_first_name'],
                     'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
                     'senderLastName'=>$input['event']['resource']['sender_last_name'],
