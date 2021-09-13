@@ -55,7 +55,7 @@
                                 <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
                                 <td><b>Ksh: {{$cash->amount}}</b></td>
                                 <td>{{$cash->date}}</td>
-                                <td><button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"">Receipt</button></td>
+                                <td><a href="{{url('cashReceipt',$cash->id)}}"><button class="btn btn-success">Receipt</button></a></td>
                             </tr>
                             @endforeach
 

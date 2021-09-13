@@ -83,7 +83,7 @@
                                     @if($customer->payment_date==0)
                                 <td><span class="badge badge-danger">Not Paid</span></td>
                                     @else
-                                        <td>{{$customer->payment_date}}</td>
+                                        <td>{{date('d/m/Y', strtotime($customer->payment_date))}}</td>
                                     @endif
                                     @if($customer->due_date==0)
                                         <td><span class="badge badge-danger">Not Paid</span>

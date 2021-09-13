@@ -65,24 +65,25 @@
                                 <th>Date</th>
                                 <th>Balance</th>
                                 <th>Action</th>
-                                <th>usage_time</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($invoices as $invoice)
+                                @if($invoice->status==2)
                             <tr>
                                 <td>
-                                    <span class="badge badge-primary">{{\Carbon\Carbon::parse($invoice->invoice_date)->format('F')}}</span>
+                                    <span class="badge badge-primary">{{\Carbon\Carbon::parse($invoice->invoice_date)->format('F Y')}}</span>
                                 </td>
+
 
                                 <td>Invoice
                                     <hr>
-                                    <p class="text-muted mb-0">Paid</p>
+                                    <p class="text-muted mb-0">Payment</p>
                                 </td>
-                                <td>Ksh {{$invoice->amount}}
+                                    <td>Ksh {{$invoice->amount}}
                                     <hr>
-                                    @if(!is_null($invoice->cash_id))
-                                    <p class="text-muted mb-0">Ksh: {{$invoice->cash->amount}}</p>
+                                    @if(!is_null($invoice->payment_id))
+                                    <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
                                     @endif
@@ -90,8 +91,8 @@
                                 </td>
                                 <td>{{$invoice->invoice_date}}
                                     <hr>
-                                    @if(!is_null($invoice->cash_id))
-                                    <p class="text-muted mb-0">{{$invoice->cash->date}}</p>
+                                    @if(!is_null($invoice->payment_id))
+                                    <p class="text-muted mb-0">{{$invoice->payment->date}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
 
@@ -99,18 +100,59 @@
 
                                 </td>
                                 @if($invoice->status==0)
-                                <td><span class="badge badge-danger"><b>Ksh: {{$invoice->balance}}</b></span>
+                                <td><span class="badge badge-danger"><b>Carried Forward</b></span>
                                     @else
-                                    <td><span class="badge badge-success">Paid</span></td>
+                                    <td><span class="badge badge-success">Carried Forward</span></td>
 
                                     @endif
                                 </td>
                                 <td>
                                     <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                 </td>
-                                    <td>{{$invoice->usage_time}}</td>
 
                             </tr>
+                                @else
+                                    <tr>
+                                        <td>
+                                            <span class="badge badge-primary">{{\Carbon\Carbon::parse($invoice->invoice_date)->format('F Y')}}</span>
+                                        </td>
+
+                                        <td>Invoice
+                                            <hr>
+                                            <p class="text-muted mb-0">Payment</p>
+                                        </td>
+                                        <td>Ksh {{$invoice->amount}}
+                                            <hr>
+                                            @if(!is_null($invoice->payment_id))
+                                                <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
+                                            @else
+                                                <span class="badge badge-danger">Not Paid</span>
+                                            @endif
+
+                                        </td>
+                                        <td>{{$invoice->invoice_date}}
+                                            <hr>
+                                            @if(!is_null($invoice->payment_id))
+                                                <p class="text-muted mb-0">{{$invoice->payment->date}}</p>
+                                            @else
+                                                <span class="badge badge-danger">Not Paid</span>
+
+                                            @endif
+
+                                        </td>
+                                        @if($invoice->status==0)
+                                            <td><span class="badge badge-danger"><b>Ksh: {{$invoice->balance}}</b></span>
+                                        @else
+                                            <td><span class="badge badge-success">Paid</span></td>
+
+                                            @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
+                                            </td>
+
+                                    </tr>
+                                @endif
                             @endforeach
                             </tbody>
                         </table>

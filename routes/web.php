@@ -39,6 +39,7 @@ Route::get('addCustomer', [AdminController::class, 'addCustomer']);
 Route::post('filterInvoice', [AdminController::class, 'filterInvoice']);
 Route::get('addProduct', [AdminController::class, 'addProduct']);
 Route::get('getReceipt/{id}', [AdminController::class, 'getReceipt']);
+Route::get('cashReceipt/{id}', [AdminController::class, 'cashReceipt']);
 Route::get('addEmployee', [AdminController::class, 'addEmployee']);
 Route::get('employees', [AdminController::class, 'employees']);
 Route::get('addCash', [AdminController::class, 'addCash']);

@@ -21,6 +21,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('amount');
             $table->integer('cash_id')->nullable();
             $table->integer('mpesa_id')->nullable();
+            $table->integer('payment_id')->nullable();
             $table->integer('cash_amount')->nullable();
             $table->integer('mpesa_amount')->nullable();
             $table->integer('user_id')->nullable();

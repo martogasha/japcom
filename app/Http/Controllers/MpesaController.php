@@ -101,7 +101,7 @@ class MpesaController extends Controller
                     $updateBalance = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['balance'=>$currentBalance]);
                     $updateIBalance = Payment::where('invoice_id',$getInvoice->id)->where('id',$createPay->id)->update(['invoice_balance'=>$currentBalance]);
                     $updateCashAmount = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['mpesa_id'=>$createPayment->id]);
-                    $updateCash = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['cash_amount'=>$request->amount]);
+                    $updateInvoicePayment = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['payment_id',$createPay->id]);
                     $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPay->amount]);
                     $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPay->date]);
                     $userBalance = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->sum('balance');
@@ -132,7 +132,7 @@ class MpesaController extends Controller
                                 ]);
                                 $updateB = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['balance'=>$currentBal]);
                                 $updateIB= Payment::where('invoice_id',$getIn->id)->where('id',$createPay1->id)->update(['invoice_balance'=>$currentBal]);
-                                $updateCashA = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['mpesa_id'=>$createPay->id]);
+                                $updateInvoicePayment = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['payment_id'=>$createPay1->id]);
                                 $updateC = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['mpesa_amount'=>-($getI->balance)]);
                                 $updateUserA = User::where('id',$getIn->user_id)->update(['amount'=>$createPay1->amount]);
                                 $updateUserD = User::where('id',$getIn->user_id)->update(['payment_date'=>$createPay1->date]);
@@ -141,7 +141,8 @@ class MpesaController extends Controller
                                 $updateB = Invoice::where('id',$getI->id)->update(['balance'=>0]);
                                 $getMinUs1 = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->min('usage_time');
                                 $getIn1 = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUs1)->first();
-                                if ($getIn1->balance==0){
+                                if ($getIn1->balance==0){                                $updateCashA = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['mpesa_id'=>$createPay->id]);
+
                                     $updateBal = Invoice::where('id',$getIn1->id)->update(['usage_time'=>2147483647]);
                                     $updateStatus = Invoice::where('id',$getIn1->id)->update(['status'=>1]);
                                 }
@@ -165,8 +166,8 @@ class MpesaController extends Controller
                                             ]);
                                             $updateB2 = Invoice::where('id',$getIn2->id)->where('status',0)->where('usage_time',$getMinUs2)->update(['balance'=>$currentBal1]);
                                             $updateIB2= Payment::where('invoice_id',$getIn2->id)->where('id',$createP->id)->update(['invoice_balance'=>$currentBal1]);
-                                            $updateCashA2 = Invoice::where('id',$getIn2->id)->where('status',0)->where('usage_time',$getMinUs2)->update(['mpesa_id'=>$createP->id]);
                                             $updateC2 = Invoice::where('user_id',$getIn2->id)->where('status',0)->where('usage_time',$getMinUs2)->update(['mpesa_amount'=>-($getI2->balance)]);
+                                            $updatePaymentId = Invoice::where('user_id',$getIn2->id)->where('status',0)->where('usage_time',$getMinUs2)->update(['payment_id'=>$createP->id]);
                                             $updateUserA2 = User::where('id',$getIn2->user_id)->update(['amount'=>$createP->amount]);
                                             $updateUserD2 = User::where('id',$getIn2->user_id)->update(['payment_date'=>$createP->date]);
                                             $userBal1= Invoice::where('user_id',$getIn2->user_id)->where('status',0)->sum('balance');
@@ -198,8 +199,8 @@ class MpesaController extends Controller
                                                         ]);
                                                         $updateB2 = Invoice::where('id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['balance'=>$currentBal2]);
                                                         $updateIB2= Payment::where('invoice_id',$getIn3->id)->where('id',$createP1->id)->update(['invoice_balance'=>$currentBal2]);
-                                                        $updateCashA2 = Invoice::where('id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['cash_id'=>$createP->id]);
-                                                        $updateC2 = Invoice::where('user_id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['cash_amount'=>-($getI3->balance)]);
+                                                        $updateCashA2 = Invoice::where('id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['payment_id'=>$createP1->id]);
+                                                        $updateC2 = Invoice::where('user_id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['mpesa_amount'=>-($getI3->balance)]);
                                                         $updateUserA2 = User::where('id',$getIn3->user_id)->update(['amount'=>$createP1->amount]);
                                                         $updateUserD2 = User::where('id',$getIn3->user_id)->update(['payment_date'=>$createP1->date]);
                                                         $userBal1= Invoice::where('user_id',$getIn3->user_id)->where('status',0)->sum('balance');

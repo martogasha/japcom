@@ -45,9 +45,12 @@
                                         </select>
                             </div>
                                 <div class="userDetails">
-
                             </div>
-
+                                <div class="col-lg-6 col-6 form-group">
+                                    <label for="dob">Payment Date *</label>
+                                    <input type="date" id="paymentDate" class="form-control">
+                                </div>
+                                <input type="hidden" id="paymentDateFinal" name="payment_date">
 
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
@@ -88,6 +91,17 @@
 
 </body>
 <script>
+    $('#paymentDate').change(function () {
+        var paymentDate = $('#paymentDate').val();
+        var payment_date = new Date(paymentDate);
+        payment_date.setDate(payment_date.getDate());
+        var dd5 = String(payment_date.getDate()).padStart(2, '0');
+        var mm5 = String(payment_date.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy5 = payment_date.getFullYear();
+        payment_date = mm5 + '/' + dd5 + '/' + yyyy5;
+        $('#paymentDateFinal').val(payment_date);
+    });
+
     $('.select2').change(function () {
         var value = $(this).val();
         $.ajax({
