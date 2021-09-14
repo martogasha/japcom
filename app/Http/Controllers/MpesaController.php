@@ -92,10 +92,10 @@ class MpesaController extends Controller
                             'payment_method'=>'Mpesa',
 
                         ]);
+                        $updateInvoicePayment = Invoice::where('user_id',$createPay->user_id)->where('status',0)->update(['payment_id',$createPay->id]);
                         $updateBalance = Invoice::where('user_id',$createPay->user_id)->where('status',0)->update(['balance'=>$currentBalance]);
                         $updateIBalance = Payment::where('invoice_id',$createPay->invoice_id)->where('id',$createPay->id)->update(['invoice_balance'=>$currentBalance]);
                         $updateCashAmount = Invoice::where('user_id',$createPay->user_id)->where('status',0)->update(['mpesa_id'=>$createPayment->id]);
-                        $updateInvoicePayment = Invoice::where('user_id',$createPay->user_id)->where('status',0)->update(['payment_id',$createPay->id]);
                         $updateInvoiceMpesaAmount = Invoice::where('user_id',$createPay->user_id)->where('status',0)->update(['mpesa_amount',$createPayment->amount]);
                         $updateUserAmount = User::where('id',$createPay->user_id)->update(['amount'=>$createPayment->amount]);
                         $updateUserDate = User::where('id',$createPay->user_id)->update(['payment_date'=>$createPayment->date]);
