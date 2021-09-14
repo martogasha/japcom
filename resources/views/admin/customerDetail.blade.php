@@ -83,7 +83,7 @@
                                     <td>Ksh {{$invoice->amount}}
                                     <hr>
                                     @if(!is_null($invoice->payment_id))
-                                    <p class="text-muted mb-0">Ksh: {{$invoice->payment_id}}</p>
+                                    <p class="text-muted mb-0">Ksh: jkhf</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
                                     @endif
@@ -92,7 +92,7 @@
                                 <td>{{$invoice->invoice_date}}
                                     <hr>
                                     @if(!is_null($invoice->payment_id))
-                                    <p class="text-muted mb-0">{{$invoice->payment->date}}</p>
+                                    <p class="text-m->uted mb-0">{{$invoice->payment->date}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
 
