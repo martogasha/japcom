@@ -410,7 +410,7 @@ class AdminController extends Controller
                     'payment_method'=>'Balance Carry Over',
                 ]);
                 $updateInvoice = Invoice::where('id',$createInvoice->id)->update(['payment_id'=>$createP->id]);
-                $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
+                $nextDate =  date('d/m/Y', strtotime($getUser->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$getUser->id)->update(['amount'=>$createP->amount]);
                         $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>$request->due_date]);
