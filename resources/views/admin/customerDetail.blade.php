@@ -125,7 +125,7 @@
                                         <td>Ksh {{$invoice->amount}}
                                             <hr>
                                             @if(!is_null($invoice->payment_id))
-                                                <p class="text-muted mb-0">Ksh:dfkgj</p>
+                                                <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
                                             @else
                                                 <span class="badge badge-danger">Not Paid</span>
                                             @endif
