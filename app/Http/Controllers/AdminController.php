@@ -368,7 +368,7 @@ class AdminController extends Controller
                 'statas'=>0,
             ]);
             $terminateInvoice = Invoice::where('id',$getExistingInvoice->id)->update(['status'=>2]);
-            $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
+            $nextDate =  date('d/m/Y', strtotime($getUser->due_date. ' + 1 month'));
             $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
             $updateAmount = User::where('id',$getUser->id)->update(['amount'=>0]);
             $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>0]);
