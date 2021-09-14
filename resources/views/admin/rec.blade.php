@@ -95,7 +95,7 @@
                     <div class="text-95 text-secondary-d3">
                         <div class="row mb-2 mb-sm-0 py-25">
                             <div class="d-none d-sm-block col-1"></div>
-                            <div class="col-9 col-sm-5">{{$receipt->reason}}</div>
+                            <div class="col-9 col-sm-5">Amount Paid</div>
                             <div class="d-none d-sm-block col-2"></div>
                             <div class="d-none d-sm-block col-2 text-95"></div>
                             <div class="col-2 text-secondary-d2">SH{{$receipt->amount}}</div>
