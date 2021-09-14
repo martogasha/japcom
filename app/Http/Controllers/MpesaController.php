@@ -107,8 +107,7 @@ class MpesaController extends Controller
                         $updateInvoicePayment = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->update(['payment_id',$createPay->id]);
                         $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPay->amount]);
                         $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPay->date]);
-                        $userBalance = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->sum('balance');
-                        $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$userBalance]);
+                        $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
                         $getInv = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
                         if ($getInv->balance==0){
                             $updateBal = Invoice::where('id',$getInv->id)->update(['usage_time'=>2147483647]);

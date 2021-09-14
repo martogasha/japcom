@@ -536,7 +536,7 @@ class AdminController extends Controller
         return response($output);
 
     }
-    public function customerDetail($id){
+        public function customerDetail($id){
         $user = User::find($id);
         $invoices = Invoice::where('user_id',$user->id)->latest('id')->get();
         return view('admin.customerDetail',[
