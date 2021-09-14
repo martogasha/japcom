@@ -22,34 +22,29 @@
                             <h3>Mpesa Payments</h3>
                         </div>
                         <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                               aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
+                            <a href="{{url('mpesa')}}"><button class="btn btn-success">All Mpesa Records</button></a>
                         </div>
                     </div>
-                    <form class="mg-b-20">
+                    <form action="{{url('filterMpesa')}}" method="post">
+                        @csrf
                         <div class="row gutters-8">
-                            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Transaction Id ..." class="form-control">
-                            </div>
                             <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Name ..." class="form-control">
+                                <div class="form-group">
+                                    <label for="dob">Start Date *</label>
+                                    <input type="date" class="form-control" name="start_date"/>
+                                </div>                            </div>
+                            <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">End Date *</label>
+                                    <input type="date" class="form-control" name="end_date"/>
+                                </div>
                             </div>
-                            <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                                <input type="text" placeholder="Search by Amount ..." class="form-control">
-                            </div>
-                            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+                            <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                 <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                             </div>
                         </div>
+                    </form>
+                        <h3>Total Monthly = <b>SH {{$total}}</b></h3>
                     </form>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
@@ -73,6 +68,7 @@
                                 <td>{{$mpesa->senderPhoneNumber}}</td>
                                 <td><b>kSH: {{$mpesa->amount}}</b></td>
                                 <td>{{$mpesa->originationTime}}</td>
+                                <td><a href="{{url('mpesaReceipt',$mpesa->id)}}"><button class="btn btn-success">Receipt</button></a></td>
                             </tr>
                             @endforeach
 
