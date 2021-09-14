@@ -337,7 +337,7 @@ class AdminController extends Controller
         $getUser = User::find($request->id);
         if ($getExistingInvoice){
             if ($getUser->payment_date==0){
-                $nextDatePrototype =  date('m/d/Y', strtotime($getUser->due_date. ' - 1 month'));
+                $nextDatePrototype =  date('d/m/Y', strtotime($getUser->due_date. ' - 1 month'));
                 $date1 =$nextDatePrototype;
                 $date2 =$getUser->due_date;
             }
