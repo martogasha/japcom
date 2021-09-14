@@ -13,7 +13,6 @@ class Payment extends Model
         'amount',
         'invoice_id',
         'invoice_balance',
-        'payment_id',
         'reason',
         'date',
         'status',
