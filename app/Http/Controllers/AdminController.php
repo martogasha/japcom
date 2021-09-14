@@ -437,7 +437,7 @@ class AdminController extends Controller
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['payment_id'=>$createP1->id]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['balance'=>$total]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['balance'=>$total]);
-                $nextDate =  date('m/d/Y', strtotime($request->due_date. ' + 1 month'));
+                $nextDate =  date('d/m/Y', strtotime($request->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$request->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$request->id)->update(['amount'=>0]);
                     $updatePaymentDate = User::where('id',$request->id)->update(['payment_date'=>0]);
