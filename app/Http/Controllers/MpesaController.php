@@ -52,17 +52,19 @@ class MpesaController extends Controller
     }
 
     public function storeWebhooks(Request $request){
-            $input = $request->json()->all();
+            $getMpesaRecord = $request->json()->all();
+            $input = array_unique($getMpesaRecord);
             $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
             if ($getReference){
 
             }
             else{
-                $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
+                    $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
                 if ($getRef){
 
                 }
                 else{
+
                     $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
                     $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                     if ($getInvoice){
@@ -95,7 +97,6 @@ class MpesaController extends Controller
                         $updateInvoiceBalance  = Invoice::where('id',$getInvoice->id)->update(['balance'=>$currentBalance]);
                         $updateInvoicePaymentId  = Invoice::where('id',$getInvoice->id)->update(['payment_id'=>$createPay->id]);
                         $updateInvoiceMId  = Invoice::where('id',$getInvoice->id)->update(['mpesa_id'=>$createPayment->id]);
-                        $updateInvoiceMAmount  = Invoice::where('id',$getInvoice->id)->update(['mpesa_amount'=>$createPayment->amount]);
                         $updateIBalance = Payment::where('id',$createPay->id)->update(['invoice_balance'=>$currentBalance]);
                         $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
                         $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPay->date]);
