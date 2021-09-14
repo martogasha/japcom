@@ -894,7 +894,7 @@ class AdminController extends Controller
         $output=$request->time_difference;
         return response($output);
     }
-    public function makeCashPayment(Request $request){
+            public function makeCashPayment(Request $request){
         $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         if ($getInvoice){

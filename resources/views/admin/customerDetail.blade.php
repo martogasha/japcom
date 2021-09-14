@@ -40,7 +40,7 @@
                                     <label for="dob">Start Date *</label>
                                     <input type="date" class="form-control" name="start_date"/>
                                 </div>                            </div>
-                            <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                             <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                 <div class="form-group">
                                     <label for="dob">End Date *</label>
                                     <input type="date" class="form-control" name="end_date"/>
@@ -83,7 +83,7 @@
                                     <td>Ksh {{$invoice->amount}}
                                     <hr>
                                     @if(!is_null($invoice->payment_id))
-                                    <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
+                                    <p class="text-muted mb-0">Ksh: {{$invoice->payment->id}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
                                     @endif
