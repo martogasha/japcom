@@ -83,7 +83,7 @@
                                     <td>Ksh {{$invoice->amount}}
                                     <hr>
                                     @if(!is_null($invoice->payment_id))
-                                    <p class="text-muted mb-0">Ksh: jkhf</p>
+                                    <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
                                     @endif
@@ -92,7 +92,7 @@
                                 <td>{{$invoice->invoice_date}}
                                     <hr>
                                     @if(!is_null($invoice->payment_id))
-                                    <p class="text-m->uted mb-0">{{$invoice->payment->date}}</p>
+                                    <p class="text-muted mb-0">{{$invoice->payment->date}}</p>
                                     @else
                                         <span class="badge badge-danger">Not Paid</span>
 
@@ -104,8 +104,9 @@
                                     @else
                                     <td><span class="badge badge-success">Carried Forward</span></td>
 
-                                    @endif
                                 </td>
+                                @endif
+
                                 <td>
                                     <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                 </td>
@@ -124,7 +125,7 @@
                                         <td>Ksh {{$invoice->amount}}
                                             <hr>
                                             @if(!is_null($invoice->payment_id))
-                                                <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
+                                                <p class="text-muted mb-0">Ksh:dfkgj</p>
                                             @else
                                                 <span class="badge badge-danger">Not Paid</span>
                                             @endif
@@ -145,9 +146,10 @@
                                         @else
                                             <td><span class="badge badge-success">Paid</span></td>
 
-                                            @endif
                                             </td>
-                                            <td>
+                                        @endif
+
+                                        <td>
                                                 <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
                                             </td>
 
