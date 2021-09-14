@@ -75,15 +75,7 @@ class MpesaController extends Controller
                         $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
                         $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                         if ($getInvoice){
-                            $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
-                            $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
-                            if ($getReference){
-                                if ($getRef){
-
-                                }
-                            }
-                            else{
-                                $currentBalance = $getInvoice->balance - $input['event']['resource']['amount'];
+                            $currentBalance = $getInvoice->balance - $input['event']['resource']['amount'];
                                 $createPayment = Mpesa::create([
                                     'reference'=>$input['event']['resource']['reference'],
                                     $dateFormat = $input['event']['resource']['origination_time'],
@@ -243,7 +235,6 @@ class MpesaController extends Controller
                                     }
 
                                 }
-                            }
 
                         }
                         else{
