@@ -79,7 +79,12 @@
                                 <td>{{$customer->first_name}} {{$customer->last_name}}</td>
                                 <td>{{$customer->location}}</td>
                                 <td>{{$customer->bandwidth}} Mbps</td>
+                                    @if($customer->amount!=0)
                                 <td>Ksh: {{$customer->amount}}</td>
+                                    @else
+                                        <td><span class="badge badge-danger">Not Paid</span></td>
+
+                                    @endif
                                     @if($customer->payment_date==0)
                                 <td><span class="badge badge-danger">Not Paid</span></td>
                                     @else
