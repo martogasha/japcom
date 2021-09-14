@@ -54,8 +54,12 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request){
             $input = $request->json()->all();
             $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
-            if ($getReference){
+        $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
 
+        if ($getReference){
+            if ($getRef){
+
+            }
             }
             else{
                 $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
@@ -63,15 +67,6 @@ class MpesaController extends Controller
 
                 }
                 else{
-                    $getReference = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
-                    $getRef = Payment::where('reference',$input['event']['resource']['reference'])->first();
-
-                    if ($getReference){
-                        if ($getRef){
-
-                        }
-                    }
-                    else{
                         $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
                         $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                         if ($getInvoice){
@@ -274,7 +269,6 @@ class MpesaController extends Controller
                             $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPay->date]);
                             $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
                         }
-                    }
 
                 }
 
