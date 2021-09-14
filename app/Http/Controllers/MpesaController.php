@@ -58,11 +58,13 @@ class MpesaController extends Controller
         if ($getReference) {
             if ($getRef) {
 
-            } else {
+            }
+            else {
                 $getRef = Payment::where('reference', $input['event']['resource']['reference'])->first();
                 if ($getRef) {
 
-                } else {
+                }
+                else {
                     $getUserIdentification = User::where('phone', $input['event']['resource']['sender_phone_number'])->first();
                     $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
                     if ($getInvoice) {
@@ -221,7 +223,8 @@ class MpesaController extends Controller
 
                         }
 
-                    } else {
+                    }
+                    else {
                         $getUser = User::find($getUserIdentification->id);
                         $getCurrectInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 1)->latest('id')->first();
                         $currentBalance = $getUser->balance - $input['event']['resource']['amount'];
