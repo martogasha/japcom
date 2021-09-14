@@ -413,7 +413,7 @@ class AdminController extends Controller
                 $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$getUser->id)->update(['amount'=>$createP->amount]);
-                    $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>$request->due_date]);
+                        $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>$request->due_date]);
                 $updateDueDate = User::where('id',$getUser->id)->update(['due_date'=>$nextDate]);
             }
             else {
@@ -440,7 +440,7 @@ class AdminController extends Controller
                 $nextDate =  date('m/d/Y', strtotime($request->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$request->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$request->id)->update(['amount'=>0]);
-                    $updatePaymentDate = User::where('id',$request->id)->update(['payment_date'=>$request->due_date]);
+                    $updatePaymentDate = User::where('id',$request->id)->update(['payment_date'=>0]);
                 $updateDueDate = User::where('id',$request->id)->update(['due_date'=>$nextDate]);
             }
         }
