@@ -31,27 +31,21 @@
                             </div>
                         </div>
                     </div>
-                    <form class="new-added-form">
+                    <form action="{{url('storeExpense')}}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Name *</label>
-                                <select class="select2">
-                                    <option value="">Please Select Name *</option>
-                                    <option value="1">Maxmillan Kibe</option>
-                                </select>
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Details</label>
-                                <input type="text" placeholder="" class="form-control">
+                                <label>Expense Details</label>
+                                <input type="text" name="details" placeholder="" class="form-control">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Amount</label>
-                                <input type="text" placeholder="" class="form-control">
+                                <input type="text" name="amount" placeholder="" class="form-control">
                             </div>
 
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Date *</label>
-                                <input type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker">
+                                <input type="text" name=date placeholder="dd/mm/yyyy" class="form-control air-datepicker">
                                 <i class="far fa-calendar-alt"></i>
                             </div>
 
@@ -91,6 +85,9 @@
 <script src="js/main.js"></script>
 
 </body>
+<script>
+    alert('ok')
+</script>
 
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/add-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:38 GMT -->
