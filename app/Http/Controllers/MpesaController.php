@@ -224,25 +224,45 @@ class MpesaController extends Controller
                 }
                 else{
                     $getUser = User::find($getUserIdentification->id);
-                    $currentBalance = $getUser->balance - $input['event']['resource']['amount'];
-                    $createPayment = Mpesa::create([
-                        'reference'=>$input['event']['resource']['reference'],
-                        $dateFormat = $input['event']['resource']['origination_time'],
-                        'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
-                        'senderFirstName'=>$input['event']['resource']['sender_first_name'],
-                        'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
-                        'senderLastName'=>$input['event']['resource']['sender_last_name'],
-                        'senderPhoneNumber'=>$input['event']['resource']['sender_phone_number'],
-                        'amount'=>$input['event']['resource']['amount'],
-                        'status'=>$input['event']['resource']['status'],
-                        'system'=>$input['event']['resource']['system'],
-                        'currency'=>$input['event']['resource']['currency'],
-                        'invoice_id'=>0,
+                    if ($getUser){
+                        $currentBalance = $getUser->balance - $input['event']['resource']['amount'];
+                        $createPayment = Mpesa::create([
+                            'reference'=>$input['event']['resource']['reference'],
+                            $dateFormat = $input['event']['resource']['origination_time'],
+                            'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
+                            'senderFirstName'=>$input['event']['resource']['sender_first_name'],
+                            'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
+                            'senderLastName'=>$input['event']['resource']['sender_last_name'],
+                            'senderPhoneNumber'=>$input['event']['resource']['sender_phone_number'],
+                            'amount'=>$input['event']['resource']['amount'],
+                            'status'=>$input['event']['resource']['status'],
+                            'system'=>$input['event']['resource']['system'],
+                            'currency'=>$input['event']['resource']['currency'],
+                            'invoice_id'=>0,
 
-                    ]);
-                    $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
-                    $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPayment->originationTime]);
-                    $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
+                        ]);
+                        $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
+                        $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPayment->originationTime]);
+                        $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
+                    }
+                    else{
+                        $createPayment = Mpesa::create([
+                            'reference'=>$input['event']['resource']['reference'],
+                            $dateFormat = $input['event']['resource']['origination_time'],
+                            'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
+                            'senderFirstName'=>$input['event']['resource']['sender_first_name'],
+                            'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
+                            'senderLastName'=>$input['event']['resource']['sender_last_name'],
+                            'senderPhoneNumber'=>$input['event']['resource']['sender_phone_number'],
+                            'amount'=>$input['event']['resource']['amount'],
+                            'status'=>$input['event']['resource']['status'],
+                            'system'=>$input['event']['resource']['system'],
+                            'currency'=>$input['event']['resource']['currency'],
+                            'invoice_id'=>0,
+
+                        ]);
+                    }
+
                 }
             }
 
