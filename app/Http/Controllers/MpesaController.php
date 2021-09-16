@@ -224,7 +224,6 @@ class MpesaController extends Controller
                 }
                 else{
                     $getUser = User::find($getUserIdentification->id);
-                    $getCurrectInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',1)->latest('id')->first();
                     $currentBalance = $getUser->balance - $input['event']['resource']['amount'];
                     $createPayment = Mpesa::create([
                         'reference'=>$input['event']['resource']['reference'],
@@ -238,25 +237,11 @@ class MpesaController extends Controller
                         'status'=>$input['event']['resource']['status'],
                         'system'=>$input['event']['resource']['system'],
                         'currency'=>$input['event']['resource']['currency'],
-                        'invoice_id'=>$getInvoice->id,
+                        'invoice_id'=>0,
 
                     ]);
-                    $createPay = Payment::create([
-                        'user_id'=>$getUserIdentification->id,
-                        'invoice_id'=>$getInvoice->id,
-                        'reference'=>$input['event']['resource']['reference'],
-                        'date'=>date("d/m/Y", strtotime($dateFormat)),
-                        'amount'=>$createPayment->amount,
-                        'status'=>1,
-                        'payment_method'=>'Mpesa',
-
-                    ]);
-                    $updateBalance = Invoice::where('user_id',$getUserIdentification->id)->where('status',1)->update(['balance'=>$currentBalance]);
-                    $updateIBalance = Payment::where('invoice_id',$getInvoice->id)->where('id',$createPay->id)->update(['invoice_balance'=>$currentBalance]);
-                    $updateCashAmount = Invoice::where('user_id',$getUserIdentification->id)->where('status',1)->update(['mpesa_id'=>$createPayment->id]);
-                    $updateInvoicePayment = Invoice::where('user_id',$getUserIdentification->id)->where('status',1)->update(['payment_id',$createPay->id]);
-                    $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPay->amount]);
-                    $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPay->date]);
+                    $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
+                    $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPayment->date]);
                     $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
                 }
             }
