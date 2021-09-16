@@ -54,7 +54,7 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request){
         $collection = $request->json()->all();
         $collection = collect($collection);
-        $input = $collection->unique();
+        $input = $collection->unique('event');
         $input->values()->all();
                 $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
                 $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
