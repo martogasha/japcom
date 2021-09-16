@@ -241,7 +241,7 @@ class MpesaController extends Controller
 
                     ]);
                     $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
-                    $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPayment->date]);
+                    $updateUserDate = User::where('id',$getUserIdentification->id)->update(['payment_date'=>$createPayment->originationTime]);
                     $updateUserBalance = User::where('id',$getUserIdentification->id)->update(['balance'=>$currentBalance]);
                 }
             }
