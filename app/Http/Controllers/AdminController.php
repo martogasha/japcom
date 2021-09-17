@@ -749,6 +749,7 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
+        $nextDate =  date('d/m/Y', strtotime($request->due_date));
         $store = User::create([
            'first_name'=>$request->first_name,
            'last_name'=>$request->last_name,
@@ -756,7 +757,7 @@ class AdminController extends Controller
            'phone'=>$request->phone,
            'location'=>$request->location,
            'bandwidth'=>$request->bandwidth,
-           'payment_date'=>$request->payment_date,
+           'payment_date'=>$nextDate,
            'time_difference'=>$request->time_difference,
            'due_date'=>$request->due_date,
            'date_to_send_sms'=>$request->sms_date,
