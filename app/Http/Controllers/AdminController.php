@@ -925,8 +925,9 @@ class AdminController extends Controller
             $updateCashAmount = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->update(['cash_id'=>$createPayment->id]);
             $updatePaymentId = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->update(['payment_id'=>$createPay->id]);
             $updateCash = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->update(['cash_amount'=>$request->amount]);
-            $updateUserAmount = User::where('id',$request->user_id)->update(['amount'=>$request->amount]);
-            $updateUserDate = User::where('id',$request->user_id)->update(['payment_date'=>$nextDate]);
+            $updateAmountForUser = User::where('id',$request->user_id)->update(['amount'=>$request->amount]);
+            $nextD = date("d/m/Y", strtotime($request->payment_date));
+            $updateDateForUsers = User::where('id',$request->user_id)->update(['payment_date'=>$nextD]);
             $userBalance = Invoice::where('user_id',$request->user_id)->where('status',0)->sum('balance');
             $updateUserBalance = User::where('id',$request->user_id)->update(['balance'=>$userBalance]);
             $getInv = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
