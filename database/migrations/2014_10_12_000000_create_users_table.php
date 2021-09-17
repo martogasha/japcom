@@ -21,11 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('location')->nullable();
             $table->integer('bandwidth')->nullable();
-            $table->string('payment_date')->nullable();
-            $table->string('due_date')->nullable();
-            $table->string('sms_date')->nullable();
+            $table->date('payment_date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->date('sms_date')->nullable();
             $table->integer('time_difference')->nullable();
-            $table->string('date_to_send_sms')->nullable();
+            $table->date('date_to_send_sms')->nullable();
             $table->integer('amount')->nullable();
             $table->integer('amount_supposed_to_be_paid')->nullable();
             $table->integer('package_amount')->nullable();

@@ -337,7 +337,7 @@ class AdminController extends Controller
         $getUser = User::find($request->id);
         if ($getExistingInvoice){
             if ($getUser->payment_date==0){
-                $nextDatePrototype =  date('d/m/Y', strtotime($getUser->due_date. ' - 1 month'));
+                $nextDatePrototype =  date('dd/m/Y', strtotime($getUser->due_date. ' - 1 month'));
                 $date1 =$nextDatePrototype;
                 $date2 =$getUser->due_date;
             }
@@ -368,10 +368,11 @@ class AdminController extends Controller
                 'statas'=>0,
             ]);
             $terminateInvoice = Invoice::where('id',$getExistingInvoice->id)->update(['status'=>2]);
-            $nextDate =  date('d/m/Y', strtotime($getUser->due_date. ' + 1 month'));
             $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
             $updateAmount = User::where('id',$getUser->id)->update(['amount'=>0]);
             $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>0]);
+            $time = strtotime($getUser->due_date);
+            $nextDate = date("d/m/Y", strtotime("+1 month", $time));
             $updateDueDate = User::where('id',$getUser->id)->update(['due_date'=>$nextDate]);
         }
         else{
@@ -410,10 +411,11 @@ class AdminController extends Controller
                     'payment_method'=>'Balance Carry Over',
                 ]);
                 $updateInvoice = Invoice::where('id',$createInvoice->id)->update(['payment_id'=>$createP->id]);
-                $nextDate =  date('d/m/Y', strtotime($getUser->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$getUser->id)->update(['amount'=>$createP->amount]);
-                        $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>$request->due_date]);
+                $updatePaymentDate = User::where('id',$getUser->id)->update(['payment_date'=>$request->due_date]);
+                $time = strtotime($getUser->due_date);
+                $nextDate = date("d/m/Y", strtotime("+1 month", $time));
                 $updateDueDate = User::where('id',$getUser->id)->update(['due_date'=>$nextDate]);
             }
             else {
@@ -437,10 +439,11 @@ class AdminController extends Controller
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['payment_id'=>$createP1->id]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['balance'=>$total]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['balance'=>$total]);
-                $nextDate =  date('d/m/Y', strtotime($request->due_date. ' + 1 month'));
                 $updateBalance = User::where('id',$request->id)->update(['balance'=>$total]);
                 $updateAmount = User::where('id',$request->id)->update(['amount'=>0]);
-                    $updatePaymentDate = User::where('id',$request->id)->update(['payment_date'=>0]);
+                $updatePaymentDate = User::where('id',$request->id)->update(['payment_date'=>0]);
+                $time = strtotime($getUser->due_date);
+                $nextDate = date("d/m/Y", strtotime("+1 month", $time));
                 $updateDueDate = User::where('id',$request->id)->update(['due_date'=>$nextDate]);
             }
         }
@@ -895,7 +898,7 @@ class AdminController extends Controller
         return response($output);
     }
             public function makeCashPayment(Request $request){
-        $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
+                $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         if ($getInvoice){
             $currentBalance = $getInvoice->balance - $request->amount;
