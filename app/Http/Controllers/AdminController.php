@@ -783,7 +783,7 @@ class AdminController extends Controller
             $usage_time = $days;
         }
         $createInvoice = Invoice::create([
-            'invoice_date'=>$request->payment_date,
+            'invoice_date'=>$nextDate,
             'amount'=>$request->amount_supposed_to_pay,
             'user_id'=>$store->id,
             'usage_time'=>$usage_time,
@@ -809,14 +809,14 @@ class AdminController extends Controller
                     'user_id'=>$store->id,
                     'invoice_id'=>$getInvoice->id,
                     'amount'=>$request->amount,
-                    'date'=>$request->payment_date,
+                    'date'=>$nextDate,
                     'reason'=>'Internet Subscription',
                 ]);
                 $createPay = Payment::create([
                     'user_id'=>$store->id,
                     'invoice_id'=>$getInvoice->id,
                     'amount'=>$request->amount,
-                    'date'=>$request->payment_date,
+                    'date'=>$nextDate,
                     'payment_method'=>'Cash',
                 ]);
                 $nextDate =  date('d/m/Y', strtotime($request->payment_date));
@@ -839,14 +839,14 @@ class AdminController extends Controller
                         'user_id'=>$store->id,
                         'invoice_id'=>$getInvoice->id,
                         'amount'=>$request->amount,
-                        'date'=>$request->payment_date,
+                        'date'=>$nextDate,
                         'reason'=>'Internet Subscription',
                     ]);
                     $createPay1 = Payment::create([
                         'user_id'=>$store->id,
                         'invoice_id'=>$getInv->id,
                         'amount'=>$request->amount,
-                        'date'=>$request->payment_date,
+                        'date'=>$nextDate,
                         'payment_method'=>'Cash',
                     ]);
                     $nextDate =  date('d/m/Y', strtotime($request->payment_date));
