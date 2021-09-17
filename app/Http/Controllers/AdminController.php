@@ -749,7 +749,7 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
-        $paymentDate =  date('d/m/Y', strtotime($request->payment_date));
+        $paymentDate =  date('d-m-Y', strtotime($request->payment_date));
         $store = User::create([
            'first_name'=>$request->first_name,
            'last_name'=>$request->last_name,
@@ -791,7 +791,7 @@ class AdminController extends Controller
             'status'=>0,
             'statas'=>0,
         ]);
-        $nextDate =  date('d/m/Y', strtotime($request->due_date));
+        $nextDate =  date('d-m-Y', strtotime($request->due_date));
         $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
         $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);
         $updatePaymentDate = User::where('id',$store->id)->update(['payment_date'=>0]);
