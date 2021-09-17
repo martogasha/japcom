@@ -900,7 +900,7 @@ class AdminController extends Controller
             public function makeCashPayment(Request $request){
                 $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
-                $nextDate = date("d/m/Y", strtotime($request->payment_date));
+                $nextDate = date("dd/mm/yyyy", strtotime($request->payment_date));
         if ($getInvoice){
             $currentBalance = $getInvoice->balance - $request->amount;
             $createPayment = Cash::create([
