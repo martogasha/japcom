@@ -124,7 +124,7 @@
                                         </td>
                                         <td>Ksh {{$invoice->amount}}
                                             <hr>
-                                            @if(($invoice->payment->amount!=0))
+                                            @if($invoice->payment->amount!=0)
                                                     <p class="text-muted mb-0">Ksh: {{$invoice->payment->amount}}</p>
                                             @else
                                                 <span class="badge badge-danger">Not Paid</span>
@@ -133,7 +133,7 @@
                                         </td>
                                         <td>{{$invoice->invoice_date}}
                                             <hr>
-                                            @if(($invoice->payment->amount!=0))
+                                            @if($invoice->payment->amount!=0)
                                                 <p class="text-muted mb-0">{{$invoice->payment->date}}</p>
                                             @else
                                                 <span class="badge badge-danger">Not Paid</span>
