@@ -15,7 +15,7 @@ class MpesaController extends Controller
 {
     public function index(){
         $mpesas = Mpesa::where('status','!=',3)->get();
-        $total = Mpesa::sum('amount');
+        $total = Mpesa::where('status','!=',3)->sum('amount');
         return view('admin.mpesa',[
             'mpesas'=>$mpesas,
             'total'=>$total,
