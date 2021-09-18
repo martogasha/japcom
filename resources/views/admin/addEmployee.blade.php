@@ -94,42 +94,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="container" id="admin_type">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="products" value="5" id="customCheck1" checked>
-                                            <label class="custom-control-label" for="customCheck1">Products</label>
-                                        </div>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="users" value="6" id="customCheck2" checked>
-                                            <label class="custom-control-label" for="customCheck2">Users</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="customers" value="7" id="customCheck3" checked>
-                                            <label class="custom-control-label" for="customCheck3">Customers</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="payments" value="8" id="customCheck4" checked>
-                                            <label class="custom-control-label" for="customCheck4">Payments</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="expenses" value="9" id="customCheck5" checked>
-                                            <label class="custom-control-label" for="customCheck5">Expenses</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="estimate" value="10" id="customCheck6" checked>
-                                            <label class="custom-control-label" for="customCheck6">Estimate</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="invoice" value="11" id="customCheck7" checked>
-                                            <label class="custom-control-label" for="customCheck7">Invoice</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                                 <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
@@ -170,17 +134,11 @@
 <script>
     $(document).ready(function () {
        $('#role_type').hide();
-       $('#admin_type').hide();
     });
     $('#getRole').on('change',function () {
         $value = $('#getRole').val();
         if ($value==1){
             $('#role_type').show();
-            $('#admin_type').hide();
-        }
-        else{
-            $('#admin_type').show();
-            $('#role_type').hide();
         }
     });
         $('#payment_date').change(function () {
