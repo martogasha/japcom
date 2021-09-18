@@ -53,7 +53,8 @@ class MpesaController extends Controller
 
     public function storeWebhooks(Request $request){
             $duplicate = $request->json()->all();
-            $input = array_unique($duplicate);
+            $dub = array($duplicate);
+            $input = array_unique($dub);
             $getRef = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
                 if (!is_null($getRef)){
 
