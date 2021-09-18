@@ -55,7 +55,7 @@ class MpesaController extends Controller
             $duplicate = $request->json()->all();
             $dub = array($duplicate);
         $rev = array_unique($dub);
-        $input = array_reverse($rev);
+        $input = json_encode($rev);
             Log::info($input['event']['resource']['reference']);
             $getRef = Mpesa::where('reference',$input['event']['resource']['reference'])->first();
                 if (!is_null($getRef)){
