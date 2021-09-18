@@ -60,12 +60,12 @@ class MpesaController extends Controller
             else{
                 $getUserIdentification = User::where('phone',$input['event']['resource']['sender_phone_number'])->first();
                 $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
+                $dateFormat = $input['event']['resource']['origination_time'];
                 if ($getInvoice){
                     $currentBalance = $getInvoice->balance - $input['event']['resource']['amount'];
                     $createPayment = Mpesa::create([
                         'reference'=>$input['event']['resource']['reference'],
-                        $dateFormat = $input['event']['resource']['origination_time'],
-                        'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
+                        'originationTime'=> date("d-m-Y", strtotime($dateFormat)),
                         'senderFirstName'=>$input['event']['resource']['sender_first_name'],
                         'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
                         'senderLastName'=>$input['event']['resource']['sender_last_name'],
@@ -81,7 +81,7 @@ class MpesaController extends Controller
                         'user_id'=>$getUserIdentification->id,
                         'invoice_id'=>$getInvoice->id,
                         'reference'=>$input['event']['resource']['reference'],
-                        'date'=>date("d/m/Y", strtotime($dateFormat)),
+                        'date'=>date("d-m-Y", strtotime($dateFormat)),
                         'amount'=>$createPayment->amount,
                         'status'=>1,
                         'payment_method'=>'Mpesa',
@@ -93,8 +93,7 @@ class MpesaController extends Controller
                     $updateInvoiceMAmount = Invoice::where('id', $getInvoice->id)->update(['mpesa_amount' => $createPayment->amount]);
                     $updateIBalance = Payment::where('id', $createPay->id)->update(['invoice_balance' => $currentBalance]);
                     $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
-                    $getPayRecord = Payment::find($createPay->id);
-                    $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $getPayRecord->date]);
+                    $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPay->date]);
                     $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
                     $getInv = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                     if ($getInv->balance==0){
@@ -113,7 +112,7 @@ class MpesaController extends Controller
                                     'user_id'=>$getUserIdentification->id,
                                     'invoice_id'=>$getIn->id,
                                     'reference'=>$input['event']['resource']['reference'],
-                                    'date'=>$input['event']['resource']['origination_time'],
+                                    'date'=>date("d-m-Y", strtotime($dateFormat)),
                                     'amount'=>$getI->balance * -1,
                                     'status'=>1,
                                     'payment_method'=>'Mpesa',
@@ -148,7 +147,7 @@ class MpesaController extends Controller
                                                 'user_id'=>$getUserIdentification->id,
                                                 'invoice_id'=>$getIn2->id,
                                                 'reference'=>$input['event']['resource']['reference'],
-                                                'date'=>$input['event']['resource']['origination_time'],
+                                                'date'=>date("d-m-Y", strtotime($dateFormat)),
                                                 'amount'=>$getI2->balance * -1,
                                                 'status'=>1,
                                                 'payment_method'=>'Mpesa',
@@ -181,7 +180,7 @@ class MpesaController extends Controller
                                                             'invoice_id'=>$getIn3->id,
                                                             'user_id'=>$getUserIdentification->id,
                                                             'reference'=>$input['event']['resource']['reference'],
-                                                            'date'=>$input['event']['resource']['origination_time'],
+                                                            'date'=>date("d-m-Y", strtotime($dateFormat)),
                                                             'amount'=>$getI3->balance * -1,
                                                             'status'=>1,
                                                             'payment_method'=>'Mpesa',
@@ -228,8 +227,7 @@ class MpesaController extends Controller
                         $currentBalance = $getUser->balance - $input['event']['resource']['amount'];
                         $createPayment = Mpesa::create([
                             'reference'=>$input['event']['resource']['reference'],
-                            $dateFormat = $input['event']['resource']['origination_time'],
-                            'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
+                            'originationTime'=> date("d-m-Y", strtotime($dateFormat)),
                             'senderFirstName'=>$input['event']['resource']['sender_first_name'],
                             'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
                             'senderLastName'=>$input['event']['resource']['sender_last_name'],
@@ -248,8 +246,7 @@ class MpesaController extends Controller
                     else{
                         $createPayment = Mpesa::create([
                             'reference'=>$input['event']['resource']['reference'],
-                            $dateFormat = $input['event']['resource']['origination_time'],
-                            'originationTime'=> date("d/m/Y", strtotime($dateFormat)),
+                            'originationTime'=> date("d-m-Y", strtotime($dateFormat)),
                             'senderFirstName'=>$input['event']['resource']['sender_first_name'],
                             'senderMiddleName'=>$input['event']['resource']['sender_middle_name'],
                             'senderLastName'=>$input['event']['resource']['sender_last_name'],
