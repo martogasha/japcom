@@ -32,6 +32,13 @@ class CreateUsersTable extends Migration
             $table->integer('balance')->nullable();
             $table->integer('role');
             $table->integer('status')->nullable();
+            $table->integer('products')->nullable();
+            $table->integer('users')->nullable();
+            $table->integer('customers')->nullable();
+            $table->integer('payments')->nullable();
+            $table->integer('expenses')->nullable();
+            $table->integer('estimate')->nullable();
+            $table->integer('invoice')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

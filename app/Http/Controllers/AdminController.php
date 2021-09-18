@@ -117,6 +117,13 @@ class AdminController extends Controller
            'phone'=>$request->phone,
            'email'=>$request->email,
            'role'=>$request->role,
+           'products'=>$request->products,
+           'users'=>$request->users,
+           'customers'=>$request->customers,
+           'payments'=>$request->payments,
+           'expenses'=>$request->expenses,
+           'estimate'=>$request->estimate,
+           'invoice'=>$request->invoice,
            'password'=>Hash::make('password'),
         ]);
         return redirect()->back()->with('success','EMPLOYEE ADDED SUCCESSFULLY');

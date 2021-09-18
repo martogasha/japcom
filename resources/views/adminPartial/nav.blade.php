@@ -252,6 +252,7 @@
                     <li class="nav-item sidebar-nav-item">
                         <a href="{{url('admin')}}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                     </li>
+                    @if(\Illuminate\Support\Facades\Auth::user()->products==5)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Products</span></a>
                         <ul class="nav sub-group-menu">
@@ -265,19 +266,23 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->users==6)
                     <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Employees</span></a>
+                        <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Users</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
                                 <a href="{{url('employees')}}" class="nav-link"><i class="fas fa-angle-right"></i>All
-                                    employees</a>
+                                    Users</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('addEmployee')}}" class="nav-link"><i
-                                        class="fas fa-angle-right"></i>Add Employee</a>
+                                        class="fas fa-angle-right"></i>Add User</a>
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->customers==7)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Customers</span></a>
                         <ul class="nav sub-group-menu">
@@ -291,6 +296,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->payments==8)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i
                                 class="flaticon-multiple-users-silhouette"></i><span>Payments</span></a>
@@ -304,6 +311,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->expenses==9)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Expenses</span></a>
                         <ul class="nav sub-group-menu">
@@ -317,6 +326,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->estimate==10)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Estimate</span></a>
                         <ul class="nav sub-group-menu">
@@ -329,6 +340,8 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Auth::user()->invoice==11)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Invoice</span></a>
                         <ul class="nav sub-group-menu">
@@ -338,6 +351,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Billing</span></a>
                         <ul class="nav sub-group-menu">

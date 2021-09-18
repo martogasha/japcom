@@ -32,6 +32,13 @@ class User extends Authenticatable
         'time_difference',
         'date_to_send_sms',
         'role',
+        'products',
+        'users',
+        'customers',
+        'payments',
+        'expenses',
+        'estimate',
+        'invoice',
         'password',
     ];
 
