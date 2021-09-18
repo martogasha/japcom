@@ -789,6 +789,20 @@ class AdminController extends Controller
             'status'=>0,
             'statas'=>0,
         ]);
+        $createPayment = Mpesa::create([
+            'reference'=>'HU7TGVG5',
+            'originationTime'=> $paymentDate,
+            'senderFirstName'=>'joe',
+            'senderMiddleName'=>'middle',
+            'senderLastName'=>'doe',
+            'senderPhoneNumber'=>$request->phone,
+            'amount'=>$request->amount,
+            'status'=>3,
+            'system'=>'Till',
+            'currency'=>'Ksh',
+            'invoice_id'=>$createInvoice->id,
+
+        ]);
         $nextDate =  date('d-m-Y', strtotime($request->due_date));
         $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
         $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);

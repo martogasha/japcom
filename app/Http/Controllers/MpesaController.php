@@ -14,7 +14,7 @@ use Kopokopo\SDK\K2;
 class MpesaController extends Controller
 {
     public function index(){
-        $mpesas = Mpesa::all();
+        $mpesas = Mpesa::where('status','!=',3)->get();
         $total = Mpesa::sum('amount');
         return view('admin.mpesa',[
             'mpesas'=>$mpesas,
