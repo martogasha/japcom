@@ -70,9 +70,7 @@ class MpesaController extends Controller
             'system'=>$input[0]['event']['resource']['system'],
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
-        $uniquePayments = Money::all();
-            foreach ($uniquePayments as $uniquePayment){
-                    $getUserIdentification = User::where('phone', $uniquePayment->senderPhoneNumber)->first();
+                    $getUserIdentification = User::where('phone', $duplicatePayments->senderPhoneNumber)->first();
                     $getUniquePayment = Money::where('senderPhoneNumber', $getUserIdentification->phone)->first();
                     $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                     if ($getInvoice){
@@ -275,7 +273,7 @@ class MpesaController extends Controller
 
                     }
 
-            }
+
 
 
 
