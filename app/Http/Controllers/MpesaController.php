@@ -70,8 +70,12 @@ class MpesaController extends Controller
             'system'=>$input[0]['event']['resource']['system'],
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
-                    $getUserIdentification = User::where('phone', $duplicatePayments->senderPhoneNumber)->first();
-                    $getUniquePayment = Money::where('senderPhoneNumber', $getUserIdentification->phone)->first();
+        $collection = Money::all();
+        $collection = $collection->map(function ($array) {
+            return collect($array)->unique('reference')->all();
+        });
+       foreach ($collection as $getUniquePayment)
+                    $getUserIdentification = User::where('phone', $getUniquePayment->senderPhoneNumber)->first();
                     $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                     if ($getInvoice){
                         $currentBalance = $getInvoice->balance - $getUniquePayment->amount;
@@ -232,7 +236,7 @@ class MpesaController extends Controller
                             }
 
                         }
-                        $deletedup = Money::where('senderPhoneNumber',$getUserIdentification->phone)->delete();
+                        $deletedup = Money::where('reference',$getUniquePayment->reference)->delete();
                     }
                     else{
                         $getUser = User::find($getUserIdentification->id);
@@ -269,7 +273,7 @@ class MpesaController extends Controller
                                 'currency'=>$getUniquePayment->currency,
                             ]);
                         }
-                        $deletedup = Money::where('senderPhoneNumber',$getUserIdentification->phone)->delete();
+                        $deletedup = Money::where('reference',$getUniquePayment->reference)->delete();
 
                     }
 
