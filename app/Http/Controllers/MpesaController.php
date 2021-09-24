@@ -71,7 +71,7 @@ class MpesaController extends Controller
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
         $duplicatePay = Money::all();
-        $filterPayments = $duplicatePay->unique();
+        $filterPayments = $duplicatePay->unique('reference');
         foreach ($filterPayments as $filterPayment){
             $createP = Filter::create([
                 'reference'=>$filterPayment->reference,
@@ -84,7 +84,6 @@ class MpesaController extends Controller
                 'status'=>$filterPayment->status,
                 'system'=>$filterPayment->system,
                 'currency'=>$filterPayment->currency,
-
             ]);
             Money::truncate();
         }
