@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cash;
+use App\Models\Filter;
 use App\Models\Invoice;
 use App\Models\Money;
 use App\Models\Mpesa;
@@ -69,10 +70,25 @@ class MpesaController extends Controller
             'system'=>$input[0]['event']['resource']['system'],
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
-        $userRoles = Money::groupBy('reference', 'senderPhoneNumber')->get();
-        $userRolesId = array_column($userRoles ->toArray(), 'id');
-        Money::whereNotIn('id', $userRolesId )->delete();
-        $uniquePayments = Money::all();
+        $duplicatePayments = Money::all();
+        $filterPayments = $duplicatePayments->unique();
+        foreach ($filterPayments as $filterPayment){
+            $createP = Filter::create([
+                'reference'=>$filterPayment->reference,
+                'originationTime'=> $filterPayment->originationTime,
+                'senderFirstName'=>$filterPayment->senderFirstName,
+                'senderMiddleName'=>$filterPayment->senderMiddleName,
+                'senderLastName'=>$filterPayment->senderLastName,
+                'senderPhoneNumber'=>$filterPayment->senderPhoneNumber,
+                'amount'=>$filterPayment->amount,
+                'status'=>$filterPayment->status,
+                'system'=>$filterPayment->system,
+                'currency'=>$filterPayment->currency,
+
+            ]);
+            Money::truncate();
+        }
+        Log::info($filterPayments);
             foreach ($uniquePayments as $uniquePayment){
                     $getUserIdentification = User::where('phone', $uniquePayment->senderPhoneNumber)->first();
                     $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
