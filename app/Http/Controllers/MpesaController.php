@@ -70,8 +70,8 @@ class MpesaController extends Controller
             'system'=>$input[0]['event']['resource']['system'],
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
-        $duplicatePayments = Money::all();
-        $filterPayments = $duplicatePayments->unique();
+        $duplicatePay = Money::all();
+        $filterPayments = $duplicatePay->unique();
         foreach ($filterPayments as $filterPayment){
             $createP = Filter::create([
                 'reference'=>$filterPayment->reference,
