@@ -70,49 +70,33 @@ class MpesaController extends Controller
             'system'=>$input[0]['event']['resource']['system'],
             'currency'=>$input[0]['event']['resource']['currency'],
         ]);
-        $duplicatePay = Money::all();
-        $filterPayments = $duplicatePay->unique('reference');
-        foreach ($filterPayments as $filterPayment){
-            $createP = Filter::create([
-                'reference'=>$filterPayment->reference,
-                'originationTime'=> $filterPayment->originationTime,
-                'senderFirstName'=>$filterPayment->senderFirstName,
-                'senderMiddleName'=>$filterPayment->senderMiddleName,
-                'senderLastName'=>$filterPayment->senderLastName,
-                'senderPhoneNumber'=>$filterPayment->senderPhoneNumber,
-                'amount'=>$filterPayment->amount,
-                'status'=>$filterPayment->status,
-                'system'=>$filterPayment->system,
-                'currency'=>$filterPayment->currency,
-            ]);
-            Money::truncate();
-        }
-        Log::info($filterPayments);
+        $uniquePayments = Money::all();
             foreach ($uniquePayments as $uniquePayment){
                     $getUserIdentification = User::where('phone', $uniquePayment->senderPhoneNumber)->first();
+                    $getUniquePayment = Money::where('senderPhoneNumber', $getUserIdentification->phone)->first();
                     $getInvoice = Invoice::where('user_id',$getUserIdentification->id)->where('status',0)->first();
                     if ($getInvoice){
-                        $currentBalance = $getInvoice->balance - $uniquePayment->amount;
+                        $currentBalance = $getInvoice->balance - $getUniquePayment->amount;
                         $createPayment = Mpesa::create([
-                            'reference'=>$uniquePayment->reference,
-                            'originationTime'=> $uniquePayment->originationTime,
-                            'senderFirstName'=>$uniquePayment->senderFirstName,
-                            'senderMiddleName'=>$uniquePayment->senderMiddleName,
-                            'senderLastName'=>$uniquePayment->senderLastName,
-                            'senderPhoneNumber'=>$uniquePayment->senderPhoneNumber,
-                            'amount'=>$uniquePayment->amount,
-                            'status'=>$uniquePayment->status,
-                            'system'=>$uniquePayment->system,
-                            'currency'=>$uniquePayment->currency,
+                            'reference'=>$getUniquePayment->reference,
+                            'originationTime'=> $getUniquePayment->originationTime,
+                            'senderFirstName'=>$getUniquePayment->senderFirstName,
+                            'senderMiddleName'=>$getUniquePayment->senderMiddleName,
+                            'senderLastName'=>$getUniquePayment->senderLastName,
+                            'senderPhoneNumber'=>$getUniquePayment->senderPhoneNumber,
+                            'amount'=>$getUniquePayment->amount,
+                            'status'=>$getUniquePayment->status,
+                            'system'=>$getUniquePayment->system,
+                            'currency'=>$getUniquePayment->currency,
                             'invoice_id'=>$getInvoice->id,
 
                         ]);
                         $createPay = Payment::create([
                             'user_id'=>$getUserIdentification->id,
                             'invoice_id'=>$getInvoice->id,
-                            'reference'=>$uniquePayment->reference,
-                            'date'=>$uniquePayment->originationTime,
-                            'amount'=>$createPayment->amount,
+                            'reference'=>$getUniquePayment->reference,
+                            'date'=>$getUniquePayment->originationTime,
+                            'amount'=>$getUniquePayment->amount,
                             'status'=>1,
                             'payment_method'=>'Mpesa',
 
@@ -250,22 +234,23 @@ class MpesaController extends Controller
                             }
 
                         }
+                        $deletedup = Money::where('senderPhoneNumber',$getUserIdentification->phone)->delete();
                     }
                     else{
                         $getUser = User::find($getUserIdentification->id);
                         if ($getUser){
-                            $currentBalance = $getUser->balance - $uniquePayment->amount;
+                            $currentBalance = $getUser->balance - $getUniquePayment->amount;
                             $createPayment = Mpesa::create([
-                                'reference'=>$uniquePayment->reference,
-                                'originationTime'=> $uniquePayment->originationTime,
-                                'senderFirstName'=>$uniquePayment->senderFirstName,
-                                'senderMiddleName'=>$uniquePayment->senderMiddleName,
-                                'senderLastName'=>$uniquePayment->senderLastName,
-                                'senderPhoneNumber'=>$uniquePayment->senderPhoneNumber,
-                                'amount'=>$uniquePayment->amount,
-                                'status'=>$uniquePayment->status,
-                                'system'=>$uniquePayment->system,
-                                'currency'=>$uniquePayment->currency,
+                                'reference'=>$getUniquePayment->reference,
+                                'originationTime'=> $getUniquePayment->originationTime,
+                                'senderFirstName'=>$getUniquePayment->senderFirstName,
+                                'senderMiddleName'=>$getUniquePayment->senderMiddleName,
+                                'senderLastName'=>$getUniquePayment->senderLastName,
+                                'senderPhoneNumber'=>$getUniquePayment->senderPhoneNumber,
+                                'amount'=>$getUniquePayment->amount,
+                                'status'=>$getUniquePayment->status,
+                                'system'=>$getUniquePayment->system,
+                                'currency'=>$getUniquePayment->currency,
 
                             ]);
                             $updateUserAmount = User::where('id',$getUserIdentification->id)->update(['amount'=>$createPayment->amount]);
@@ -274,21 +259,21 @@ class MpesaController extends Controller
                         }
                         else{
                             $createPayment = Mpesa::create([
-                                'reference'=>$uniquePayment->reference,
-                                'originationTime'=> $uniquePayment->originationTime,
-                                'senderFirstName'=>$uniquePayment->senderFirstName,
-                                'senderMiddleName'=>$uniquePayment->senderMiddleName,
-                                'senderLastName'=>$uniquePayment->senderLastName,
-                                'senderPhoneNumber'=>$uniquePayment->senderPhoneNumber,
-                                'amount'=>$uniquePayment->amount,
-                                'status'=>$uniquePayment->status,
-                                'system'=>$uniquePayment->system,
-                                'currency'=>$uniquePayment->currency,
+                                'reference'=>$getUniquePayment->reference,
+                                'originationTime'=> $getUniquePayment->originationTime,
+                                'senderFirstName'=>$getUniquePayment->senderFirstName,
+                                'senderMiddleName'=>$getUniquePayment->senderMiddleName,
+                                'senderLastName'=>$getUniquePayment->senderLastName,
+                                'senderPhoneNumber'=>$getUniquePayment->senderPhoneNumber,
+                                'amount'=>$getUniquePayment->amount,
+                                'status'=>$getUniquePayment->status,
+                                'system'=>$getUniquePayment->system,
+                                'currency'=>$getUniquePayment->currency,
                             ]);
                         }
+                        $deletedup = Money::where('senderPhoneNumber',$getUserIdentification->phone)->delete();
 
                     }
-                    $deteleDuplicate = Money::where('reference', $uniquePayment->reference)->delete();
 
             }
 
