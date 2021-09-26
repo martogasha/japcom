@@ -73,7 +73,7 @@ class MpesaController extends Controller
                 'system' => $input[0]['event']['resource']['system'],
                 'currency' => $input[0]['event']['resource']['currency'],
             ]);
-            $collection = Money::select('reference')->distinct()->get();
+            $collection = Money::all();
             foreach ($collection as $getUniquePayment){
                 $getUserIdentification = User::where('phone', $getUniquePayment->senderPhoneNumber)->first();
                 $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
