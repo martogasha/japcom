@@ -52,7 +52,6 @@ class MpesaController extends Controller
         $response = $stk->getStatus($options);
         dd($response);
     }
-
     public function storeWebhooks(Request $request)
     {
         $duplicate = $request->json()->all();
@@ -61,212 +60,195 @@ class MpesaController extends Controller
         $dateFormat = $input[0]['event']['resource']['origination_time'];
         $chechIfExists = Money::where('reference', $input[0]['event']['resource']['reference'])->first();
         if (is_null($chechIfExists)) {
-            $duplicatePayments = Money::create([
-                'reference' => $input[0]['event']['resource']['reference'],
-                'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                'amount' => $input[0]['event']['resource']['amount'],
-                'status' => $input[0]['event']['resource']['status'],
-                'system' => $input[0]['event']['resource']['system'],
-                'currency' => $input[0]['event']['resource']['currency'],
-            ]);
-            $collection = Money::all();
-            foreach ($collection as $getUniquePayment){
-                $getUserIdentification = User::where('phone', $getUniquePayment->senderPhoneNumber)->first();
-                $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
-                if ($getInvoice) {
-                    $currentBalance = $getInvoice->balance - $getUniquePayment->amount;
-                    $createPayment = Mpesa::create([
-                        'reference' => $getUniquePayment->reference,
-                        'originationTime' => $getUniquePayment->originationTime,
-                        'senderFirstName' => $getUniquePayment->senderFirstName,
-                        'senderMiddleName' => $getUniquePayment->senderMiddleName,
-                        'senderLastName' => $getUniquePayment->senderLastName,
-                        'senderPhoneNumber' => $getUniquePayment->senderPhoneNumber,
-                        'amount' => $getUniquePayment->amount,
-                        'status' => $getUniquePayment->status,
-                        'system' => $getUniquePayment->system,
-                        'currency' => $getUniquePayment->currency,
-                        'invoice_id' => $getInvoice->id,
+            $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
+            $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
+            if ($getInvoice) {
+                $currentBalance = $getInvoice->balance - $input[0]['event']['resource']['amount'];
+                $createPayment = Mpesa::create([
+                    'reference' => $input[0]['event']['resource']['reference'],
+                    'originationTime' => date("d-m-Y", strtotime($dateFormat)),
+                    'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
+                    'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
+                    'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
+                    'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
+                    'amount' => $input[0]['event']['resource']['amount'],
+                    'status' => $input[0]['event']['resource']['status'],
+                    'system' => $input[0]['event']['resource']['system'],
+                    'currency' => $input[0]['event']['resource']['currency'],
+                    'invoice_id' => $getInvoice->id,
 
-                    ]);
-                    $createPay = Payment::create([
-                        'user_id' => $getUserIdentification->id,
-                        'invoice_id' => $getInvoice->id,
-                        'reference' => $getUniquePayment->reference,
-                        'date' => $getUniquePayment->originationTime,
-                        'amount' => $getUniquePayment->amount,
-                        'status' => 1,
-                        'payment_method' => 'Mpesa',
+                ]);
+                $createPay = Payment::create([
+                    'user_id' => $getUserIdentification->id,
+                    'invoice_id' => $getInvoice->id,
+                    'reference' => $input[0]['event']['resource']['reference'],
+                    'date' => $createPayment->originationTime,
+                    'amount' => $createPayment->amount,
+                    'status' => 1,
+                    'payment_method' => 'Mpesa',
 
-                    ]);
-                    $updateInvoiceBalance = Invoice::where('id', $getInvoice->id)->update(['balance' => $currentBalance]);
-                    $updateInvoicePaymentId = Invoice::where('id', $getInvoice->id)->update(['payment_id' => $createPay->id]);
-                    $updateInvoiceMId = Invoice::where('id', $getInvoice->id)->update(['mpesa_id' => $createPayment->id]);
-                    $updateInvoiceMAmount = Invoice::where('id', $getInvoice->id)->update(['mpesa_amount' => $createPayment->amount]);
-                    $updateIBalance = Payment::where('id', $createPay->id)->update(['invoice_balance' => $currentBalance]);
-                    $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
-                    $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPay->date]);
-                    $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
-                    $getInv = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
-                    if ($getInv->balance == 0) {
+                ]);
+                $updateInvoiceBalance = Invoice::where('id', $getInvoice->id)->update(['balance' => $currentBalance]);
+                $updateInvoicePaymentId = Invoice::where('id', $getInvoice->id)->update(['payment_id' => $createPay->id]);
+                $updateInvoiceMId = Invoice::where('id', $getInvoice->id)->update(['mpesa_id' => $createPayment->id]);
+                $updateInvoiceMAmount = Invoice::where('id', $getInvoice->id)->update(['mpesa_amount' => $createPayment->amount]);
+                $updateIBalance = Payment::where('id', $createPay->id)->update(['invoice_balance' => $currentBalance]);
+                $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
+                $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPay->date]);
+                $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
+                $getInv = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
+                if ($getInv->balance == 0) {
+                    $updateBal = Invoice::where('id', $getInv->id)->update(['usage_time' => 2147483647]);
+                    $updateStatus = Invoice::where('id', $getInv->id)->update(['status' => 1]);
+                } else {
+                    if ($getInv->balance < 0) {
                         $updateBal = Invoice::where('id', $getInv->id)->update(['usage_time' => 2147483647]);
                         $updateStatus = Invoice::where('id', $getInv->id)->update(['status' => 1]);
-                    } else {
-                        if ($getInv->balance < 0) {
-                            $updateBal = Invoice::where('id', $getInv->id)->update(['usage_time' => 2147483647]);
-                            $updateStatus = Invoice::where('id', $getInv->id)->update(['status' => 1]);
-                            $getIn = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
-                            $getI = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
-                            if ($getIn) {
-                                $currentBal = $getIn->balance + $getI->balance;
-                                $createPay1 = Payment::create([
-                                    'user_id' => $getUserIdentification->id,
-                                    'invoice_id' => $getIn->id,
-                                    'reference' => $input[0]['event']['resource']['reference'],
-                                    'date' => date("d-m-Y", strtotime($dateFormat)),
-                                    'amount' => $getI->balance * -1,
-                                    'status' => 1,
-                                    'payment_method' => 'Mpesa',
+                        $getIn = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
+                        $getI = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
+                        if ($getIn) {
+                            $currentBal = $getIn->balance + $getI->balance;
+                            $createPay1 = Payment::create([
+                                'user_id' => $getUserIdentification->id,
+                                'invoice_id' => $getIn->id,
+                                'reference' => $input[0]['event']['resource']['reference'],
+                                'date' => date("d-m-Y", strtotime($dateFormat)),
+                                'amount' => $getI->balance * -1,
+                                'status' => 1,
+                                'payment_method' => 'Mpesa',
 
-                                ]);
-                                $updateB = Invoice::where('id', $getIn->id)->where('status', 0)->update(['balance' => $currentBal]);
-                                $updateIB = Payment::where('invoice_id', $getIn->id)->where('id', $createPay1->id)->update(['invoice_balance' => $currentBal]);
-                                $updateInvoicePayment = Invoice::where('id', $getIn->id)->where('status', 0)->update(['payment_id' => $createPay1->id]);
-                                $updateC = Invoice::where('id', $getIn->id)->where('status', 0)->update(['mpesa_amount' => -($getI->balance)]);
-                                $updateUserA = User::where('id', $getIn->user_id)->update(['amount' => $createPay1->amount]);
-                                $updateUserD = User::where('id', $getIn->user_id)->update(['payment_date' => $createPay1->date]);
-                                $userBal = Invoice::where('user_id', $getIn->user_id)->where('status', 0)->sum('balance');
-                                $updateUserBal = User::where('id', $getIn->user_id)->update(['balance' => $userBal]);
-                                $updateB = Invoice::where('id', $getI->id)->update(['balance' => 0]);
-                                $getMinUs1 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
-                                $getIn1 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs1)->first();
-                                if ($getIn1->balance == 0) {
-                                    $updateCashA = Invoice::where('id', $getIn->id)->where('status', 0)->update(['mpesa_id' => $createPay->id]);
+                            ]);
+                            $updateB = Invoice::where('id', $getIn->id)->where('status', 0)->update(['balance' => $currentBal]);
+                            $updateIB = Payment::where('invoice_id', $getIn->id)->where('id', $createPay1->id)->update(['invoice_balance' => $currentBal]);
+                            $updateInvoicePayment = Invoice::where('id', $getIn->id)->where('status', 0)->update(['payment_id' => $createPay1->id]);
+                            $updateC = Invoice::where('id', $getIn->id)->where('status', 0)->update(['mpesa_amount' => -($getI->balance)]);
+                            $updateUserA = User::where('id', $getIn->user_id)->update(['amount' => $createPay1->amount]);
+                            $updateUserD = User::where('id', $getIn->user_id)->update(['payment_date' => $createPay1->date]);
+                            $userBal = Invoice::where('user_id', $getIn->user_id)->where('status', 0)->sum('balance');
+                            $updateUserBal = User::where('id', $getIn->user_id)->update(['balance' => $userBal]);
+                            $updateB = Invoice::where('id', $getI->id)->update(['balance' => 0]);
+                            $getMinUs1 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
+                            $getIn1 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs1)->first();
+                            if ($getIn1->balance == 0) {
+                                $updateCashA = Invoice::where('id', $getIn->id)->where('status', 0)->update(['mpesa_id' => $createPay->id]);
+                                $updateBal = Invoice::where('id', $getIn1->id)->update(['usage_time' => 2147483647]);
+                                $updateStatus = Invoice::where('id', $getIn1->id)->update(['status' => 1]);
+                            } else {
+                                if ($getIn1->balance < 0) {
                                     $updateBal = Invoice::where('id', $getIn1->id)->update(['usage_time' => 2147483647]);
                                     $updateStatus = Invoice::where('id', $getIn1->id)->update(['status' => 1]);
-                                } else {
-                                    if ($getIn1->balance < 0) {
-                                        $updateBal = Invoice::where('id', $getIn1->id)->update(['usage_time' => 2147483647]);
-                                        $updateStatus = Invoice::where('id', $getIn1->id)->update(['status' => 1]);
+                                    $getMinUs2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
+                                    $getIn2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs2)->first();
+                                    $getI2 = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
+                                    if ($getIn2) {
+                                        $currentBal1 = $getIn2->balance + $getI2->balance;
+                                        $createP = Payment::create([
+                                            'user_id' => $getUserIdentification->id,
+                                            'invoice_id' => $getIn2->id,
+                                            'reference' => $input[0]['event']['resource']['reference'],
+                                            'date' => date("d-m-Y", strtotime($dateFormat)),
+                                            'amount' => $getI2->balance * -1,
+                                            'status' => 1,
+                                            'payment_method' => 'Mpesa',
+                                        ]);
+                                        $updateB2 = Invoice::where('id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['balance' => $currentBal1]);
+                                        $updateIB2 = Payment::where('invoice_id', $getIn2->id)->where('id', $createP->id)->update(['invoice_balance' => $currentBal1]);
+                                        $updateC2 = Invoice::where('user_id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['mpesa_amount' => -($getI2->balance)]);
+                                        $updatePaymentId = Invoice::where('user_id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['payment_id' => $createP->id]);
+                                        $updateUserA2 = User::where('id', $getIn2->user_id)->update(['amount' => $createP->amount]);
+                                        $updateUserD2 = User::where('id', $getIn2->user_id)->update(['payment_date' => $createP->date]);
+                                        $userBal1 = Invoice::where('user_id', $getIn2->user_id)->where('status', 0)->sum('balance');
+                                        $updateUserBal1 = User::where('id', $getIn2->user_id)->update(['balance' => $userBal1]);
+                                        $updateB2 = Invoice::where('id', $getI2->id)->update(['balance' => 0]);
                                         $getMinUs2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
                                         $getIn2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs2)->first();
-                                        $getI2 = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
-                                        if ($getIn2) {
-                                            $currentBal1 = $getIn2->balance + $getI2->balance;
-                                            $createP = Payment::create([
-                                                'user_id' => $getUserIdentification->id,
-                                                'invoice_id' => $getIn2->id,
-                                                'reference' => $input[0]['event']['resource']['reference'],
-                                                'date' => date("d-m-Y", strtotime($dateFormat)),
-                                                'amount' => $getI2->balance * -1,
-                                                'status' => 1,
-                                                'payment_method' => 'Mpesa',
-                                            ]);
-                                            $updateB2 = Invoice::where('id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['balance' => $currentBal1]);
-                                            $updateIB2 = Payment::where('invoice_id', $getIn2->id)->where('id', $createP->id)->update(['invoice_balance' => $currentBal1]);
-                                            $updateC2 = Invoice::where('user_id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['mpesa_amount' => -($getI2->balance)]);
-                                            $updatePaymentId = Invoice::where('user_id', $getIn2->id)->where('status', 0)->where('usage_time', $getMinUs2)->update(['payment_id' => $createP->id]);
-                                            $updateUserA2 = User::where('id', $getIn2->user_id)->update(['amount' => $createP->amount]);
-                                            $updateUserD2 = User::where('id', $getIn2->user_id)->update(['payment_date' => $createP->date]);
-                                            $userBal1 = Invoice::where('user_id', $getIn2->user_id)->where('status', 0)->sum('balance');
-                                            $updateUserBal1 = User::where('id', $getIn2->user_id)->update(['balance' => $userBal1]);
-                                            $updateB2 = Invoice::where('id', $getI2->id)->update(['balance' => 0]);
-                                            $getMinUs2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
-                                            $getIn2 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs2)->first();
-                                            if ($getIn2->balance == 0) {
+                                        if ($getIn2->balance == 0) {
+                                            $updateBal = Invoice::where('id', $getIn2->id)->update(['usage_time' => 2147483647]);
+                                            $updateStatus = Invoice::where('id', $getIn2->id)->update(['status' => 1]);
+                                        } else {
+                                            if ($getIn2->balance < 0) {
                                                 $updateBal = Invoice::where('id', $getIn2->id)->update(['usage_time' => 2147483647]);
                                                 $updateStatus = Invoice::where('id', $getIn2->id)->update(['status' => 1]);
-                                            } else {
-                                                if ($getIn2->balance < 0) {
-                                                    $updateBal = Invoice::where('id', $getIn2->id)->update(['usage_time' => 2147483647]);
-                                                    $updateStatus = Invoice::where('id', $getIn2->id)->update(['status' => 1]);
-                                                    $getMinUs3 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
-                                                    $getIn3 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs3)->first();
-                                                    $getI3 = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
-                                                    if ($getIn3) {
-                                                        $currentBal2 = $getIn3->balance + $getI3->balance;
-                                                        $createP1 = Payment::create([
-                                                            'invoice_id' => $getIn3->id,
-                                                            'user_id' => $getUserIdentification->id,
-                                                            'reference' => $input[0]['event']['resource']['reference'],
-                                                            'date' => date("d-m-Y", strtotime($dateFormat)),
-                                                            'amount' => $getI3->balance * -1,
-                                                            'status' => 1,
-                                                            'payment_method' => 'Mpesa',
-                                                        ]);
-                                                        $updateB2 = Invoice::where('id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['balance' => $currentBal2]);
-                                                        $updateIB2 = Payment::where('invoice_id', $getIn3->id)->where('id', $createP1->id)->update(['invoice_balance' => $currentBal2]);
-                                                        $updateCashA2 = Invoice::where('id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['payment_id' => $createP1->id]);
-                                                        $updateC2 = Invoice::where('user_id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['mpesa_amount' => -($getI3->balance)]);
-                                                        $updateUserA2 = User::where('id', $getIn3->user_id)->update(['amount' => $createP1->amount]);
-                                                        $updateUserD2 = User::where('id', $getIn3->user_id)->update(['payment_date' => $createP1->date]);
-                                                        $userBal1 = Invoice::where('user_id', $getIn3->user_id)->where('status', 0)->sum('balance');
-                                                        $updateUserBal1 = User::where('id', $getIn3->user_id)->update(['balance' => $userBal1]);
-                                                        $updateB2 = Invoice::where('id', $getI3->id)->update(['balance' => 0]);
-                                                    } else {
-                                                        $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI3->balance]);
+                                                $getMinUs3 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->min('usage_time');
+                                                $getIn3 = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->where('usage_time', $getMinUs3)->first();
+                                                $getI3 = Invoice::where('user_id', $getUserIdentification->id)->where('balance', '<', 0)->first();
+                                                if ($getIn3) {
+                                                    $currentBal2 = $getIn3->balance + $getI3->balance;
+                                                    $createP1 = Payment::create([
+                                                        'invoice_id' => $getIn3->id,
+                                                        'user_id' => $getUserIdentification->id,
+                                                        'reference' => $input[0]['event']['resource']['reference'],
+                                                        'date' => date("d-m-Y", strtotime($dateFormat)),
+                                                        'amount' => $getI3->balance * -1,
+                                                        'status' => 1,
+                                                        'payment_method' => 'Mpesa',
+                                                    ]);
+                                                    $updateB2 = Invoice::where('id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['balance' => $currentBal2]);
+                                                    $updateIB2 = Payment::where('invoice_id', $getIn3->id)->where('id', $createP1->id)->update(['invoice_balance' => $currentBal2]);
+                                                    $updateCashA2 = Invoice::where('id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['payment_id' => $createP1->id]);
+                                                    $updateC2 = Invoice::where('user_id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['mpesa_amount' => -($getI3->balance)]);
+                                                    $updateUserA2 = User::where('id', $getIn3->user_id)->update(['amount' => $createP1->amount]);
+                                                    $updateUserD2 = User::where('id', $getIn3->user_id)->update(['payment_date' => $createP1->date]);
+                                                    $userBal1 = Invoice::where('user_id', $getIn3->user_id)->where('status', 0)->sum('balance');
+                                                    $updateUserBal1 = User::where('id', $getIn3->user_id)->update(['balance' => $userBal1]);
+                                                    $updateB2 = Invoice::where('id', $getI3->id)->update(['balance' => 0]);
+                                                } else {
+                                                    $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI3->balance]);
 
-                                                    }
                                                 }
-
                                             }
-                                        } else {
-                                            $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI2->balance]);
 
                                         }
+                                    } else {
+                                        $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI2->balance]);
 
                                     }
 
                                 }
-                            } else {
-                                $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI->balance]);
 
                             }
+                        } else {
+                            $updateUserBal1 = User::where('id', $getUserIdentification->id)->update(['balance' => $getI->balance]);
 
                         }
 
                     }
-                    $deletedup = Money::where('reference', $getUniquePayment->reference)->delete();
-                } else {
-                    $getUser = User::find($getUserIdentification->id);
-                    if ($getUser) {
-                        $currentBalance = $getUser->balance - $getUniquePayment->amount;
-                        $createPayment = Mpesa::create([
-                            'reference' => $getUniquePayment->reference,
-                            'originationTime' => $getUniquePayment->originationTime,
-                            'senderFirstName' => $getUniquePayment->senderFirstName,
-                            'senderMiddleName' => $getUniquePayment->senderMiddleName,
-                            'senderLastName' => $getUniquePayment->senderLastName,
-                            'senderPhoneNumber' => $getUniquePayment->senderPhoneNumber,
-                            'amount' => $getUniquePayment->amount,
-                            'status' => $getUniquePayment->status,
-                            'system' => $getUniquePayment->system,
-                            'currency' => $getUniquePayment->currency,
 
-                        ]);
-                        $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
-                        $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
-                        $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
-                    } else {
-                        $createPayment = Mpesa::create([
-                            'reference' => $getUniquePayment->reference,
-                            'originationTime' => $getUniquePayment->originationTime,
-                            'senderFirstName' => $getUniquePayment->senderFirstName,
-                            'senderMiddleName' => $getUniquePayment->senderMiddleName,
-                            'senderLastName' => $getUniquePayment->senderLastName,
-                            'senderPhoneNumber' => $getUniquePayment->senderPhoneNumber,
-                            'amount' => $getUniquePayment->amount,
-                            'status' => $getUniquePayment->status,
-                            'system' => $getUniquePayment->system,
-                            'currency' => $getUniquePayment->currency,
-                        ]);
-                    }
-                    $deletedup = Money::where('reference', $getUniquePayment->reference)->delete();
+                }
+            } else {
+                $getUser = User::find($getUserIdentification->id);
+                if ($getUser) {
+                    $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
+                    $createPayment = Mpesa::create([
+                        'reference' => $input[0]['event']['resource']['reference'],
+                        'originationTime' => date("d-m-Y", strtotime($dateFormat)),
+                        'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
+                        'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
+                        'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
+                        'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
+                        'amount' => $input[0]['event']['resource']['amount'],
+                        'status' => $input[0]['event']['resource']['status'],
+                        'system' => $input[0]['event']['resource']['system'],
+                        'currency' => $input[0]['event']['resource']['currency'],
 
+                    ]);
+                    $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
+                    $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
+                    $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
+                }
+                else {
+                    $createPayment = Mpesa::create([
+                        'reference' => $input[0]['event']['resource']['reference'],
+                        'originationTime' => date("d-m-Y", strtotime($dateFormat)),
+                        'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
+                        'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
+                        'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
+                        'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
+                        'amount' => $input[0]['event']['resource']['amount'],
+                        'status' => $input[0]['event']['resource']['status'],
+                        'system' => $input[0]['event']['resource']['system'],
+                        'currency' => $input[0]['event']['resource']['currency'],
+                    ]);
                 }
             }
         }
