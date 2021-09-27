@@ -58,7 +58,7 @@ class MpesaController extends Controller
         $dub = array($duplicate);
         $input = array_unique($dub);
         $dateFormat = $input[0]['event']['resource']['origination_time'];
-        $chechIfExists = Money::where('reference', $input[0]['event']['resource']['reference'])->first();
+        $chechIfExists = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
         if (is_null($chechIfExists)) {
             $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
             $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
