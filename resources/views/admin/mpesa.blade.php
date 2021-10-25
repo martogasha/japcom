@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </form>
-                        <h3>Total for {{\Carbon\Carbon::now()->format('M')}} = <b>SH {{$total}}</b></h3>
+                        <h3>Total for {{\Carbon\Carbon::now()->format('F')}} = <b>SH {{$total}}</b></h3>
                     </form>
                     <div class="table-responsive">
                         <table class="table display data-table text-nowrap">
