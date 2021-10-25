@@ -242,7 +242,7 @@ class MpesaController extends Controller
                     $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
                 }
                 else {
-                    $createPayment = Mpesa::create([
+                    $createPay = Mpesa::create([
                         'reference' => $input[0]['event']['resource']['reference'],
                         'originationTime' => date("d-m-Y", strtotime($dateFormat)),
                         'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
