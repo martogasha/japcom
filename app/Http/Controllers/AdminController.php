@@ -834,6 +834,7 @@ class AdminController extends Controller
                     'amount'=>$request->amount,
                     'date'=>$paymentDate,
                     'reason'=>'Internet Subscription',
+                    'currentMonth'=>$currentMonth,
                 ]);
                 $createPay = Payment::create([
                     'user_id'=>$store->id,
@@ -924,6 +925,7 @@ class AdminController extends Controller
         return response($output);
     }
     public function makeCashPayment(Request $request){
+        $currentMonth = date('m');
         $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         $paymentDate = date("d-m-Y", strtotime($request->payment_date));
@@ -935,6 +937,8 @@ class AdminController extends Controller
                 'amount'=>$request->amount,
                 'date'=>$paymentDate,
                 'reason'=>'Internet Subscription',
+                'currentMonth' =>$currentMonth,
+
             ]);
             $createPay = Payment::create([
                 'user_id'=>$request->user_id,
@@ -944,6 +948,7 @@ class AdminController extends Controller
                 'amount'=>$request->amount,
                 'status'=>1,
                 'payment_method'=>'Cash',
+                'currentMonth' =>$currentMonth,
 
             ]);
             $updateBalance = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->update(['balance'=>$currentBalance]);
@@ -977,6 +982,7 @@ class AdminController extends Controller
                             'amount'=>$getI->balance * -1,
                             'status'=>1,
                             'payment_method'=>'Cash',
+                            'currentMonth' =>$currentMonth,
 
                         ]);
                         $updateB = Invoice::where('id',$getIn->id)->where('status',0)->where('usage_time',$getMinUs)->update(['balance'=>$currentBal]);
@@ -1011,6 +1017,7 @@ class AdminController extends Controller
                                         'amount'=>$getI2->balance * -1,
                                         'status'=>1,
                                         'payment_method'=>'Cash',
+                                        'currentMonth' =>$currentMonth,
 
                                     ]);
                                     $updateB2 = Invoice::where('id',$getIn2->id)->where('status',0)->where('usage_time',$getMinUs2)->update(['balance'=>$currentBal1]);
@@ -1045,6 +1052,7 @@ class AdminController extends Controller
                                                     'amount'=>$getI3->balance * -1,
                                                     'status'=>1,
                                                     'payment_method'=>'Cash',
+                                                    'currentMonth' =>$currentMonth,
 
                                                 ]);
                                                 $updateB2 = Invoice::where('id',$getIn3->id)->where('status',0)->where('usage_time',$getMinUs3)->update(['balance'=>$currentBal2]);
@@ -1092,6 +1100,7 @@ class AdminController extends Controller
                 'amount'=>$request->amount,
                 'date'=>$paymentDate,
                 'reason'=>'Internet Subscription',
+                'currentMonth' =>$currentMonth,
             ]);
             $createPay = Payment::create([
                 'user_id'=>$request->user_id,
@@ -1101,7 +1110,7 @@ class AdminController extends Controller
                 'amount'=>$request->amount,
                 'status'=>1,
                 'payment_method'=>'Cash',
-
+                'currentMonth' =>$currentMonth,
             ]);
             $updateIBalance = Payment::where('invoice_id',$getCurrectInvoice->id)->where('id',$createPay->id)->update(['invoice_balance'=>$currenUserBalance]);
             $updateCashAmount = Invoice::where('user_id',$request->user_id)->where('status',1)->update(['cash_id'=>$createCash->id]);

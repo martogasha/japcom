@@ -22,6 +22,7 @@ class CreateCashesTable extends Migration
             $table->string('date');
             $table->string('reason')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('currentMonth');
             $table->timestamps();
         });
     }

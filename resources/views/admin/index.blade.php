@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="item-content">
-                                    <div class="item-title">Admin</div>
+                                    <div class="item-title">Users</div>
                                     <div class="item-number"><span>{{\App\Models\User::where('role',1)->count()}}</span></div>
                                 </div>
                             </div>
@@ -59,8 +59,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="item-content">
-                                    <div class="item-title">Parents</div>
-                                    <div class="item-number"><span class="counter" data-num="5690">5,690</span></div>
+                                    <div class="item-title">Monthly Expenses</div>
+                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                                 </div>
                             </div>
                         </div>
@@ -76,8 +76,25 @@
                             </div>
                             <div class="col-6">
                                 <div class="item-content">
-                                    <div class="item-title">Earnings</div>
-                                    <div class="item-number"><span>$</span><span class="counter" data-num="193000">1,93,000</span></div>
+                                    <div class="item-title">Monthly Mpesa</div>
+                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="dashboard-summery-one mg-b-20">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <div class="item-icon bg-light-red">
+                                    <i class="flaticon-money text-red"></i>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="item-content">
+                                    <div class="item-title">Monthly Cash</div>
+                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                                 </div>
                             </div>
                         </div>
