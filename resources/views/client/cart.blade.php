@@ -124,10 +124,7 @@
                                 <input class="form-control ps-input" type="text" placeholder="Coupon code">
                                 <button class="ps-btn ps-btn--primary" type="button">Apply coupon</button>
                             </div>
-                            <div class="ps-shopping__button">
-                                <button class="ps-btn ps-btn--primary" type="button">Clear All</button>
-                                <button class="ps-btn ps-btn--primary" type="button">Update cart</button>
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-12 col-md-5 col-lg-3">

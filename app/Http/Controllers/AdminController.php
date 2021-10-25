@@ -865,6 +865,7 @@ class AdminController extends Controller
                         'amount'=>$request->amount,
                         'date'=>$paymentDate,
                         'reason'=>'Internet Subscription',
+                        'currentMonth'=>$currentMonth,
                     ]);
                     $createPay1 = Payment::create([
                         'user_id'=>$store->id,

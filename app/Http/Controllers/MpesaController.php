@@ -220,7 +220,8 @@ class MpesaController extends Controller
                     }
 
                 }
-            } else {
+            }
+            else {
                 $getUser = User::find($getUserIdentification->id);
                 if ($getUser) {
                     $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
