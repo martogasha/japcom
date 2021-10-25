@@ -54,12 +54,8 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Package *</label>
-                                <select class="select2" id="bandwidth">
-                                    <option value="">Please Select Mbs *</option>
-                                    <option value="1">1mbs</option>
-                                    <option value="2">2mbs</option>
-                                    <option value="3">3mbs</option>
-                                </select>
+                                <input type="text" placeholder="Package" class="form-control" id="bandwidth"/>
+
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <div class="form-group">

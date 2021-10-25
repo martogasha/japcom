@@ -24,6 +24,7 @@ class CreatePaymentsTable extends Migration
             $table->string('reason')->nullable();
             $table->integer('status')->nullable();
             $table->string('payment_method')->nullable();
+            $table->integer('currentMonth');
             $table->timestamps();
         });
     }

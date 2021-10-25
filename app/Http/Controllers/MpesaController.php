@@ -9,6 +9,7 @@ use App\Models\Money;
 use App\Models\Mpesa;
 use App\Models\Payment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Kopokopo\SDK\K2;
@@ -16,8 +17,9 @@ use Kopokopo\SDK\K2;
 class MpesaController extends Controller
 {
     public function index(){
-        $mpesas = Mpesa::where('status','!=',3)->get();
-        $total = Mpesa::where('status','!=',3)->sum('amount');
+        $mpesas = Mpesa::all();
+        $currentMonth = date('m');
+        $total = Mpesa::where('currentMonth',$currentMonth)->sum('amount');
         return view('admin.mpesa',[
             'mpesas'=>$mpesas,
             'total'=>$total,
@@ -59,6 +61,7 @@ class MpesaController extends Controller
         $input = array_unique($dub);
         $dateFormat = $input[0]['event']['resource']['origination_time'];
         $chechIfExists = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+        $currentMonth = date('m');
         if (is_null($chechIfExists)) {
             $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
             $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
@@ -76,6 +79,7 @@ class MpesaController extends Controller
                     'system' => $input[0]['event']['resource']['system'],
                     'currency' => $input[0]['event']['resource']['currency'],
                     'invoice_id' => $getInvoice->id,
+                    'currentMonth' =>$currentMonth,
 
                 ]);
                 $createPay = Payment::create([
@@ -86,7 +90,7 @@ class MpesaController extends Controller
                     'amount' => $createPayment->amount,
                     'status' => 1,
                     'payment_method' => 'Mpesa',
-
+                    'currentMonth' =>$currentMonth,
                 ]);
                 $updateInvoiceBalance = Invoice::where('id', $getInvoice->id)->update(['balance' => $currentBalance]);
                 $updateInvoicePaymentId = Invoice::where('id', $getInvoice->id)->update(['payment_id' => $createPay->id]);
@@ -182,6 +186,7 @@ class MpesaController extends Controller
                                                         'amount' => $getI3->balance * -1,
                                                         'status' => 1,
                                                         'payment_method' => 'Mpesa',
+                                                        'currentMonth' =>$currentMonth,
                                                     ]);
                                                     $updateB2 = Invoice::where('id', $getIn3->id)->where('status', 0)->where('usage_time', $getMinUs3)->update(['balance' => $currentBal2]);
                                                     $updateIB2 = Payment::where('invoice_id', $getIn3->id)->where('id', $createP1->id)->update(['invoice_balance' => $currentBal2]);
@@ -230,7 +235,7 @@ class MpesaController extends Controller
                         'status' => $input[0]['event']['resource']['status'],
                         'system' => $input[0]['event']['resource']['system'],
                         'currency' => $input[0]['event']['resource']['currency'],
-
+                        'currentMonth' =>$currentMonth,
                     ]);
                     $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
                     $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
@@ -248,6 +253,7 @@ class MpesaController extends Controller
                         'status' => $input[0]['event']['resource']['status'],
                         'system' => $input[0]['event']['resource']['system'],
                         'currency' => $input[0]['event']['resource']['currency'],
+                        'currentMonth' =>$currentMonth,
                     ]);
                 }
             }

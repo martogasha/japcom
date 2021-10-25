@@ -129,7 +129,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success','EMPLOYEE ADDED SUCCESSFULLY');
     }
     public function employees(){
-        $customers = User::all();
+        $customers = User::where('role',1)->orWhere('role',0)->get();
         return view('admin.employee',[
             'customers'=>$customers
         ]);

@@ -35,6 +35,7 @@ class CreateMpesasTable extends Migration
             $table->string('linkResource')->nullable();
             $table->integer('invoice_id')->nullable();
             $table->integer('invoice_balance')->nullable();
+            $table->integer('currentMonth')->nullable();
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@ class Mpesa extends Model
         'linkResource',
         'invoice_id',
         'invoice_balance',
+        'currentMonth',
     ];
     public function user(){
         return $this->belongsTo(User::class);

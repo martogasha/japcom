@@ -18,6 +18,7 @@ class Payment extends Model
         'status',
         'payment_method',
         'reference',
+        'currentMonth',
     ];
     public function user(){
         return $this->belongsTo(User::class);
