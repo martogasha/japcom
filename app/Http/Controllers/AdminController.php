@@ -754,6 +754,7 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
+        $currentMonth = date('m');
         $paymentDate =  date('d-m-Y', strtotime($request->payment_date));
         $store = User::create([
            'first_name'=>$request->first_name,
@@ -823,6 +824,7 @@ class AdminController extends Controller
                     'amount'=>$request->amount,
                     'date'=>$paymentDate,
                     'payment_method'=>'Cash',
+                    'currentMonth'=>$currentMonth,
                 ]);
                 $updateBal = Invoice::where('user_id',$store->id)->update(['usage_time'=>10000]);
                 $updateStatus = Invoice::where('user_id',$store->id)->update(['status'=>1]);
@@ -852,6 +854,7 @@ class AdminController extends Controller
                         'amount'=>$request->amount,
                         'date'=>$paymentDate,
                         'payment_method'=>'Cash',
+                        'currentMonth'=>$currentMonth,
                     ]);
                     $updateBalance = Invoice::where('id',$getInv->id)->update(['balance'=>$currentBal]);
                     $updateIBalance = Payment::where('invoice_id',$getInv->id)->where('id',$createPay1->id)->update(['invoice_balance'=>$currentBal]);
