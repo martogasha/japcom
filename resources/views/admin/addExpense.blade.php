@@ -12,6 +12,7 @@
                     <li>Add Expense</li>
                 </ul>
             </div>
+            @include('flash-message')
             <!-- Breadcubs Area End Here -->
             <!-- Add New Teacher Area Start Here -->
             <div class="card height-auto">
@@ -85,9 +86,7 @@
 <script src="js/main.js"></script>
 
 </body>
-<script>
-    alert('ok')
-</script>
+
 
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/add-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:36:38 GMT -->

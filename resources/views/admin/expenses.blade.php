@@ -19,6 +19,7 @@
                     <div class="heading-layout1">
                         <div class="item-title">
                             <h3>Expenses</h3>
+                            <h4>Total Expense for <b>{{\Carbon\Carbon::now()->format('F')}}</b> = Ksh: {{$total}}</h4>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -52,7 +53,6 @@
                             <thead>
                             <tr>
 
-                                <th>Name</th>
                                 <th>Details</th>
                                 <th>Amount</th>
                                 <th>Date Of Payment</th>
@@ -61,14 +61,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($expenses as $expense)
                             <tr>
 
-                                <td>Mark Willy</td>
-                                <td>Lunch</td>
-                                <td><b>kSH: 500</b></td>
-                                <td>02/05/2001</td>
+                                <td>{{$expense->details}}</td>
+                                <td>Ksh {{$expense->amount}}</td>
+                                <td>{{$expense->date}}</td>
 
                             </tr>
+                            @endforeach
 
                                                     </tbody>
                         </table>

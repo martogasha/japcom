@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cat;
 use App\Models\Cash;
+use App\Models\Expense;
 use App\Models\Inv;
 use App\Models\Invoice;
 use App\Models\Mpesa;
@@ -554,12 +555,28 @@ class AdminController extends Controller
 
     }
     public function expenses(){
-        return view('admin.expenses');
+        $expenses = Expense::all();
+        $currentMonth = date('m');
+        $total = Expense::where('currentMonth',$currentMonth)->sum('amount');
+        return view('admin.expenses',[
+            'expenses'=>$expenses,
+            'total'=>$total
+        ]);
 
     }
     public function addExpense(){
         return view('admin.addExpense');
 
+    }
+    public function storeExpense(Request $request){
+        $currentMonth = date('m');
+        $storeExpense = Expense::create([
+            'details'=>$request->input('details'),
+            'amount'=>$request->input('amount'),
+            'date'=>$request->input('date'),
+            'currentMonth'=>$currentMonth,
+        ]);
+        return redirect()->back()->with('success','EXPENSES ADDED SUCCESSFULLY');
     }
     public function quotation(){
         $quote = Quotation::where('status',0)->first();
