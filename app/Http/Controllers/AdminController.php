@@ -216,6 +216,7 @@ class AdminController extends Controller
     }
     public function billing(Request $request){
         $getUsers = User::where('role',2)->get();
+        $currentMonth = date('m');
         foreach ($getUsers as $getUser){
             $getExistingInvoice = Invoice::where('user_id',$getUser->id)->where('status',0)->latest('id')->first();
             if ($getExistingInvoice){
@@ -278,7 +279,6 @@ class AdminController extends Controller
                         'status'=>1,
                         'statas'=>0,
                     ]);
-                    $currentMonth = date('m');
                     $storeCash = Payment::create([
                         'user_id'=>$getUser->id,
                         'invoice_id'=>$createInvoice->id,
@@ -315,7 +315,7 @@ class AdminController extends Controller
                             'date'=>$getUser->due_date,
                             'payment_method'=>'Balance Carry Over',
                             'status'=>1,
-                            'currentMonth'=>$currentMonth
+                            'currentMonth'=>$currentMonth,
 
                         ]);
                         $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
@@ -351,6 +351,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success','ALL CUSTOMERS BILLED SUCCESSFULLY');
     }
     public function billingEach(Request $request){
+        $currentMonth = date('m');
         $getExistingInvoice = Invoice::where('user_id',$request->id)->where('status',0)->first();
         $getUser = User::find($request->id);
         $paymentDate = date("d-m-Y", strtotime($request->payment_date));
@@ -429,6 +430,7 @@ class AdminController extends Controller
                     'amount'=>$request->package_amount,
                     'status'=>1,
                     'payment_method'=>'Balance Carry Over',
+                    'currentMonth'=>$currentMonth,
                 ]);
                 $updateInvoice = Invoice::where('id',$createInvoice->id)->update(['payment_id'=>$createP->id]);
                 $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$total]);
@@ -453,6 +455,7 @@ class AdminController extends Controller
                     'amount'=>$request->amount*-1,
                     'status'=>1,
                     'payment_method'=>'Balance Carry Over',
+                    'currentMonth'=>$currentMonth,
                 ]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['payment_id'=>$createP1->id]);
                 $updateInvoice = Invoice::where('id',$createInvoice1->id)->update(['balance'=>$total]);
