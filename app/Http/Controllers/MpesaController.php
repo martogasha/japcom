@@ -12,18 +12,25 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Kopokopo\SDK\Helpers\Auth;
 use Kopokopo\SDK\K2;
 
 class MpesaController extends Controller
 {
     public function index(){
-        $mpesas = Mpesa::all();
-        $currentMonth = date('m');
-        $total = Mpesa::where('currentMonth',$currentMonth)->sum('amount');
-        return view('admin.mpesa',[
-            'mpesas'=>$mpesas,
-            'total'=>$total,
-        ]);
+        if (\Illuminate\Support\Facades\Auth::check()){
+            $mpesas = Mpesa::all();
+            $currentMonth = date('m');
+            $total = Mpesa::where('currentMonth',$currentMonth)->sum('amount');
+            return view('admin.mpesa',[
+                'mpesas'=>$mpesas,
+                'total'=>$total,
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function subscribe(){
         $options = [
