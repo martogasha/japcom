@@ -278,6 +278,7 @@ class AdminController extends Controller
                         'status'=>1,
                         'statas'=>0,
                     ]);
+                    $currentMonth = date('m');
                     $storeCash = Payment::create([
                         'user_id'=>$getUser->id,
                         'invoice_id'=>$createInvoice->id,
@@ -286,6 +287,7 @@ class AdminController extends Controller
                         'date'=>$getUser->due_date,
                         'payment_method'=>'balance Carry Over',
                         'status'=>1,
+                        'currentMonth'=>$currentMonth
                     ]);
                     $updateCashId = Invoice::where('id',$createInvoice->id)->update(['payment_id'=>$storeCash->id]);
                     $nextDate =  date('Y-m-d', strtotime($getUser->due_date. ' + 1 month'));
@@ -313,6 +315,8 @@ class AdminController extends Controller
                             'date'=>$getUser->due_date,
                             'payment_method'=>'Balance Carry Over',
                             'status'=>1,
+                            'currentMonth'=>$currentMonth
+
                         ]);
                         $nextDate =  date('m/d/Y', strtotime($getUser->due_date. ' + 1 month'));
                         $updateBalance = User::where('id',$getUser->id)->update(['balance'=>$newBalance]);

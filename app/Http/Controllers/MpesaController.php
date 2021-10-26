@@ -247,6 +247,8 @@ class MpesaController extends Controller
                             'currency' => $input[0]['event']['resource']['currency'],
                             'currentMonth' =>$currentMonth,
                         ]);
+                        $getInvoice = Invoice::where('user_id', $getUser->id)->first();
+                        $update = Mpesa::where('senderPhoneNumber',$getUser->phone)->update(['invoice_id'=>$getInvoice->id]);
                         $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
                         $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
                         $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
