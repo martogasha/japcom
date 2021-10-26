@@ -8,11 +8,13 @@ use App\Models\Expense;
 use App\Models\Inv;
 use App\Models\Invoice;
 use App\Models\Mpesa;
+use App\Models\Notice;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Qproduct;
 use App\Models\Quotation;
 use App\Models\User;
+use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,10 @@ class AdminController extends Controller
     public function admin(){
         if (Auth::check()) {
             if (Auth::user()->role==0 || Auth::user()->role==1) {
-                return view('admin.index');
+                $notice = Notice::where('id','>',0)->first();
+                return view('admin.index',[
+                    'notice'=>$notice
+                ]);
             }
         }
         else{
@@ -213,6 +218,24 @@ class AdminController extends Controller
             ';
         }
         return response($output);
+    }
+    public function notice(Request $request){
+        $notice = Notice::all();
+        if ($notice){
+            $noticeupdate = ['message'=>$request->message,'date'=>Carbon::now()->format('d-m-Y')];
+            $update = Notice::where('id','>',0)->update($noticeupdate);
+        }
+        $store = Notice::create([
+            'message'=>$request->message,
+            'date'=>Carbon::now()->format('d-m-Y'),
+        ]);
+        return redirect()->back()->with('success', 'NOTICE POSTED SUCCESS');
+    }
+    public function deleteNotice($id){
+        $delete = Notice::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success', 'NOTICE DELETED SUCCESS');
+
     }
     public function billing(Request $request){
         $getUsers = User::where('role',2)->get();

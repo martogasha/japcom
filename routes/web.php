@@ -50,6 +50,8 @@ Route::get('getQProducts', [AdminController::class, 'getQProducts']);
 Route::post('billing', [AdminController::class, 'billing'])->name('billing');
 Route::post('billingEach', [AdminController::class, 'billingEach'])->name('billingEach');
 Route::post('editQProduct', [AdminController::class, 'editQProduct'])->name('editQProduct');
+Route::post('notice', [AdminController::class, 'notice'])->name('notice');
+Route::post('deleteNotice/{id}', [AdminController::class, 'deleteNotice']);
 Route::get('deletePro', [AdminController::class, 'deletePro']);
 Route::get('receipt/{id}', [AdminController::class, 'receipt']);
 Route::get('pdf', [AdminController::class, 'pdf']);
