@@ -57,10 +57,16 @@ class AdminController extends Controller
         return redirect()->back()->with('success','profile updated success');
     }
     public function customers(){
-        $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->get();
-        return view('admin.customers',[
-            'customers'=>$customers,
-        ]);
+        if (Auth::check()){
+            $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->get();
+            return view('admin.customers',[
+                'customers'=>$customers,
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+        }
+
     }
     public function product(){
         $products = Product::all();
