@@ -50,7 +50,7 @@
                             @foreach($cashs as $cash)
                             <tr>
 
-                                <td>{{$cash->payment_method}}</td>
+                                <td>{{$cash->payment_method}}<b>({{$cash->referece}})</b></td>
                                 <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
                                 <td><b>Ksh: {{$cash->amount}}</b></td>
                                 <td>{{$cash->date}}</td>
