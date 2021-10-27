@@ -236,28 +236,31 @@ class MpesaController extends Controller
             else {
                 $chechIfEx = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
                 if (is_null($chechIfEx)){
-                    $getUser = User::find($getUserIdentification->id);
-                    if (!is_null($getUser)) {
-                        $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
-                        $createPayment = Mpesa::create([
-                            'reference' => $input[0]['event']['resource']['reference'],
-                            'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                            'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                            'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                            'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                            'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                            'amount' => $input[0]['event']['resource']['amount'],
-                            'status' => $input[0]['event']['resource']['status'],
-                            'system' => $input[0]['event']['resource']['system'],
-                            'currency' => $input[0]['event']['resource']['currency'],
-                            'currentMonth' =>$currentMonth,
-                        ]);
-                        $getInvoice = Invoice::where('user_id', $getUser->id)->first();
-                        $update = Mpesa::where('senderPhoneNumber',$getUser->phone)->update(['invoice_id'=>$getInvoice->id]);
-                        $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
-                        $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
-                        $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
+                    if (!is_null($getUserIdentification)){
+                        $getUser = User::find($getUserIdentification->id);
+                        if (!is_null($getUser)) {
+                            $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
+                            $createPayment = Mpesa::create([
+                                'reference' => $input[0]['event']['resource']['reference'],
+                                'originationTime' => date("d-m-Y", strtotime($dateFormat)),
+                                'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
+                                'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
+                                'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
+                                'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
+                                'amount' => $input[0]['event']['resource']['amount'],
+                                'status' => $input[0]['event']['resource']['status'],
+                                'system' => $input[0]['event']['resource']['system'],
+                                'currency' => $input[0]['event']['resource']['currency'],
+                                'currentMonth' =>$currentMonth,
+                            ]);
+                            $getInvoice = Invoice::where('user_id', $getUser->id)->first();
+                            $update = Mpesa::where('senderPhoneNumber',$getUser->phone)->update(['invoice_id'=>$getInvoice->id]);
+                            $updateUserAmount = User::where('id', $getUserIdentification->id)->update(['amount' => $createPayment->amount]);
+                            $updateUserDate = User::where('id', $getUserIdentification->id)->update(['payment_date' => $createPayment->originationTime]);
+                            $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
+                        }
                     }
+
                     else{
                         $chechIfE = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
                         if (is_null($chechIfE)){
