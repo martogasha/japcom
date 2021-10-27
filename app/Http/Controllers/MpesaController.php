@@ -232,7 +232,7 @@ class MpesaController extends Controller
                 $chechIfEx = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
                 if (is_null($chechIfEx)){
                     $getUser = User::find($getUserIdentification->id);
-                    if ($getUser) {
+                    if (is_null($getUser)) {
                         $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
                         $createPayment = Mpesa::create([
                             'reference' => $input[0]['event']['resource']['reference'],
@@ -245,6 +245,16 @@ class MpesaController extends Controller
                             'status' => $input[0]['event']['resource']['status'],
                             'system' => $input[0]['event']['resource']['system'],
                             'currency' => $input[0]['event']['resource']['currency'],
+                            'currentMonth' =>$currentMonth,
+                        ]);
+                        $createPay = Payment::create([
+                            'user_id'=>$getUser->id,
+                            'invoice_id'=>0,
+                            'reference'=>'mpesa_payment',
+                            'date'=>$createPayment->originationTime,
+                            'amount'=>$createPayment->amount,
+                            'status'=>1,
+                            'payment_method'=>'mpesa',
                             'currentMonth' =>$currentMonth,
                         ]);
                         $getInvoice = Invoice::where('user_id', $getUser->id)->first();

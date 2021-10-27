@@ -35,15 +35,15 @@
                 <div class="row gutters-20">
                     <h5>Published at:<b>{{$notice->date}}</b></h5>
                     <div class="col-xl-12 col-sm-12 col-12">
+                        @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                            <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Add Notice</button>
+                            <form action="{{url('deleteNotice',$notice->id)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Remove Notice</button>
+                            </form>
+                        @endif
                         <div class="dashboard-summery-one mg-b-20">
                             <div class="row align-items-center">
-                                @if(\Illuminate\Support\Facades\Auth::user()->role==0)
-                                <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Add Notice</button>
-                                <form action="{{url('deleteNotice',$notice->id)}}" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Remove Notice</button>
-                                </form>
-                                @endif
                                 <div class="col-6" id="pot">
                                     <h4 style="color: red"><b>{{$notice->message}}</b></h4>
                                 </div>
