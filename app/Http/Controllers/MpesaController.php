@@ -259,28 +259,26 @@ class MpesaController extends Controller
                             $updateUserBalance = User::where('id', $getUserIdentification->id)->update(['balance' => $currentBalance]);
                         }
                     }
-
-                    else{
-                        $chechIfE = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
-                        if (is_null($chechIfE)){
-                            $createPay = Mpesa::create([
-                                'reference' => $input[0]['event']['resource']['reference'],
-                                'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                                'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                                'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                                'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                                'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                                'amount' => $input[0]['event']['resource']['amount'],
-                                'status' => $input[0]['event']['resource']['status'],
-                                'system' => $input[0]['event']['resource']['system'],
-                                'currency' => $input[0]['event']['resource']['currency'],
-                                'currentMonth' =>$currentMonth,
-                            ]);
-                        }
-                    }
-
                 }
 
+            }
+            else{
+                $chechIfE = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+                if (is_null($chechIfE)){
+                    $createPay = Mpesa::create([
+                        'reference' => $input[0]['event']['resource']['reference'],
+                        'originationTime' => date("d-m-Y", strtotime($dateFormat)),
+                        'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
+                        'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
+                        'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
+                        'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
+                        'amount' => $input[0]['event']['resource']['amount'],
+                        'status' => $input[0]['event']['resource']['status'],
+                        'system' => $input[0]['event']['resource']['system'],
+                        'currency' => $input[0]['event']['resource']['currency'],
+                        'currentMonth' =>$currentMonth,
+                    ]);
+                }
             }
         }
 
