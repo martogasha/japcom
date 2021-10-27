@@ -72,7 +72,7 @@ class MpesaController extends Controller
         if (is_null($chechIfExists)) {
             $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
             $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
-            if ($getInvoice) {
+            if (is_null($getInvoice)) {
                 $currentBalance = $getInvoice->balance - $input[0]['event']['resource']['amount'];
                 $createPayment = Mpesa::create([
                     'reference' => $input[0]['event']['resource']['reference'],
