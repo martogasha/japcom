@@ -234,7 +234,8 @@ class MpesaController extends Controller
                 }
             }
             else {
-                    if (!is_null($getUserIdentification)){
+                $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
+                if (!is_null($getUserIdentification)){
                         $getUser = User::find($getUserIdentification->id);
                             $chechIfEx = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
                             if (is_null($chechIfEx)) {
