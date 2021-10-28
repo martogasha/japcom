@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('invoice_id')->nullable();
-            $table->string('reference')->unique();
+            $table->string('reference')->nullable();
             $table->integer('amount');
             $table->integer('invoice_balance')->nullable();
             $table->string('date');
