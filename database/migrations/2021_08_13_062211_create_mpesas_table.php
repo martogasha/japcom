@@ -21,7 +21,7 @@ class CreateMpesasTable extends Migration
             $table->string('eventType')->nullable();
             $table->string('resourceId')->nullable();
             $table->string('status')->nullable();
-            $table->string('reference')->nullable();
+            $table->string('reference')->unique();
             $table->string('originationTime')->nullable();
             $table->string('senderPhoneNumber')->nullable();
             $table->integer('amount')->nullable();
