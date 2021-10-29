@@ -1,5 +1,5 @@
 @include('adminPartial.nav')
-@if(is_null($receipt->invoice_id))
+@if(!is_null($receipt->invoice_id))
 <title>{{$receipt->invoice->user->first_name}} Receipt - Japcom Networks</title>
 @else
     <title>{{$receipt->senderFirstName}} Receipt - Japcom Networks</title>
@@ -47,7 +47,7 @@
                     <div class="col-sm-6">
                         <div>
                             <span class="text-sm text-grey-m2 align-middle">To:</span>
-                            @if(is_null($receipt->invoice_id))
+                            @if(!is_null($receipt->invoice_id))
                             <span class="text-600 text-110 text-blue align-middle">{{$receipt->invoice->user->first_name}} {{$receipt->invoice->user->last_name}}</span>
                             @else
                                 <span class="text-600 text-110 text-blue align-middle">{{$receipt->senderFirstName}} {{$receipt->senderLastName}}</span>
@@ -56,14 +56,14 @@
                         </div>
                         <div class="text-grey-m2">
                             <div class="my-1">
-                                @if(is_null($receipt->invoice_id))
+                                @if(!is_null($receipt->invoice_id))
                                 {{$receipt->invoice->user->bandwidth}}Mbps
                                 @else
                                     N/A
                                 @endif
                             </div>
                             <div class="my-1">
-                                @if(is_null($receipt->invoice_id))
+                                @if(!is_null($receipt->invoice_id))
                                 {{$receipt->invoice->user->location}}
                                 @else
                                     N/A
@@ -98,7 +98,7 @@
                         <div class="d-none d-sm-block col-sm-2"></div>
                         <div class="col-2">Amount</div>
                     </div>
-                    @if(is_null($receipt->invoice_id))
+                    @if(!is_null($receipt->invoice_id))
                     <div class="text-95 text-secondary-d3">
                         <div class="row mb-2 mb-sm-0 py-25">
                             <div class="d-none d-sm-block col-1"></div>
@@ -162,7 +162,7 @@
                                     <span class="text-150 text-success-d3 opacity-2"><b>SH{{$receipt->amount}}</b></span>
                                 </div>
                             </div>
-                            @if(is_null($receipt->invoice_id))
+                            @if(!is_null($receipt->invoice_id))
                             @if($receipt->invoice_balance>0)
                                 <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                     <div class="col-7 text-right">
