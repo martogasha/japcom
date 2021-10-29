@@ -54,7 +54,7 @@
                             <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{{$receipt->invoice->user->phone}}</b></div>
                         </div>
                     </div>
-                    <!-- /.col -->
+                        <!-- /.col -->
 
                     <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                         <hr class="d-sm-none" />
@@ -65,7 +65,7 @@
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> 0{{$receipt->id}}</div>
 
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> {{$receipt->date}}</div>
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> {{$receipt->originationTime}}</div>
                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Payment method:</span> <span class="badge badge-success badge-pill px-25">Mpesa</span></div>
                         </div>
                     </div>
