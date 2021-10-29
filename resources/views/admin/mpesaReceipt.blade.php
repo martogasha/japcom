@@ -69,7 +69,11 @@
                                     N/A
                                 @endif
                             </div>
+                            @if(!is_null($receipt->invoice_id))
                             <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{{$receipt->invoice->user->phone}}</b></div>
+                            @else
+                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{{$receipt->senderPhoneNumber}}</b></div>
+                            @endif
                         </div>
                     </div>
                         <!-- /.col -->
