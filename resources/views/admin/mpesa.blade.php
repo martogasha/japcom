@@ -48,7 +48,7 @@
                     </form>
                     <div class="table-responsive">
                         <div class="col-lg-12 col-12 form-group">
-                            <label>Search</label>
+                            <label>Search (<b>Name, Phone Number, Amount, Mpesa code, Date...etc</b>)</label>
                             <input type="text" placeholder="Search" class="form-control" id="myInput">
                         </div>
                         <table class="table display data-table text-nowrap">
