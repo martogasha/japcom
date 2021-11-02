@@ -47,6 +47,10 @@
                         <h3>Total for {{\Carbon\Carbon::now()->format('F')}} = <b>SH {{$total}}</b></h3>
                     </form>
                     <div class="table-responsive">
+                        <div class="col-lg-12 col-12 form-group">
+                            <label>Search</label>
+                            <input type="text" placeholder="Search" class="form-control" id="myInput">
+                        </div>
                         <table class="table display data-table text-nowrap">
                             <thead>
                             <tr>
@@ -59,7 +63,7 @@
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
                             @foreach($mpesas as $mpesa)
                             <tr>
 
@@ -103,6 +107,15 @@
 
 </body>
 
-
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/all-student.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:35:18 GMT -->
 </html>
