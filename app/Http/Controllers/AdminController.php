@@ -583,10 +583,14 @@ class AdminController extends Controller
     }
         public function customerDetail($id){
         $user = User::find($id);
-        $invoices = Invoice::where('user_id',$user->id)->get();
+        $invoices = Invoice::where('user_id',$user->id)->latest()->take(2)->get();
+        $invs = Invoice::where('user_id',$user->id)->get();
+        $invCount = Invoice::where('user_id',$user->id)->count();
         return view('admin.customerDetail',[
             'user'=>$user,
-            'invoices'=>$invoices
+            'invoices'=>$invoices,
+            'invs'=>$invs,
+            'invCount'=>$invCount
         ]);
 
     }
