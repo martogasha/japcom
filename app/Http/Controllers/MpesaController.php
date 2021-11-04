@@ -19,7 +19,7 @@ class MpesaController extends Controller
 {
     public function index(){
         if (\Illuminate\Support\Facades\Auth::check()){
-            $mpesas = Mpesa::latest()->get();
+            $mpesas = Mpesa::where('id','>',0)->orderByDesc('id')->get();
             $currentMonth = date('m');
             $total = Mpesa::where('currentMonth',$currentMonth)->sum('amount');
             return view('admin.mpesa',[

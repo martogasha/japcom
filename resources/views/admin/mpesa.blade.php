@@ -51,15 +51,15 @@
                             <label>Search (<b>Name, Phone Number, Amount, Mpesa code, Date...etc</b>)</label>
                             <input type="text" placeholder="Search" class="form-control" id="myInput">
                         </div>
-                        <table class="table display data-table text-nowrap">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
 
-                                <th>Transaction No</th>
+                                <th>Reference</th>
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Amount</th>
-                                <th>Date Of Payment</th>
+                                <th>Date</th>
                                 <th></th>
                             </tr>
                             </thead>

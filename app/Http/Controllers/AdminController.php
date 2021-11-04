@@ -63,7 +63,7 @@ class AdminController extends Controller
     }
     public function customers(){
         if (Auth::check()){
-            $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->get();
+            $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->orderByDesc('id')->get();
             return view('admin.customers',[
                 'customers'=>$customers,
             ]);

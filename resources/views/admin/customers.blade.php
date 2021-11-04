@@ -42,7 +42,7 @@
                             <input type="text" placeholder="Search" class="form-control" id="myInput">
                         </div>
                     <div class="table-responsive">
-                        <table class="table display data-table text-nowrap">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Status</th>
