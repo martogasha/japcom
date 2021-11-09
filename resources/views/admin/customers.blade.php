@@ -22,6 +22,7 @@
                         <div class="item-title">
                             <h3>All Customer Data</h3>
                         </div>
+                        @include('flash-message')
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                aria-expanded="false">...</a>
@@ -105,9 +106,8 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="{{url('customerDetail',$customer->id)}}"><i
                                                     class="fas fa-times text-orange-red"></i>View</a>
-                                            <a class="dropdown-item view" href="#updateDueDate" data-toggle="modal" data-target="#updateDueDate" id="{{$customer->id}}"><i
-                                                    class="fas fa-cogs text-dark-pastel-green" ></i>Edit Due</a>
-
+                                            <a class="dropdown-item" href="{{url('editCustomerDetail',$customer->id)}}"><i
+                                                    class="fas fa-edit text-blue"></i>Edit</a>
 
                                         </div>
                                     </div>

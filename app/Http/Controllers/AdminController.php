@@ -1215,4 +1215,65 @@ class AdminController extends Controller
             'receipt'=>$receipt
         ]);
     }
+    public function editUser($id){
+        $user = User::find($id);
+        return view('admin.editEmployee',[
+            'user'=>$user
+        ]);
+    }
+    public function editEmployee(Request $request,$id){
+        $edit = User::find($id);
+        $edit->first_name = $request->first_name;
+        $edit->last_name = $request->last_name;
+        $edit->email = $request->email;
+        $edit->phone = $request->phone;
+        $edit->role = $request->role;
+        $edit->products = $request->products;
+        $edit->users = $request->users;
+        $edit->customers = $request->customers;
+        $edit->payments = $request->payments;
+        $edit->expenses = $request->expenses;
+        $edit->estimate = $request->estimates;
+        $edit->invoice = $request->invoice;
+        $edit->save();
+    return redirect(url('employees'))->with('success','USER EDITED SUCCESS');
+    }
+    public function resetUser(Request $request,$id){
+        $reset = User::find($id);
+        $reset->first_name = $request->first_name;
+        $reset->last_name = $request->last_name;
+        $reset->email = $request->email;
+        $reset->phone = $request->phone;
+        $reset->role = $request->role;
+        $reset->products = $request->products;
+        $reset->users = $request->users;
+        $reset->customers = $request->customers;
+        $reset->payments = $request->payments;
+        $reset->expenses = $request->expenses;
+        $reset->estimate = $request->estimates;
+        $reset->invoice = $request->invoice;
+        $reset->password = Hash::make($request->phone);
+        $reset->save();
+        return view('admin.employee')->with('success','USER EDITED SUCCESS');
+    }
+    public function editCustomerDetail(Request $request, $id){
+        $customer = User::find($id);
+        return view('admin.editCustomerDetail',[
+            'customer'=>$customer
+        ]);
+    }
+    public function editC(Request $request, $id){
+        $edit = User::find($id);
+        $edit->first_name = $request->first_name;
+        $edit->last_name = $request->last_name;
+        $edit->email = $request->email;
+        $edit->phone = $request->phone;
+        $edit->location = $request->location;
+        $edit->bandwidth = $request->bandwidth;
+        $edit->payment_date = $request->payment_date;
+        $edit->due_date = $request->due_date;
+        $edit->save();
+        return redirect(url('customers'))->with('success','CUSTOMER EDIT SUCCESS');
+    }
+
 }

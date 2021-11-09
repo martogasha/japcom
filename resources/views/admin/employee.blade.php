@@ -57,6 +57,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Role</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,7 +72,7 @@
                                 @else
                                     <td>User</td>
                                 @endif
-
+                                <td><a href="{{url('editUser',$customer->id)}}"><button class="btn btn-info">Edit</button></a> <button class="btn btn-danger">Delete</button</td>
                             </tr>
                             @endforeach
                             </tbody>
