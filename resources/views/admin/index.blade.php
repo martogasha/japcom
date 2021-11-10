@@ -133,7 +133,7 @@
                                     <h6 class="item-title">Monthly Expense</h6>
                                 </div>
                             </div>
-                            <div class="social-like">{{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
+                            <div class="social-like">Ksh {{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                                     <h6 class="item-title">Monthly Mpesa Earnings</h6>
                                 </div>
                             </div>
-                            <div class="social-like">{{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
+                            <div class="social-like">Ksh {{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                                     <h6 class="item-title">Monthly Cash Earnings</h6>
                                 </div>
                             </div>
-                            <div class="social-like">{{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
+                            <div class="social-like">Ksh {{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
