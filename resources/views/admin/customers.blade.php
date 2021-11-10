@@ -110,8 +110,7 @@
                                                     class="fas fa-edit text-blue"></i>Edit</a>
                                             <form action="{{url('deleteC',$customer->id)}}" method="post" id="deleteCustomers">
                                                 @csrf
-                                                <a class="dropdown-item" href="javascript:document.getElementById('deleteCustomers').submit();"><i
-                                                        class="fas fa-times text-red"></i>Delete</a>
+                                                <button type="submit" class="btn btn-danger btn-lg btn-block">delete</button>
                                             </form>
 
 

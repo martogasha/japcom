@@ -1283,10 +1283,7 @@ class AdminController extends Controller
     }
     public function deleteC($id){
         $delete = User::find($id);
-        $deleteCash = Cash::where('user_id',$id)->delete();
-        $deleteInvoice = Invoice::where('user_id',$id)->delete();
-        $deletePayment = Payment::where('user_id',$id)->delete();
-        $delete->delete();
+        $deleteUser = User::where('id',$id)->update(['bandwidth'=>null]);
         return redirect(url('customers'))->with('success','CUSTOMER DELETED SUCCESS');
 
     }
