@@ -1275,5 +1275,17 @@ class AdminController extends Controller
         $edit->save();
         return redirect(url('customers'))->with('success','CUSTOMER EDIT SUCCESS');
     }
+    public function deleteUser($id){
+        $delete = User::find($id);
+        $delete->delete();
+        return redirect(url('employees'))->with('success','USER DELETED SUCCESS');
+
+    }
+    public function deleteC($id){
+        $delete = User::find($id);
+        $delete->delete();
+        return redirect(url('customers'))->with('success','CUSTOMER DELETED SUCCESS');
+
+    }
 
 }

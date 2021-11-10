@@ -105,9 +105,15 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="{{url('customerDetail',$customer->id)}}"><i
-                                                    class="fas fa-times text-orange-red"></i>View</a>
+                                                    class="fas fa-book-open text-orange-red"></i>View</a>
                                             <a class="dropdown-item" href="{{url('editCustomerDetail',$customer->id)}}"><i
                                                     class="fas fa-edit text-blue"></i>Edit</a>
+                                            <form action="{{url('deleteC',$customer->id)}}" method="post" id="deleteCustomers">
+                                                @csrf
+                                                <a class="dropdown-item" href="javascript:document.getElementById('deleteCustomers').submit();"><i
+                                                        class="fas fa-times text-red"></i>Delete</a>
+                                            </form>
+
 
                                         </div>
                                     </div>

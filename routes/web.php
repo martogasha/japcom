@@ -36,6 +36,8 @@ Route::post('editEmployee/{id}', [AdminController::class, 'editEmployee'])->name
 Route::get('editCustomerDetail/{id}', [AdminController::class, 'editCustomerDetail'])->name('editCustomerDetail');
 Route::post('resetUser/{id}', [AdminController::class, 'resetUser'])->name('resetUser');
 Route::post('editC/{id}', [AdminController::class, 'editC'])->name('editC');
+Route::post('deleteUser/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
+Route::post('deleteC/{id}', [AdminController::class, 'deleteC'])->name('deleteC');
 Route::post('Login', [AuthController::class, 'login'])->name('Login');
 Route::get('customers', [AdminController::class, 'customers']);
 Route::get('profile', [AdminController::class, 'profile']);

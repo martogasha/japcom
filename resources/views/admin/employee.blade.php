@@ -72,7 +72,13 @@
                                 @else
                                     <td>User</td>
                                 @endif
-                                <td><a href="{{url('editUser',$customer->id)}}"><button class="btn btn-info">Edit</button></a> <button class="btn btn-danger">Delete</button</td>
+                                <td><a href="{{url('editUser',$customer->id)}}"><button class="btn btn-info">Edit</button></a>
+                                   <form action="{{url('deleteUser',$customer->id)}}" method="post">
+                                       @csrf
+                                       <button type="submit" class="btn btn-danger">Delete</button>
+
+                                   </form>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>

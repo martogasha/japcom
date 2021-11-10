@@ -99,88 +99,66 @@
                 }
             </style>
             <div class="row gutters-20">
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="dashboard-summery-one mg-b-20">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <div class="item-icon bg-light-green ">
-                                    <i class="flaticon-classmates text-green"></i>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-fb hover-fb">
+                            <div class="media media-none--lg">
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Customers</h6>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="item-content">
-                                    <div class="item-title">Customers</div>
-                                    <div class="item-number"><span>{{\App\Models\User::where('role',2)->count()}}</span></div>
-                                </div>
-                            </div>
+                            <div class="social-like">{{\App\Models\User::where('role',2)->count()}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="dashboard-summery-one mg-b-20">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <div class="item-icon bg-light-blue">
-                                    <i class="flaticon-multiple-users-silhouette text-blue"></i>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Users</h6>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="item-content">
-                                    <div class="item-title">Users</div>
-                                    <div class="item-number"><span>{{\App\Models\User::where('role',1)->count()}}</span></div>
-                                </div>
-                            </div>
+                            <div class="social-like">{{\App\Models\User::where('role',1)->count()}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="dashboard-summery-one mg-b-20">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <div class="item-icon bg-light-yellow">
-                                    <i class="flaticon-couple text-orange"></i>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-gplus hover-gplus">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Monthly Expense</h6>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="item-content">
-                                    <div class="item-title">Monthly Expenses</div>
-                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                                </div>
-                            </div>
+                            <div class="social-like">{{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="dashboard-summery-one mg-b-20">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <div class="item-icon bg-light-red">
-                                    <i class="flaticon-money text-red"></i>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-linkedin hover-linked">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Monthly Mpesa Earnings</h6>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="item-content">
-                                    <div class="item-title">Monthly Mpesa</div>
-                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                                </div>
-                            </div>
+                            <div class="social-like">{{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-sm-6 col-12">
-                    <div class="dashboard-summery-one mg-b-20">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <div class="item-icon bg-light-red">
-                                    <i class="flaticon-money text-red"></i>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-linkedin hover-linked">
+                            <div class="media media-none--lg">
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Monthly Cash Earnings</h6>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="item-content">
-                                    <div class="item-title">Monthly Cash</div>
-                                    <div class="item-number"><span>Ksh: </span>{{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                                </div>
-                            </div>
+                            <div class="social-like">{{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
                         </div>
                     </div>
                 </div>
