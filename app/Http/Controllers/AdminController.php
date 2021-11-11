@@ -31,8 +31,19 @@ class AdminController extends Controller
         if (Auth::check()) {
             if (Auth::user()->role==0 || Auth::user()->role==1) {
                 $notice = Notice::where('id','>',0)->first();
+              $currentMonth = date('m');
+              $currentYeah = date('Y');
+              $mpesa = Mpesa::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
+              $cash = Cash::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
+              $expense = Expense::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
+              $total = $mpesa + $cash;
+              $net =$total - $expense;
                 return view('admin.index',[
-                    'notice'=>$notice
+                    'notice'=>$notice,
+                    'mpesa'=>$mpesa,
+                    'cash'=>$cash,
+                    'expense'=>$expense,
+                    'net'=>$net,
                 ]);
             }
         }
@@ -1220,6 +1231,13 @@ class AdminController extends Controller
         return view('admin.editEmployee',[
             'user'=>$user
         ]);
+    }
+    public function currentYear(){
+        $currentYear = date('Y');
+        $year = Cash::where('id','>',0)->update(['currentYear'=>$currentYear]);
+        $year = Mpesa::where('id','>',0)->update(['currentYear'=>$currentYear]);
+        $year = Expense::where('id','>',0)->update(['currentYear'=>$currentYear]);
+        dd($currentYear);
     }
     public function editEmployee(Request $request,$id){
         $edit = User::find($id);

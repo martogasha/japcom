@@ -124,134 +124,95 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-gplus hover-gplus">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Monthly Expense</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">Ksh {{\App\Models\Expense::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-linkedin hover-linked">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Monthly Mpesa Earnings</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">Ksh {{\App\Models\Mpesa::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-linkedin hover-linked">
-                            <div class="media media-none--lg">
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Monthly Cash Earnings</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">Ksh {{\App\Models\Cash::where('currentMonth',\Carbon\Carbon::now()->format('m'))->sum('amount')}}</div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Dashboard summery End Here -->
             <!-- Dashboard Content Start Here -->
             <div class="row gutters-20">
-                <div class="col-12 col-xl-8 col-6-xxxl">
-                    <div class="card dashboard-card-one pd-b-20">
-                        <div class="card-body">
-                            <div class="heading-layout1">
-                                <div class="item-title">
-                                    <h3>Earnings</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
-
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="earning-report">
-                                <div class="item-content">
-                                    <div class="single-item pseudo-bg-blue">
-                                        <h4>Total Collections</h4>
-                                        <span>75,000</span>
-                                    </div>
-                                    <div class="single-item pseudo-bg-red">
-                                        <h4>Fees Collection</h4>
-                                        <span>15,000</span>
-                                    </div>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="date-dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">Jan 20, 2019</a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Jan 20, 2019</a>
-                                        <a class="dropdown-item" href="#">Jan 20, 2021</a>
-                                        <a class="dropdown-item" href="#">Jan 20, 2020</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="earning-chart-wrap">
-                                <canvas id="earning-line-chart" width="660" height="320"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 col-xl-4 col-3-xxxl">
                     <div class="card dashboard-card-two pd-b-20">
                         <div class="card-body">
                             <div class="heading-layout1">
                                 <div class="item-title">
-                                    <h3>Expenses</h3>
+                                    <h3><b>{{\Carbon\Carbon::now()->format('F-Y')}}</b> Net Income</h3>
                                 </div>
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
-
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="sel1">Year</label>
+                                            <select class="form-control" id="year">
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2025">2025</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sel1">Month</label>
+                                            <select class="form-control" id="year">
+                                                <option value="2021">Jan</option>
+                                                <option value="2022">Feb</option>
+                                                <option value="2023">Mar</option>
+                                                <option value="2024">Apr</option>
+                                                <option value="2025">May</option>
+                                                <option value="2025">Jun</option>
+                                                <option value="2025">Jul</option>
+                                                <option value="2025">Aug</option>
+                                                <option value="2025">Sept</option>
+                                                <option value="2025">Oct</option>
+                                                <option value="2025">Nov</option>
+                                                <option value="2025">Dec</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="expense-report">
-                                <div class="monthly-expense pseudo-bg-Aquamarine">
-                                    <div class="expense-date">Jan 2019</div>
-                                    <div class="expense-amount"><span>$</span> 15,000</div>
+                                <div class="row w-row">
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content1">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">{{$net}}</b>   </h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">NET INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content2">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">{{$mpesa}}</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">MPESA INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content3">
+                                                <h6 class="number-card-number">kSH<br> <b style="font-size: 20px">{{$cash}}</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">CASH INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content4">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">{{$expense}}</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">EXPENSES INCURRED</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="monthly-expense pseudo-bg-blue">
-                                    <div class="expense-date">Feb 2019</div>
-                                    <div class="expense-amount"><span>$</span> 10,000</div>
-                                </div>
-                                <div class="monthly-expense pseudo-bg-yellow">
-                                    <div class="expense-date">Mar 2019</div>
-                                    <div class="expense-amount"><span>$</span> 8,000</div>
-                                </div>
-                            </div>
-                            <div class="expense-chart-wrap">
-                                <canvas id="expense-bar-chart" width="100" height="300"></canvas>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -260,7 +221,7 @@
                         <div class="card-body">
                             <div class="heading-layout1">
                                 <div class="item-title">
-                                    <h3>Students</h3>
+                                    <h3>Customer</h3>
                                 </div>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -281,11 +242,11 @@
                             </div>
                             <div class="student-report">
                                 <div class="student-count pseudo-bg-blue">
-                                    <h4 class="item-title">Female Students</h4>
+                                    <h4 class="item-title">Paid Customers</h4>
                                     <div class="item-number">45,000</div>
                                 </div>
                                 <div class="student-count pseudo-bg-yellow">
-                                    <h4 class="item-title">Male Students</h4>
+                                    <h4 class="item-title">Unpaid Customers</h4>
                                     <div class="item-number">1,05,000</div>
                                 </div>
                             </div>
@@ -319,202 +280,183 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-xl-6 col-4-xxxl">
-                    <div class="card dashboard-card-five pd-b-20">
-                        <div class="card-body pd-b-14">
-                            <div class="heading-layout1">
-                                <div class="item-title">
-                                    <h3>Website Traffic</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
-
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 class="traffic-title">Unique Visitors</h6>
-                            <div class="traffic-number">2,590</div>
-                            <div class="traffic-bar">
-                                <div class="direct" data-toggle="tooltip" data-placement="top" title="Direct">
-                                </div>
-                                <div class="search" data-toggle="tooltip" data-placement="top" title="Search">
-                                </div>
-                                <div class="referrals" data-toggle="tooltip" data-placement="top" title="Referrals">
-                                </div>
-                                <div class="social" data-toggle="tooltip" data-placement="top" title="Social">
-                                </div>
-                            </div>
-                            <div class="traffic-table table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                    <tr>
-                                        <td class="t-title pseudo-bg-Aquamarine">Direct</td>
-                                        <td>12,890</td>
-                                        <td>50%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-title pseudo-bg-blue">Search</td>
-                                        <td>7,245</td>
-                                        <td>27%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-title pseudo-bg-yellow">Referrals</td>
-                                        <td>4,256</td>
-                                        <td>8%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="t-title pseudo-bg-red">Social</td>
-                                        <td>500</td>
-                                        <td>7%</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-6 col-4-xxxl">
-                    <div class="card dashboard-card-six pd-b-20">
-                        <div class="card-body">
-                            <div class="heading-layout1 mg-b-17">
-                                <div class="item-title">
-                                    <h3>Notice Board</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
-
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="notice-box-wrap">
-                                <div class="notice-list">
-                                    <div class="post-date bg-skyblue">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                            printing.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                                <div class="notice-list">
-                                    <div class="post-date bg-yellow">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                                <div class="notice-list">
-                                    <div class="post-date bg-pink">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                                <div class="notice-list">
-                                    <div class="post-date bg-skyblue">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                            printing.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                                <div class="notice-list">
-                                    <div class="post-date bg-yellow">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                                <div class="notice-list">
-                                    <div class="post-date bg-pink">16 June, 2019</div>
-                                    <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                                    <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Dashboard Content End Here -->
             <!-- Social Media Start Here -->
-            <div class="row gutters-20">
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-fb hover-fb">
-                            <div class="media media-none--lg">
-                                <div class="social-icon">
-                                    <i class="fab fa-facebook-f"></i>
-                                </div>
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Like us on facebook</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">30,000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
-                                <div class="social-icon">
-                                    <i class="fab fa-twitter"></i>
-                                </div>
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Follow us on twitter</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">1,11,000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-gplus hover-gplus">
-                            <div class="media media-none--lg">
-                                <div class="social-icon">
-                                    <i class="fab fa-google-plus-g"></i>
-                                </div>
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Follow us on googleplus</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">19,000</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-linkedin hover-linked">
-                            <div class="media media-none--lg">
-                                <div class="social-icon">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </div>
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Follow us on linked</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">45,000</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Social Media End Here -->
             <!-- Footer Area Start Here -->
             <footer class="footer-wrap-layout1">
-                <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a
-                        href="#">PsdBosS</a></div>
+                <div class="copyright">© Copyrights <a href="#">Japcom Networks</a> 2021. All rights reserved. Designed by <a
+                        href="#">Japcom Networks</a></div>
             </footer>
             <!-- Footer Area End Here -->
         </div>
     </div>
     <!-- Page Area End Here -->
 </div>
+<style>
+
+    h1{
+        font-size:2em;
+        margin:.67em 0;
+    }
+    *{
+        -webkit-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        box-sizing:border-box;
+        font-family: Roboto, sans-serif;
+    }
+    h1{
+        font-weight:bold;
+        margin-bottom:10px;
+    }
+    h1{
+        font-size:38px;
+        line-height:44px;
+        margin-top:20px;
+    }
+    .w-row:before,.w-row:after{
+        content:" ";
+        display:table;
+    }
+    .w-row:after{
+        clear:both;
+    }
+    .w-col{
+        position:relative;
+        float:left;
+        width:100%;
+        min-height:1px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+    .w-col-3{
+        width:25%;
+    }
+    @media screen and (max-width:767px){
+        .w-row{
+            margin-left:0;
+            margin-right:0;
+        }
+        .w-col{
+            width:100%;
+            left:auto;
+            right:auto;
+        }
+    }
+    @media screen and (max-width:479px){
+        .w-col{
+            width:100%;
+        }
+    }
+    h1{
+        margin-top:15px;
+        margin-bottom:15px;
+        font-size:42px;
+        line-height:54px;
+        font-weight:400;
+    }
+    .divider{
+        height:1px;
+        margin-top:20px;
+        margin-bottom:15px;
+        background-color:#eee;
+    }
+    .style-label{
+        color:#bebebe;
+        font-size:12px;
+        line-height:20px;
+        font-weight:500;
+        text-transform:uppercase;
+    }
+    .tag-wrapper{
+        margin-top:35px;
+        margin-bottom:35px;
+        padding-right:5px;
+        padding-left:5px;
+    }
+    .row{
+        margin-bottom:50px;
+    }
+    .number-card-number{
+        margin-top:0px;
+        margin-bottom:0px;
+        color:#fff;
+        font-weight:300;
+    }
+    .tagline{
+        font-size:12px;
+        font-weight:500;
+        letter-spacing:2px;
+        text-transform:uppercase;
+    }
+    .tagline.number-card-currency{
+        color:#fff;
+    }
+    .basic-column{
+        padding-right:5px;
+        padding-left:5px;
+    }
+    .number-card{
+        padding:22px 30px;
+        border-radius:8px;
+        background-image:-webkit-linear-gradient(270deg, #1991eb, #1991eb);
+        background-image:linear-gradient(180deg, #1991eb, #1991eb);
+    }
+    .number-card.number-card-content3{
+        background-image:-webkit-linear-gradient(270deg, #ed629a, #c850c0);
+        background-image:linear-gradient(180deg, #ed629a, #c850c0);
+    }
+    .number-card.number-card-content4{
+        background-image:-webkit-linear-gradient(270deg, #ff8308, #fd4f00);
+        background-image:linear-gradient(180deg, #ff8308, #fd4f00);
+    }
+    .number-card.number-card-content2{
+        display:block;
+        background-image:-webkit-linear-gradient(270deg, #17cec4, #17cec4 0%, #08aeea);
+        background-image:linear-gradient(180deg, #17cec4, #17cec4 0%, #08aeea);
+        color:#333;
+    }
+    .number-card.number-card-content1{
+        background-image:-webkit-linear-gradient(270deg, #7042bf, #3023ae);
+        background-image:linear-gradient(180deg, #7042bf, #3023ae);
+    }
+    .number-card-progress-wrapper{
+        display:-webkit-box;
+        display:-webkit-flex;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-pack:justify;
+        -webkit-justify-content:space-between;
+        -ms-flex-pack:justify;
+        justify-content:space-between;
+    }
+    .number-card-divider{
+        height:1px;
+        margin-top:10px;
+        margin-bottom:14px;
+        background-color:hsla(0, 0%, 100%, .15);
+    }
+    .number-card-dollars{
+        color:hsla(0, 0%, 100%, .8);
+        font-size:16px;
+        line-height:24px;
+    }
+    .number-card-progress{
+        color:#fff;
+        text-align:right;
+    }
+    @media (max-width: 991px){
+        .number-card-number{
+            font-size:30px;
+        }
+        .number-card{
+            padding-top:12px;
+            padding-bottom:16px;
+        }
+    }
+
+</style>
 <!-- jquery-->
 <script src="js/jquery-3.3.1.min.js"></script>
 <!-- Plugins js -->

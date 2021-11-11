@@ -101,6 +101,7 @@ Route::post('invoice/{id}', [AdminController::class, 'invoice']);
 Route::get('printInvoice/{id}', [AdminController::class, 'printInvoice']);
 Route::get('quotation', [AdminController::class, 'quotation']);
 Route::get('addExpense', [AdminController::class, 'addExpense']);
+Route::get('currentYear', [AdminController::class, 'currentYear']);
 Route::get('mpesa', [MpesaController::class, 'index']);
 Route::get('cash', [CashController::class, 'index']);
 Route::get('test', [CashController::class, 'test']);
