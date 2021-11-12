@@ -69,6 +69,7 @@ class MpesaController extends Controller
         $dateFormat = $input[0]['event']['resource']['origination_time'];
         $chechIfExists = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
         $currentMonth = date('m');
+        $currentYear = date('Y');
         if (is_null($chechIfExists)) {
             $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
             if (!is_null($getUserIdentification)){
@@ -90,6 +91,7 @@ class MpesaController extends Controller
                             'currency' => $input[0]['event']['resource']['currency'],
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
+                            'currentYear' =>$currentYear,
 
                         ]);
                         $createPay = Payment::create([
@@ -251,6 +253,7 @@ class MpesaController extends Controller
                                 'system' => $input[0]['event']['resource']['system'],
                                 'currency' => $input[0]['event']['resource']['currency'],
                                 'currentMonth' => $currentMonth,
+                                'currentYear' =>$currentYear,
                             ]);
                             $getInvoice = Invoice::where('user_id', $getUser->id)->first();
                             $update = Mpesa::where('senderPhoneNumber', $getUser->phone)->update(['invoice_id' => $getInvoice->id]);
@@ -277,6 +280,7 @@ class MpesaController extends Controller
                         'system' => $input[0]['event']['resource']['system'],
                         'currency' => $input[0]['event']['resource']['currency'],
                         'currentMonth' =>$currentMonth,
+                        'currentYear' =>$currentYear,
                     ]);
                 }
             }

@@ -962,6 +962,7 @@ class AdminController extends Controller
                     'date'=>$paymentDate,
                     'reason'=>'Internet Subscription',
                     'currentMonth'=>$currentMonth,
+                    'currentYear' =>$currentYear,
                 ]);
                 $createPay = Payment::create([
                     'user_id'=>$store->id,
@@ -993,6 +994,7 @@ class AdminController extends Controller
                         'date'=>$paymentDate,
                         'reason'=>'Internet Subscription',
                         'currentMonth'=>$currentMonth,
+                        'currentYear' =>$currentYear,
                     ]);
                     $createPay1 = Payment::create([
                         'user_id'=>$store->id,
@@ -1054,6 +1056,7 @@ class AdminController extends Controller
     }
     public function makeCashPayment(Request $request){
         $currentMonth = date('m');
+        $currentYear = date('Y');
         $getMinUsage = Invoice::where('user_id',$request->user_id)->where('status',0)->min('usage_time');
         $getInvoice = Invoice::where('user_id',$request->user_id)->where('status',0)->where('usage_time',$getMinUsage)->first();
         $paymentDate = date("d-m-Y", strtotime($request->payment_date));
@@ -1066,6 +1069,7 @@ class AdminController extends Controller
                 'date'=>$paymentDate,
                 'reason'=>'Internet Subscription',
                 'currentMonth' =>$currentMonth,
+                'currentYear' =>$currentYear,
 
             ]);
             $createPay = Payment::create([
@@ -1229,6 +1233,8 @@ class AdminController extends Controller
                 'date'=>$paymentDate,
                 'reason'=>'Internet Subscription',
                 'currentMonth' =>$currentMonth,
+                'currentYear' =>$currentYear,
+
             ]);
             $createPay = Payment::create([
                 'user_id'=>$request->user_id,
