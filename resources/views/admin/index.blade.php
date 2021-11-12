@@ -127,47 +127,50 @@
             </div>
             <!-- Dashboard summery End Here -->
             <!-- Dashboard Content Start Here -->
-            <div class="row gutters-20">
-                <div class="col-12 col-xl-4 col-3-xxxl">
-                    <div class="card dashboard-card-two pd-b-20">
-                        <div class="card-body">
-                            <div class="heading-layout1">
-                                <div class="item-title">
-                                    <h3><b>{{\Carbon\Carbon::now()->format('F-Y')}}</b> Net Income</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label for="sel1">Year</label>
-                                            <select class="form-control" id="year">
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2025">2025</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sel1">Month</label>
-                                            <select class="form-control" id="year">
-                                                <option value="2021">Jan</option>
-                                                <option value="2022">Feb</option>
-                                                <option value="2023">Mar</option>
-                                                <option value="2024">Apr</option>
-                                                <option value="2025">May</option>
-                                                <option value="2025">Jun</option>
-                                                <option value="2025">Jul</option>
-                                                <option value="2025">Aug</option>
-                                                <option value="2025">Sept</option>
-                                                <option value="2025">Oct</option>
-                                                <option value="2025">Nov</option>
-                                                <option value="2025">Dec</option>
-                                            </select>
+            <div class="row gutters-20" id="scrollToReports">
+                    <div class="col-12 col-xl-4 col-3-xxxl">
+                        <div class="card dashboard-card-two pd-b-20">
+                            <div class="card-body">
+                                <div class="heading-layout1">
+                                    <div class="item-title" id="hideMonth">
+                                        <h3><b>{{\Carbon\Carbon::now()->format('F-Y')}}</b> Net Income</h3>
+                                    </div>
+                                    <div class="item-title" id="showMonth">
+                                    </div>
+                                    <div class="dropdown">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="sel1">Year</label>
+                                                <select class="form-control" id="year">
+                                                    <option value="2021">2021</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sel1">Month</label>
+                                                <select class="form-control" id="month">
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">Jun</option>
+                                                    <option value="7">Jul</option>
+                                                    <option value="8">Aug</option>
+                                                    <option value="9">Sept</option>
+                                                    <option value="10">Oct</option>
+                                                    <option value="11">Nov</option>
+                                                    <option value="12">Dec</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                <div class="row w-row">
+                                <div id="basic">
+                                <div class="row w-row" id="report">
                                     <div class="basic-column w-col w-col-3">
                                         <div class="tag-wrapper">
                                             <div class="number-card number-card-content1">
@@ -213,73 +216,75 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-xl-6 col-3-xxxl">
-                    <div class="card dashboard-card-three pd-b-20">
-                        <div class="card-body">
-                            <div class="heading-layout1">
-                                <div class="item-title">
-                                    <h3>Customer</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
+                    <div class="col-12 col-xl-6 col-3-xxxl">
+                        <div class="card dashboard-card-three pd-b-20">
+                            <div class="card-body">
+                                <div class="heading-layout1">
+                                    <div class="item-title">
+                                        <h3>Customer</h3>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                           aria-expanded="false">...</a>
 
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-times text-orange-red"></i>Close</a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="doughnut-chart-wrap">
+                                    <canvas id="student-doughnut-chart" width="100" height="300"></canvas>
+                                </div>
+                                <div class="student-report">
+                                    <div class="student-count pseudo-bg-blue">
+                                        <h4 class="item-title">Paid Customers</h4>
+                                        <div class="item-number">45,000</div>
+                                    </div>
+                                    <div class="student-count pseudo-bg-yellow">
+                                        <h4 class="item-title">Unpaid Customers</h4>
+                                        <div class="item-number">1,05,000</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="doughnut-chart-wrap">
-                                <canvas id="student-doughnut-chart" width="100" height="300"></canvas>
-                            </div>
-                            <div class="student-report">
-                                <div class="student-count pseudo-bg-blue">
-                                    <h4 class="item-title">Paid Customers</h4>
-                                    <div class="item-number">45,000</div>
-                                </div>
-                                <div class="student-count pseudo-bg-yellow">
-                                    <h4 class="item-title">Unpaid Customers</h4>
-                                    <div class="item-number">1,05,000</div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-xl-6 col-4-xxxl">
-                    <div class="card dashboard-card-four pd-b-20">
-                        <div class="card-body">
-                            <div class="heading-layout1">
-                                <div class="item-title">
-                                    <h3>Event Calender</h3>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                       aria-expanded="false">...</a>
+                    <div class="col-12 col-xl-6 col-4-xxxl">
+                        <div class="card dashboard-card-four pd-b-20">
+                            <div class="card-body">
+                                <div class="heading-layout1">
+                                    <div class="item-title">
+                                        <h3>Event Calender</h3>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                           aria-expanded="false">...</a>
 
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-times text-orange-red"></i>Close</a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                            <a class="dropdown-item" href="#"><i
+                                                    class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="calender-wrap">
-                                <div id="fc-calender" class="fc-calender"></div>
+                                <div class="calender-wrap">
+                                    <div id="fc-calender" class="fc-calender"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
             </div>
             <!-- Dashboard Content End Here -->
             <!-- Social Media Start Here -->
@@ -481,6 +486,45 @@
 <script src="js/main.js"></script>
 
 </body>
+<script>
+    $('#month').on('change',function () {
+        $('#report').hide();
+        $month = $(this).val();
+        $year = $('#year').val();
+        $.ajax({
+            type:"get",
+            url:"{{url('ajax')}}",
+            data:{'yeah':$year,'month':$month},
+            success:function (data) {
+               $('#basic').html(data);
+                $.ajax({
+                    type:"get",
+                    url:"{{url('showMonth')}}",
+                    data:{'yeah':$year,'month':$month},
+                    success:function (data) {
+                        $('#hideMonth').hide();
+                        $('#showMonth').html(data);
+                    },
+                    error:function (error) {
+                        console.log(error)
+                        alert('error')
+
+                    }
+
+                });
+                $('html, body').animate({
+                    scrollTop: $("#scrollToReports").offset().top
+                }, 500);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
+</script>
 
 
 <!-- Mirrored from www.radiustheme.com/demo/html/psdboss/akkhor/akkhor/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Jun 2021 10:34:59 GMT -->

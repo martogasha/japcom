@@ -51,6 +51,82 @@ class AdminController extends Controller
             return redirect(url('login'));
         }
     }
+    public function showMonth(Request $request){
+        if ($request->ajax()){
+            $output = "";
+            $output = '
+                    <h3><b>'.$request->month.'</b> Net Income</h3>
+
+            ';
+        }
+        return response($output);
+    }
+    public function ajax(Request $request){
+        if ($request->ajax()){
+            $output = "";
+            $mpesa = Mpesa::where('currentMonth',$request->month)->where('currentYear',$request->yeah)->sum('amount');
+            $cash = Cash::where('currentMonth',$request->month)->where('currentYear',$request->yeah)->sum('amount');
+            $expense = Expense::where('currentMonth',$request->month)->where('currentYear',$request->yeah)->sum('amount');
+            $total = $mpesa + $cash;
+            $net =$total - $expense;
+            $output = '
+                        <div class="col-12 col-xl-4 col-3-xxxl">
+                        <div class="card dashboard-card-two pd-b-20">
+                            <div class="card-body">
+                                <div class="row w-row">
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content1">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$net.'</b>   </h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">NET INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content2">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$mpesa.'</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">MPESA INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content3">
+                                                <h6 class="number-card-number">kSH<br> <b style="font-size: 20px">'.$cash.'</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">CASH INCOME</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="basic-column w-col w-col-3">
+                                        <div class="tag-wrapper">
+                                            <div class="number-card number-card-content4">
+                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$expense.'</b></h6>
+                                                <div class="number-card-divider"></div>
+                                                <div class="number-card-progress-wrapper">
+                                                    <div class="tagline number-card-currency">EXPENSES INCURRED</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            ';
+        }
+        return response($output);
+    }
     public function profile(){
         if (Auth::check()) {
             if (Auth::user()->role==0 || Auth::user()->role==1) {
