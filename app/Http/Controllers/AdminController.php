@@ -54,8 +54,11 @@ class AdminController extends Controller
     public function showMonth(Request $request){
         if ($request->ajax()){
             $output = "";
+
+            $monthNum  = $request->month;
+            $monthName = date('F', mktime(0, 0, 0, $monthNum, 10)); // March
             $output = '
-                    <h3><b>'.$request->month.'</b> Net Income</h3>
+                    <h3><b>'.$monthName.' - '.$request->year.'</b> Net Income</h3>
 
             ';
         }
