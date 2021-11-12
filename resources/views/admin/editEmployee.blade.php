@@ -29,6 +29,30 @@
                                 <input type="hidden" value="{{$user->phone}}" class="form-control" name="phone">
                             @if($user->role==0)
                                 <input type="hidden" value="0" class="form-control" name="role">
+                                <div class="col-8">
+                                    @if($user->products==5)
+                                        <input type="hidden" name="products" value="5">
+                                    @endif
+                                    @if($user->users==6)
+                                        <input type="hidden" name="users" value="6">
+                                    @endif
+                                    @if($user->customers==7)
+                                        <input type="hidden" name="customers" value="7">
+                                    @endif
+                                    @if($user->payments==8)
+                                        <input type="hidden" name="payments" value="8">
+                                    @endif
+                                    @if($user->expenses==9)
+                                        <input type="hidden" name="expenses" value="9">
+                                    @endif
+                                    @if($user->estimate==10)
+                                        <input type="hidden" name="estimates" value="10">
+                                    @endif
+                                    @if($user->invoice==11)
+                                        <input type="hidden" name="invoice" value="11">
+                                    @endif
+                                </div>
+
                             @else
                                 <input type="hidden" value="1" class="form-control" name="role">
                                 <div class="container" id="role_type">
@@ -50,10 +74,10 @@
                                                     <input type="hidden" name="expenses" value="9">
                                             @endif
                                             @if($user->estimate==10)
-                                                    <input type="hidden" name="estimates" value="6">
+                                                    <input type="hidden" name="estimates" value="10">
                                             @endif
                                             @if($user->invoice==11)
-                                                    <input type="hidden" name="invoice" value="6">
+                                                    <input type="hidden" name="invoice" value="11">
                                             @endif
                                         </div>
                                     </div>
