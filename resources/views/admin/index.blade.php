@@ -127,7 +127,6 @@
             </div>
             <!-- Dashboard summery End Here -->
             <!-- Dashboard Content Start Here -->
-            <div class="row gutters-20" id="scrollToReports">
                     <div class="col-12 col-xl-4 col-3-xxxl">
                         <div class="card dashboard-card-two pd-b-20">
                             <div class="card-body">
@@ -221,8 +220,6 @@
                         </div>
                     </div>
 
-
-            </div>
             <!-- Dashboard Content End Here -->
             <!-- Social Media Start Here -->
             <!-- Social Media End Here -->
