@@ -23,6 +23,58 @@
                         </div>
                         <form action="{{route('resetUser',$user->id)}}" method="post">
                             @csrf
+                                <input type="hidden" value="{{$user->first_name}}" class="form-control" name="first_name">
+                                <input type="hidden" value="{{$user->last_name}}" class="form-control" name="last_name">
+                                <input type="hidden" value="{{$user->email}}" class="form-control" name="email">
+                                <input type="hidden" value="{{$user->phone}}" class="form-control" name="phone">
+                            @if($user->role==0)
+                                <input type="hidden" value="0" class="form-control" name="role">
+                            @else
+                                <input type="hidden" value="1" class="form-control" name="role">
+                                <div class="container" id="role_type">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            @if($user->products==5)
+                                                    <input type="hidden" name="products" value="5">
+                                            @endif
+                                            @if($user->users==6)
+                                                    <input type="hidden" name="users" value="6">
+                                            @endif
+                                            @if($user->customers==7)
+                                                    <input type="hidden" name="customers" value="7">
+                                            @endif
+                                            @if($user->payments==8)
+                                                    <input type="hidden" name="payments" value="8">
+                                            @endif
+                                            @if($user->expenses==9)
+                                                    <input type="hidden" name="expenses" value="9">
+                                            @endif
+                                            @if($user->estimate==10)
+                                                    <input type="hidden" name="estimates" value="6">
+                                            @endif
+                                            @if($user->invoice==11)
+                                                    <input type="hidden" name="invoice" value="6">
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <button type="submit" class="btn btn-success">RESET PASSWORD</button>
+                        </form>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-expanded="false">...</a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{{route('editEmployee',$user->id)}}" method="post">
+                        @csrf
+                        <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>First Name *</label>
                                 <input type="text" value="{{$user->first_name}}" class="form-control" name="first_name">
@@ -40,21 +92,13 @@
                                 <input type="text" value="{{$user->phone}}" class="form-control" name="phone">
                             </div>
                             @if($user->role==0)
-                                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Role *</label>
-                                    <select class="select2" id="getRole" name="role">
-                                        <option value="0">Admin</option>
-                                        <option value="1">User</option>
-                                    </select>
-                                </div>
-                            @else
-                                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Role *</label>
-                                    <select class="select2" id="getRole" name="role">
-                                        <option value="1">User</option>
-                                        <option value="0">Admin</option>
-                                    </select>
-                                </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Role *</label>
+                                <select class="select2" id="getRole" name="role">
+                                    <option value="0">Admin</option>
+                                    <option value="1">User</option>
+                                </select>
+                            </div>
                                 <div class="container" id="role_type">
                                     <div class="row">
                                         <div class="col-8">
@@ -138,47 +182,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                            <button type="submit" class="btn btn-success">RESET PASSWORD</button>
-                        </form>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-expanded="false">...</a>
 
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
-                        </div>
-                    </div>
-                    <form action="{{route('editEmployee',$user->id)}}" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>First Name *</label>
-                                <input type="text" value="{{$user->first_name}}" class="form-control" name="first_name">
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Last Name *</label>
-                                <input type="text" value="{{$user->last_name}}" class="form-control" name="last_name">
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Email Address *</label>
-                                <input type="email" value="{{$user->email}}" class="form-control" name="email">
-                            </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Phone</label>
-                                <input type="text" value="{{$user->phone}}" class="form-control" name="phone">
-                            </div>
-                            @if($user->role==0)
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Role *</label>
-                                <select class="select2" id="getRole" name="role">
-                                    <option value="0">Admin</option>
-                                    <option value="1">User</option>
-                                </select>
-                            </div>
                             @else
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">
                                     <label>Role *</label>

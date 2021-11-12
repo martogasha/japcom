@@ -228,7 +228,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success','EMPLOYEE ADDED SUCCESSFULLY');
     }
     public function employees(){
-        $customers = User::where('role',1)->orWhere('role',0)->get();
+        $customers = User::where('role',1)->orWhere('role',0)->orderByDesc('id')->get();
         return view('admin.employee',[
             'customers'=>$customers
         ]);
@@ -1348,7 +1348,7 @@ class AdminController extends Controller
         $reset->invoice = $request->invoice;
         $reset->password = Hash::make($request->phone);
         $reset->save();
-        return view('admin.employee')->with('success','USER EDITED SUCCESS');
+        return redirect(url('employees'))->with('success','USER EDITED SUCCESS');
     }
     public function editCustomerDetail(Request $request, $id){
         $customer = User::find($id);

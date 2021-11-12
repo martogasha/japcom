@@ -49,7 +49,7 @@
                         </div>
                     </form>
                     <div class="table-responsive">
-                        <table class="table display data-table text-nowrap">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
 
