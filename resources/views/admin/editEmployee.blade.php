@@ -23,6 +23,122 @@
                         </div>
                         <form action="{{route('resetUser',$user->id)}}" method="post">
                             @csrf
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>First Name *</label>
+                                <input type="text" value="{{$user->first_name}}" class="form-control" name="first_name">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Last Name *</label>
+                                <input type="text" value="{{$user->last_name}}" class="form-control" name="last_name">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Email Address *</label>
+                                <input type="email" value="{{$user->email}}" class="form-control" name="email">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Phone</label>
+                                <input type="text" value="{{$user->phone}}" class="form-control" name="phone">
+                            </div>
+                            @if($user->role==0)
+                                <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>Role *</label>
+                                    <select class="select2" id="getRole" name="role">
+                                        <option value="0">Admin</option>
+                                        <option value="1">User</option>
+                                    </select>
+                                </div>
+                            @else
+                                <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <label>Role *</label>
+                                    <select class="select2" id="getRole" name="role">
+                                        <option value="1">User</option>
+                                        <option value="0">Admin</option>
+                                    </select>
+                                </div>
+                                <div class="container" id="role_type">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            @if($user->products==5)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="products" value="5" id="customCheck1"checked>
+                                                    <label class="custom-control-label" for="customCheck1">Products</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="products" value="5" id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">Products</label>
+                                                </div>
+                                            @endif
+                                            @if($user->users==6)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="users" value="6" id="customCheck2" checked>
+                                                    <label class="custom-control-label" for="customCheck2">Users</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="users" value="6" id="customCheck2">
+                                                    <label class="custom-control-label" for="customCheck2">Users</label>
+                                                </div>
+                                            @endif
+                                            @if($user->customers==7)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="customers" value="7" id="customCheck3" checked>
+                                                    <label class="custom-control-label" for="customCheck3">Customers</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="customers" value="7" id="customCheck3">
+                                                    <label class="custom-control-label" for="customCheck3">Customers</label>
+                                                </div>
+                                            @endif
+                                            @if($user->payments==8)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="payments" value="8" id="customCheck4" checked>
+                                                    <label class="custom-control-label" for="customCheck4">Payments</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="payments" value="8" id="customCheck4">
+                                                    <label class="custom-control-label" for="customCheck4">Payments</label>
+                                                </div>
+                                            @endif
+                                            @if($user->expenses==9)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="expenses" value="9" id="customCheck5" checked>
+                                                    <label class="custom-control-label" for="customCheck5">Expenses</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="expenses" value="9" id="customCheck5">
+                                                    <label class="custom-control-label" for="customCheck5">Expenses</label>
+                                                </div>
+                                            @endif
+                                            @if($user->estimate==10)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="estimates" value="10" id="customCheck6" checked>
+                                                    <label class="custom-control-label" for="customCheck6">Estimate</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="estimates" value="10" id="customCheck6">
+                                                    <label class="custom-control-label" for="customCheck6">Estimate</label>
+                                                </div>
+                                            @endif
+                                            @if($user->invoice==11)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="invoice" value="11" id="customCheck7" checked>
+                                                    <label class="custom-control-label" for="customCheck7">Invoice</label>
+                                                </div>
+                                            @else
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="invoice" value="11" id="customCheck7">
+                                                    <label class="custom-control-label" for="customCheck7">Invoice</label>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <button type="submit" class="btn btn-success">RESET PASSWORD</button>
                         </form>
                         <div class="dropdown">

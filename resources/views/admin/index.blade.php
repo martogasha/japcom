@@ -174,7 +174,7 @@
                                     <div class="basic-column w-col w-col-3">
                                         <div class="tag-wrapper">
                                             <div class="number-card number-card-content1">
-                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">{{$net}}</b>   </h6>
+                                                <h6  class="number-card-number">KSH<br> <b style="font-size: 20px">{{$net}}</b>   </h6>
                                                 <div class="number-card-divider"></div>
                                                 <div class="number-card-progress-wrapper">
                                                     <div class="tagline number-card-currency">NET INCOME</div>
