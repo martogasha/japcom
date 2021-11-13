@@ -158,6 +158,32 @@ class AdminController extends Controller
         }
         return response($output);
     }
+    public function editExpense($id){
+        $expense = Expense::find($id);
+        return view('admin.editExpense',[
+            'expense'=>$expense
+        ]);
+    }
+    public function eExpense(Request $request, $id){
+        $edit = Expense::find($id);
+        $edit->details = $request->details;
+        $edit->amount = $request->amount;
+        $edit->date = $request->date;
+        $edit->save();
+        return redirect(url('expenses'))->with('success','EXPENSE EDITED SUCCESS');
+    }
+    public function deleteExpense($id){
+        $delete = Expense::find($id);
+        $delete->delete();
+        return redirect(url('expenses'))->with('success','EXPENSE DELETED SUCCESS');
+
+    }
+    public function mpesaCustomer($id){
+        $customer = Mpesa::find($id);
+        return view('admin.mpesaCustomer',[
+            'customer'=>$customer
+        ]);
+    }
     public function profile(){
         if (Auth::check()) {
             if (Auth::user()->role==0 || Auth::user()->role==1) {
@@ -930,6 +956,7 @@ class AdminController extends Controller
             $output = "";
         }
         $currentMonth = date('m');
+        $currentYear = date('Y');
         $paymentDate =  date('d-m-Y', strtotime($request->payment_date));
         $store = User::create([
            'first_name'=>$request->first_name,

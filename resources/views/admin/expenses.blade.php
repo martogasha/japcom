@@ -35,6 +35,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('flash-message')
                     <form class="mg-b-20">
                         <div class="row gutters-8">
                             <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
@@ -57,7 +58,7 @@
                                 <th>Amount</th>
                                 <th>Date Of Payment</th>
 
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,6 +68,13 @@
                                 <td>{{$expense->details}}</td>
                                 <td>Ksh {{$expense->amount}}</td>
                                 <td>{{$expense->date}}</td>
+                                <td>
+                                    <a href="{{url('editExpense',$expense->id)}}"><button class="btn btn-info">Edit</button></a>
+                                    <form action="{{url('deleteExpense',$expense->id)}}"method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
 
                             </tr>
                             @endforeach

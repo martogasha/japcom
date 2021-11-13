@@ -60,7 +60,7 @@
                                 <th>Phone</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody id="myTable">
@@ -72,7 +72,10 @@
                                 <td>{{$mpesa->senderPhoneNumber}}</td>
                                 <td><b>kSH: {{$mpesa->amount}}</b></td>
                                 <td>{{$mpesa->originationTime}}</td>
-                                <td><a href="{{url('mpesaReceipt',$mpesa->id)}}"><button class="btn btn-success">Receipt</button></a></td>
+                                <td>
+                                    <a href="{{url('mpesaReceipt',$mpesa->id)}}"><button class="btn btn-success">Receipt</button></a>
+                                    <a href="{{url('mpesaCustomer',$mpesa->id)}}"><button class="btn btn-info">Add as Customer</button></a>
+                                </td>
                             </tr>
                             @endforeach
 
@@ -81,6 +84,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Student Table Area End Here -->
             <footer class="footer-wrap-layout1">
                 <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a
