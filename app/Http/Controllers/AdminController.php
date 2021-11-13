@@ -58,7 +58,7 @@ class AdminController extends Controller
             $monthNum  = $request->month;
             $monthName = date('F', mktime(0, 0, 0, $monthNum, 10)); // March
             $output = '
-                    <h3><b>'.$monthName.' - '.$request->year.'</b> Net Income</h3>
+                        <h3><b>'.$monthName.' - '.$request->year.'</b> Net Income</h3>
 
             ';
         }
@@ -73,59 +73,87 @@ class AdminController extends Controller
             $total = $mpesa + $cash;
             $net =$total - $expense;
             $output = '
-                        <div class="col-12 col-xl-4 col-3-xxxl">
-                        <div class="card dashboard-card-two pd-b-20">
-                            <div class="card-body">
-                                <div class="row w-row">
-                                    <div class="basic-column w-col w-col-3">
-                                        <div class="tag-wrapper">
-                                            <div class="number-card number-card-content1">
-                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$net.'</b>   </h6>
-                                                <div class="number-card-divider"></div>
-                                                <div class="number-card-progress-wrapper">
-                                                    <div class="tagline number-card-currency">NET INCOME</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="basic-column w-col w-col-3">
-                                        <div class="tag-wrapper">
-                                            <div class="number-card number-card-content2">
-                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$mpesa.'</b></h6>
-                                                <div class="number-card-divider"></div>
-                                                <div class="number-card-progress-wrapper">
-                                                    <div class="tagline number-card-currency">MPESA INCOME</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="basic-column w-col w-col-3">
-                                        <div class="tag-wrapper">
-                                            <div class="number-card number-card-content3">
-                                                <h6 class="number-card-number">kSH<br> <b style="font-size: 20px">'.$cash.'</b></h6>
-                                                <div class="number-card-divider"></div>
-                                                <div class="number-card-progress-wrapper">
-                                                    <div class="tagline number-card-currency">CASH INCOME</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="basic-column w-col w-col-3">
-                                        <div class="tag-wrapper">
-                                            <div class="number-card number-card-content4">
-                                                <h6 class="number-card-number">KSH<br> <b style="font-size: 20px">'.$expense.'</b></h6>
-                                                <div class="number-card-divider"></div>
-                                                <div class="number-card-progress-wrapper">
-                                                    <div class="tagline number-card-currency">EXPENSES INCURRED</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-fb hover-fb" style="background-color: dodgerblue">
+                            <div class="media media-none--lg">
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Customers</h6>
                                 </div>
                             </div>
+                            <div class="social-like">'.\App\Models\User::where('role',2)->count().'</div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: mediumseagreen">
+                            <div class="media media-none--lg">
 
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Users</h6>
+                                </div>
+                            </div>
+                            <div class="social-like">'.\App\Models\User::where('role',1)->count().'</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: indianred">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Net Income</h6>
+                                </div>
+                            </div>
+                            <span>KSH</span>
+                            <div class="social-like">'.$net.'</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: hotpink">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Mpesa Income</h6>
+                                </div>
+                            </div>
+                            <span>KSH</span>
+                            <div class="social-like">'.$mpesa.'</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: mediumpurple">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Cash Income</h6>
+                                </div>
+                            </div>
+                            <span>KSH</span>
+                            <div class="social-like">'.$cash.'</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Expenses</h6>
+                                </div>
+                            </div>
+                            <span>KSH</span>
+                            <div class="social-like">'.$expense.'</div>
+                        </div>
+                    </div>
+                </div>
             ';
         }
         return response($output);

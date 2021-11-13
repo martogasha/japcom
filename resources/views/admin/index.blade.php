@@ -99,6 +99,7 @@
                 }
             </style>
             <div class="dropdown">
+                <div id="hideMonth"><h3><b>{{\Carbon\Carbon::now()->format('F')}} - {{\Carbon\Carbon::now()->format('Y')}}</b> Net Income</h3></div>
                 <div id="showMonth"></div>
                 <div class="row" style="padding-left:200px">
                     <div class="form-group">
@@ -133,7 +134,7 @@
             <div class="row gutters-20" id="report">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
-                        <div class="social-media bg-fb hover-fb">
+                        <div class="social-media bg-fb hover-fb" style="background-color: dodgerblue">
                             <div class="media media-none--lg">
                                 <div class="media-body space-sm">
                                     <h6 class="item-title">Customers</h6>
@@ -145,7 +146,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: mediumseagreen">
                             <div class="media media-none--lg">
 
                                 <div class="media-body space-sm">
@@ -158,7 +159,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: indianred">
                             <div class="media media-none--lg">
 
                                 <div class="media-body space-sm">
@@ -172,7 +173,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: hotpink">
                             <div class="media media-none--lg">
 
                                 <div class="media-body space-sm">
@@ -186,7 +187,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: mediumpurple">
                             <div class="media media-none--lg">
 
                                 <div class="media-body space-sm">
@@ -214,87 +215,7 @@
                 </div>
             </div>
             <div class="row gutters-20" id="basic">
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-fb hover-fb">
-                            <div class="media media-none--lg">
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Customers</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">{{\App\Models\User::where('role',2)->count()}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
 
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Users</h6>
-                                </div>
-                            </div>
-                            <div class="social-like">{{\App\Models\User::where('role',1)->count()}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Net Income</h6>
-                                </div>
-                            </div>
-                            <span>KSH</span>
-                            <div class="social-like">{{$net}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Mpesa Income</h6>
-                                </div>
-                            </div>
-                            <span>KSH</span>
-                            <div class="social-like">{{$mpesa}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Cash Income</h6>
-                                </div>
-                            </div>
-                            <span>KSH</span>
-                            <div class="social-like">{{$cash}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-twitter hover-twitter">
-                            <div class="media media-none--lg">
-
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Expenses</h6>
-                                </div>
-                            </div>
-                            <span>KSH</span>
-                            <div class="social-like">{{$expense}}</div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Dashboard summery End Here -->
             <!-- Dashboard Content Start Here -->
@@ -403,9 +324,6 @@
 
 </body>
 <script>
-    $(document).ready(function () {
-        $('#basic').hide();
-    });
     $('#month').on('change',function () {
         $month = $(this).val();
         $year = $('#year').val();
@@ -414,7 +332,8 @@
             url:"{{url('ajax')}}",
             data:{'yeah':$year,'month':$month},
             success:function (data) {
-               $('#basic').html(data);
+                $('#report').hide();
+                $('#basic').html(data);
                 $.ajax({
                     type:"get",
                     url:"{{url('showMonth')}}",
