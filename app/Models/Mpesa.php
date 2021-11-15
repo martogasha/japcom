@@ -30,6 +30,7 @@ class Mpesa extends Model
         'invoice_id',
         'invoice_balance',
         'currentMonth',
+        'currentYear',
     ];
     public function user(){
         return $this->belongsTo(User::class);

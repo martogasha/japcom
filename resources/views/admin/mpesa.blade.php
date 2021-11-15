@@ -74,7 +74,9 @@
                                 <td>{{$mpesa->originationTime}}</td>
                                 <td>
                                     <a href="{{url('mpesaReceipt',$mpesa->id)}}"><button class="btn btn-success">Receipt</button></a>
+                                    @if(is_null(\App\Models\User::where('phone',$mpesa->senderPhoneNumber)->first()))
                                     <a href="{{url('mpesaCustomer',$mpesa->id)}}"><button class="btn btn-info">Add as Customer</button></a>
+                                        @endif
                                 </td>
                             </tr>
                             @endforeach

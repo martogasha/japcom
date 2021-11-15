@@ -172,8 +172,8 @@ class AdminController extends Controller
         $edit->save();
         return redirect(url('expenses'))->with('success','EXPENSE EDITED SUCCESS');
     }
-    public function deleteExpense($id){
-        $delete = Expense::find($id);
+    public function deleteExpense(Request $request){
+        $delete = Expense::find($request->userid);
         $delete->delete();
         return redirect(url('expenses'))->with('success','EXPENSE DELETED SUCCESS');
 
@@ -207,7 +207,7 @@ class AdminController extends Controller
     }
     public function customers(){
         if (Auth::check()){
-            $customers = User::where('bandwidth','!=', null)->where('location','!=',null)->orderByDesc('id')->get();
+            $customers = User::where('role', 2)->orderByDesc('id')->get();
             return view('admin.customers',[
                 'customers'=>$customers,
             ]);
@@ -1433,15 +1433,38 @@ class AdminController extends Controller
         $edit->save();
         return redirect(url('customers'))->with('success','CUSTOMER EDIT SUCCESS');
     }
-    public function deleteUser($id){
-        $delete = User::find($id);
+    public function deleteUser(Request $request){
+        $delete = User::find($request->userid);
         $delete->delete();
         return redirect(url('employees'))->with('success','USER DELETED SUCCESS');
 
     }
-    public function deleteC($id){
-        $delete = User::find($id);
-        $deleteUser = User::where('id',$id)->update(['bandwidth'=>null]);
+    public function del(Request $request){
+        $output = "";
+        $userId = User::find($request->id);
+        $output = '
+        <input type=hidden value='.$userId->id.' name=userid>
+        ';
+        return response($output);
+    }
+    public function delC(Request $request){
+        $output = "";
+        $userId = User::find($request->id);
+        $output = '
+        <input type=hidden value='.$userId->id.' name=userid>
+        ';
+        return response($output);
+    }
+    public function delE(Request $request){
+        $output = "";
+        $userId = Expense::find($request->id);
+        $output = '
+        <input type=hidden value='.$userId->id.' name=userid>
+        ';
+        return response($output);
+    }
+    public function deleteC(Request $request){
+        $deleteUser = User::where('id',$request->userid)->update(['role'=>22]);
         return redirect(url('customers'))->with('success','CUSTOMER DELETED SUCCESS');
 
     }

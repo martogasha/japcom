@@ -73,11 +73,7 @@
                                     <td>User</td>
                                 @endif
                                 <td><a href="{{url('editUser',$customer->id)}}"><button class="btn btn-info">Edit</button></a>
-                                   <form action="{{url('deleteUser',$customer->id)}}" method="post">
-                                       @csrf
-                                       <button type="submit" class="btn btn-danger">Delete</button>
-
-                                   </form>
+                                    <button type="button" class="btn btn-danger view" id="{{$customer->id}}" data-toggle="modal" data-target="#west">Delete</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -124,6 +120,28 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="west" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">ARE YOU SURE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{url('deleteUser')}}" method="post">
+                @csrf
+            <div id="del">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- jquery-->
 <script src="js/jquery-3.3.1.min.js"></script>
 <!-- Plugins js -->
@@ -142,7 +160,25 @@
 </body>
 
 <script>
-    $(document).on('click','.view',function () {
+        $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+        type:"get",
+        url:"{{url('del')}}",
+        data:{'id':$value},
+        success:function (data) {
+        $('#del').html(data);
+    },
+        error:function (error) {
+        console.log(error)
+        alert('error')
+
+    }
+
+    });
+    });
+
+$(document).on('click','.view',function () {
         $value = $(this).attr('id');
         var date1 = new Date();
         var date2 = new Date($('#update_due_date').val());

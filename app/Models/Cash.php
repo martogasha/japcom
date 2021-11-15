@@ -17,6 +17,8 @@ class Cash extends Model
         'date',
         'status',
         'currentMonth',
+        'currentYear',
+
     ];
     public function user(){
        return $this->belongsTo(User::class);

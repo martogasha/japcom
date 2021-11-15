@@ -108,11 +108,7 @@
                                                     class="fas fa-book-open text-orange-red"></i>View</a>
                                             <a class="dropdown-item" href="{{url('editCustomerDetail',$customer->id)}}"><i
                                                     class="fas fa-edit text-blue"></i>Edit</a>
-                                            <form action="{{url('deleteC',$customer->id)}}" method="post" id="deleteCustomers">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-lg btn-block">delete</button>
-                                            </form>
-
+                                            <button type="button" class="btn btn-danger btn-lg btn-block view" id="{{$customer->id}}" data-toggle="modal" data-target="#west">Delete</button>
 
                                         </div>
                                     </div>
@@ -132,33 +128,24 @@
             </footer>
         </div>
     </div>
-    <!-- Page Area End Here -->
-</div>
-<!-- Modal -->
-<div class="modal fade" id="updateDueDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="west" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Update Due Date</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">ARE YOU SURE</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-
-                    <div class="col-lg-12 col-12 form-group">
-                        <div class="form-group" id="basic">
-                        </div>
-                    </div>
-
+            <form action="{{url('deleteC')}}" method="post" id="deleteCustomers">
+                @csrf
+                <div id="del">
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="updateTimeButton">Save changes</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -189,6 +176,23 @@
 </body>
 
 <script>
+    $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+            type:"get",
+            url:"{{url('delC')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#del').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
     $(document).ready(function(){
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
