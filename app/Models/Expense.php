@@ -13,5 +13,6 @@ class Expense extends Model
         'amount',
         'date',
         'currentMonth',
+        'currentYear',
     ];
 }
