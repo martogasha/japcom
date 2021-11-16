@@ -1074,6 +1074,115 @@ class AdminController extends Controller
 
         }
     }
+    public function storeCustomerOne(Request $request){
+        if ($request->ajax()){
+            $output = "";
+        }
+        $mpesa = Mpesa::where('senderPhoneNumber',$request->phone)->first();
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $paymentDate =  date('d-m-Y', strtotime($request->payment_date));
+        $store = User::create([
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'location'=>$request->location,
+            'bandwidth'=>$request->bandwidth,
+            'payment_date'=>$paymentDate,
+            'time_difference'=>$request->time_difference,
+            'due_date'=>$request->due_date,
+            'date_to_send_sms'=>$request->sms_date,
+            'amount'=>$request->amount,
+            'package_amount'=>$request->amount_supposed_to_pay,
+            'amount_supposed_to_be_paid'=>$request->amount_supposed_to_pay - $request->amount,
+            'balance'=>$request->amount_supposed_to_pay - $request->amount,
+            'role'=>2,
+            'password'=>Hash::make('123456'),
+        ]);
+        $date1 = $request->payment_date;
+        $date2 =$request->due_date;
+
+        $diff = abs(strtotime($date2) - strtotime($date1));
+
+        $years = floor($diff / (365*60*60*24));
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+        if ($months==1){
+            $usage_time = $days+30;
+        }
+        else{
+            $usage_time = $days;
+        }
+        $createInvoice = Invoice::create([
+            'invoice_date'=>$paymentDate,
+            'amount'=>$request->amount_supposed_to_pay,
+            'user_id'=>$store->id,
+            'usage_time'=>$usage_time,
+            'balance'=>$request->amount_supposed_to_pay,
+            'status'=>0,
+            'statas'=>0,
+        ]);
+        $nextDate =  date('d-m-Y', strtotime($request->due_date));
+        $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
+        $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);
+        $updatePaymentDate = User::where('id',$store->id)->update(['payment_date'=>0]);
+        $updateDueDate = User::where('id',$store->id)->update(['due_date'=>$nextDate]);
+
+        $getMinUsage = Invoice::where('user_id',$store->id)->where('status',0)->min('usage_time');
+        $getInvoice = Invoice::where('user_id',$store->id)->where('status',0)->where('usage_time',$getMinUsage)->first();
+        $currentBalance = $getInvoice->balance - $request->amount;
+        if ($request->amount==0){
+
+        }
+        else{
+            if ($currentBalance<=0){
+                $createPay = Payment::create([
+                    'user_id'=>$store->id,
+                    'invoice_id'=>$getInvoice->id,
+                    'amount'=>$request->amount,
+                    'date'=>$paymentDate,
+                    'reference'=>$mpesa->reference,
+                    'payment_method'=>'Mpesa',
+                    'currentMonth'=>$currentMonth,
+                ]);
+                $updateBal = Invoice::where('user_id',$store->id)->update(['usage_time'=>10000]);
+                $updateStatus = Invoice::where('user_id',$store->id)->update(['status'=>1]);
+                $updateBalance = Invoice::where('user_id',$store->id)->update(['balance'=>$currentBalance]);
+                $updatePaymentId = Invoice::where('user_id',$store->id)->update(['payment_id'=>$createPay->id]);
+                $updateIBalance = Payment::where('invoice_id',$getInvoice->id)->where('id',$createPay->id)->update(['invoice_balance'=>$currentBalance]);
+                $updateCashAmount = Invoice::where('user_id',$store->id)->update(['mpesa_id'=>$mpesa->id]);
+                $updateCash = Invoice::where('user_id',$store->id)->update(['mpesa_amount'=>$request->amount]);
+                $updateUserAmount = User::where('id',$store->id)->update(['amount'=>$request->amount]);
+                $updateUserDate = User::where('id',$store->id)->update(['payment_date'=>$paymentDate]);
+                $updateUserBalance = User::where('id',$store->id)->update(['balance'=>$currentBalance]);
+            }
+            else{
+                $getInv = Invoice::where('user_id',$store->id)->where('status',0)->first();
+                $currentBal = $getInv->balance - $request->amount;
+                if ($currentBal>0){
+                    $createPay1 = Payment::create([
+                        'user_id'=>$store->id,
+                        'invoice_id'=>$getInv->id,
+                        'amount'=>$request->amount,
+                        'date'=>$paymentDate,
+                        'reference'=>$mpesa->reference,
+                        'payment_method'=>'Mpesa',
+                        'currentMonth'=>$currentMonth,
+                    ]);
+                    $updateBalance = Invoice::where('id',$getInv->id)->update(['balance'=>$currentBal]);
+                    $updateIBalance = Payment::where('invoice_id',$getInv->id)->where('id',$createPay1->id)->update(['invoice_balance'=>$currentBal]);
+                    $updateCashAmount = Invoice::where('id',$getInv->id)->update(['payment_id'=>$createPay1->id]);
+                    $updateCash = Invoice::where('id',$getInv->id)->update(['mpesa_amount'=>$request->amount]);
+                    $updateUserA = User::where('id',$store->id)->update(['amount'=>$request->amount]);
+                    $updateUserD = User::where('id',$store->id)->update(['payment_date'=>$paymentDate]);
+                    $updateUserBal = User::where('id',$store->id)->update(['balance'=>$currentBal]);
+                }
+            }
+
+        }
+    }
+
     public function dueDate(Request $request){
         if ($request->ajax()){
             $output = "";

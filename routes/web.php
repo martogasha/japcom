@@ -82,6 +82,7 @@ Route::post('makeCashPayment', [AdminController::class, 'makeCashPayment'])->nam
 Route::post('storeEmployee', [AdminController::class, 'storeEmployee'])->name('storeEmployee');
 Route::get('storeQuotation', [AdminController::class, 'storeQuotation']);
 Route::get('storeCustomer', [AdminController::class, 'storeCustomer']);
+Route::get('storeCustomerOne', [AdminController::class, 'storeCustomerOne']);
 Route::get('dueDate', [AdminController::class, 'dueDate']);
 Route::get('updateDueDate', [AdminController::class, 'updateDueDate']);
 Route::post('updateInvoiceDueDate', [AdminController::class, 'updateInvoiceDueDate']);
