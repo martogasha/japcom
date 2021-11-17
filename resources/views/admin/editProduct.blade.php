@@ -1,10 +1,10 @@
 @include('adminPartial.nav')
-<title>Add Product | Japcom</title>
+<title>Edit {{$product->name}} | Japcom</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Add New Customer</h3>
+                <h3>Edit {{$product->name}}</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
@@ -19,20 +19,20 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Add New Customer</h3>
+                            <h3>Edit {{$product->name}}</h3>
                         </div>
 
                     </div>
-                    <form action="{{route('storeProduct')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('editProd',$product->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Name *</label>
-                                <input type="text" placeholder="Name" class="form-control" name="name">
+                                <input type="text" value="{{$product->name}}" class="form-control" name="name">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Amount *</label>
-                                <input type="text" placeholder="Amount" class="form-control" name="amount">
+                                <input type="text" value="{{$product->amount}}" class="form-control" name="amount">
                             </div>
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
@@ -51,23 +51,23 @@
     <!-- Page Area End Here -->
 </div>
 <!-- jquery-->
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
-<script src="js/plugins.js"></script>
+<script src="{{asset('js/plugins.js')}}"></script>
 <!-- Popper js -->
-<script src="js/popper.min.js"></script>
+<script src="{{asset('js/popper.min.js')}}"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Select 2 Js -->
-<script src="js/select2.min.js"></script>
+<script src="{{asset('js/select2.min.js')}}"></script>
 <!-- Date Picker Js -->
-<script src="js/datepicker.min.js"></script>
+<script src="{{asset('js/datepicker.min.js')}}"></script>
 <!-- Smoothscroll Js -->
-<script src="js/jquery.smoothscroll.min.html"></script>
+<script src="{{asset('js/jquery.smoothscroll.min.html')}}"></script>
 <!-- Scroll Up Js -->
-<script src="js/jquery.scrollUp.min.js"></script>
+<script src="{{asset('js/jquery.scrollUp.min.js')}}"></script>
 <!-- Custom Js -->
-<script src="js/main.js"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
 
 </body>

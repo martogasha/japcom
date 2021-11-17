@@ -12,6 +12,7 @@
                     <li>All Products</li>
                 </ul>
             </div>
+            @include('flash-message');
             <!-- Breadcubs Area End Here -->
             <!-- Student Table Area Start Here -->
             <div class="card height-auto">
@@ -47,7 +48,6 @@
                             <tr>
 
                                 <th>Name</th>
-                                <th>Description</th>
                                 <th>Amount</th>
                                 <th>Action</th>
 
@@ -56,10 +56,7 @@
                             <tbody>
                             @foreach($products as $product)
                             <tr>
-                                <td><img src="{{asset('uploads/product/'.$product->photo)}}" alt="Girl in a jacket" width="70" height="70">
-                                </td>
                                 <td>{{$product->name}}</td>
-                                <td>{{$product->desc}}</td>
                                 <td>Ksh: {{$product->amount}}</td>
                                 <td>
                                     <div class="dropdown">
@@ -68,10 +65,10 @@
                                             <span class="flaticon-more-button-of-three-dots"></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><i
-                                                    class="fas fa-times text-orange-red"></i>View</a>
-                                            <a class="dropdown-item view" href="#updateDueDate" data-toggle="modal" data-target="#updateDueDate" id="{{$product->id}}"><i
-                                                    class="fas fa-cogs text-dark-pastel-green" ></i>Edit Due</a>
+                                            <a class="dropdown-item" href="{{url('editProduct',$product->id)}}"><i
+                                                    class="fas fa-times text-orange-red"></i>Edit</a>
+                                            <button type="button" class="btn btn-danger btn-block view" id="{{$product->id}}" data-toggle="modal" data-target="#west">Delete</button>
+
 
 
                                         </div>
@@ -93,6 +90,27 @@
         </div>
     </div>
     <!-- Page Area End Here -->
+</div>
+<div class="modal fade" id="west" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">ARE YOU SURE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{url('deleteProduct')}}"method="post">
+                @csrf
+                <div id="del">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="updateDueDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -141,6 +159,23 @@
 </body>
 
 <script>
+        $(document).on('click','.view',function () {
+        $value = $(this).attr('id');
+        $.ajax({
+        type:"get",
+        url:"{{url('delP')}}",
+        data:{'id':$value},
+        success:function (data) {
+        $('#del').html(data);
+    },
+        error:function (error) {
+        console.log(error)
+        alert('error')
+
+    }
+
+    });
+    });
     $(document).on('click','.view',function () {
         $value = $(this).attr('id');
         var date1 = new Date();

@@ -35,19 +35,21 @@
                     <div class="row">
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                             <label>Name of Customer *</label>
-                            <input type="text" placeholder="Name" class="form-control" id="customer_name">
-
+                            <input type="text" value="{{$estimate->name}}" class="form-control" id="customer_name">
+                            <input type="hidden" value="{{$estimate->id}}" id="estimateId">
                         </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <div class="form-group">
                                     <label for="dob">Estimate Date *</label>
-                                    <input type="date" class="form-control" id="estimated_date"/>
+                                    <input type="text" name=date value="{{$estimate->estimate_date}}" class="form-control air-datepicker" id="estimated_date">
+                                    <i class="far fa-calendar-alt"></i>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <div class="form-group">
                                     <label for="dob">Expiry Date *</label>
-                                    <input type="date" class="form-control" id="expiry_date"/>
+                                        <input type="text" name=date value="{{$estimate->expiry_date}}" class="form-control air-datepicker" id="expiry_date">
+                                    <i class="far fa-calendar-alt"></i>
                                 </div>
                             </div>
                     </div>
@@ -55,12 +57,18 @@
                         <div class="row">
                         <div class="col-xl-3 col-lg-12 col-12 form-group">
                             <label>Product *</label>
-                            <input type="text" placeholder="Product" class="form-control" id="product_name">
+                            <select class="select2" id="product_name">
+                                <option>Select product</option>
+                            @foreach($products as $product)
+                                <option value="{{$product->id}}">{{$product->name}}</option>
+                                @endforeach
+                            </select>
 
                         </div>
                         <div class="col-xl-3 col-lg-12 col-12 form-group">
                             <label>Amount *</label>
-                            <input type="text" placeholder="Amount" class="form-control" id="amount">
+                            <div id="amountDiv">
+                            </div>
                         </div>
                         <div class="col-xl-3 col-lg-12 col-12 form-group">
                             <label>Quantity *</label>
@@ -85,7 +93,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($products as $product)
+                            @foreach($ducts as $product)
                             <tr>
                                 <td>{{$product->name}}</td>
                                 <td>{{$product->quantity}}</td>
@@ -100,7 +108,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item view" id="{{$product->id}}" href="#editModal" data-toggle="modal">Edit</a>
-                                            <a class="dropdown-item delete" id="{{$product->id}}" href="#deleteModal" data-toggle="modal">Remove</a>
+                                            <a class="dropdown-item delete" id="{{$product->id}}">Remove</a>
                                         </div>
                                     </div>
                                 </td>
@@ -111,12 +119,13 @@
                         </table>
                     </div>
                     <div class="col-12 form-group mg-t-8">
-                        @if($quote)
+                        <div class="row">
                         <a href="{{url('quotes',$quote->id)}}"> <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button></a>
-                        @else
-                            <a href="#"> <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button></a>
-                        @endif
-                            <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                        <form action="{{url('deleteQ', $quote->id)}}" method="post">
+                            @csrf
+                            <button type="submit" style="margin-left: 15px" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Remove</button>
+                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,6 +179,7 @@
             </div>
         </div>
 </div>
+
 <!-- jquery-->
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <!-- Plugins js -->
@@ -208,6 +218,23 @@
 
         });
     });
+    $('#product_name').on('change',function () {
+        $value = $(this).val();
+        $.ajax({
+            type:"get",
+            url:"{{url('getAmount')}}",
+            data:{'id':$value},
+            success:function (data) {
+                $('#amountDiv').html(data);
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
     $(document).on('click','.delete',function () {
         $value = $(this).attr('id');
         $.ajax({
@@ -215,7 +242,8 @@
             url:"{{url('deletePro')}}",
             data:{'id':$value},
             success:function (data) {
-                alert('ok')
+                alert('Deleted')
+                location.reload();
             },
             error:function (error) {
                 console.log(error)
@@ -232,10 +260,11 @@
        var product_name = $('#product_name').val();
        var quantity = $('#quantity').val();
        var amount = $('#amount').val();
+       var id = $('#estimateId').val();
         $.ajax({
             type:"get",
             url:"{{url('storeQuotation')}}",
-            data:{'customer_name':customer_name,'estimated_date':estimated_date,'expiry_date':expiry_date,'product_name':product_name,'quantity':quantity,'amount':amount},
+            data:{'customer_name':customer_name,'estimated_date':estimated_date,'expiry_date':expiry_date,'product_name':product_name,'quantity':quantity,'amount':amount,'id':id},
             success:function (data) {
                 location.reload();
             },

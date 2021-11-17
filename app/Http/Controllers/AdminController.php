@@ -178,6 +178,12 @@ class AdminController extends Controller
         return redirect(url('expenses'))->with('success','EXPENSE DELETED SUCCESS');
 
     }
+    public function deleteProduct(Request $request){
+        $delete = Product::find($request->userid);
+        $delete->delete();
+        return redirect(url('products'))->with('success','PRODUCT DELETED SUCCESS');
+
+    }
     public function mpesaCustomer($id){
         $customer = Mpesa::find($id);
         return view('admin.mpesaCustomer',[
@@ -218,9 +224,22 @@ class AdminController extends Controller
 
     }
     public function product(){
-        $products = Product::all();
+        $products = Product::orderByDesc('id')->get();
         return view('admin.products',[
             'products'=>$products
+        ]);
+    }
+    public function editProd(Request $request, $id){
+        $edit = Product::find($id);
+        $edit->name = $request->name;
+        $edit->amount = $request->amount;
+        $edit->save();
+        return redirect(url('products'))->with('success','PRODUCT EDITED SUCCESS');
+    }
+    public function editProduct($id){
+        $product = Product::find($id);
+        return view('admin.editProduct',[
+            'product'=>$product
         ]);
     }
     public function addEmployee(){
@@ -246,23 +265,20 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
-        $check = Quotation::where('status',0)->first();
-        if ($check==null){
-            $store = Quotation::create([
-                'name'=>$request->customer_name,
-                'estimate_date'=>$request->estimated_date,
-                'expiry_date'=>$request->expiry_date,
-                'status'=>0,
-                'statas'=>0,
-            ]);
-        }
-        $quotation = Quotation::where('status',0)->first();
+        $editQuotation = Quotation::find($request->id);
+        $editQuotation->name = $request->customer_name;
+        $editQuotation->estimate_date = $request->estimated_date;
+        $editQuotation->expiry_date = $request->expiry_date;
+        $editQuotation->status =0;
+        $editQuotation->statas =0;
+        $editQuotation->save();
+        $name = Product::where('id',$request->product_name)->first();
         $store = Qproduct::create([
-           'name'=>$request->product_name,
+           'name'=>$name->name,
            'quantity'=>$request->quantity,
            'amount'=>$request->amount,
            'total'=>$request->amount*$request->quantity,
-           'quotation_id'=>$quotation->id,
+           'quotation_id'=>$request->id,
         ]);
         return redirect()->back()->with('success','saved Success');
     }
@@ -297,15 +313,7 @@ class AdminController extends Controller
     public function storeProduct(Request $request){
         $store = new Product();
         $store->name = $request->input('name');
-        $store->desc = $request->input('desc');
         $store->amount = $request->input('amount');
-        if ($request->photo) {
-            $file = $request->file('photo');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/product/', $filename);
-            $store->photo = $filename;
-        }
         $store->save();
         return redirect()->back()->with('success','PRODUCT SAVED');
     }
@@ -763,21 +771,39 @@ class AdminController extends Controller
         return redirect()->back()->with('success','EXPENSES ADDED SUCCESSFULLY');
     }
     public function quotation(){
-        $quote = Quotation::where('status',0)->first();
-        if ($quote==null){
-            $products = Qproduct::where('quotation_id',0)->get();
-        }
-        else{
-            $products = Qproduct::where('quotation_id',$quote->id)->get();
-        }
-        return view('admin.quotation',[
-            'products'=>$products,
-            'quote'=>$quote
+        $currentDate = Carbon::now()->format('d/m/Y');
+        $store = Quotation::create([
+            'name'=>'Enter Name',
+            'estimate_date'=>$currentDate,
+            'expiry_date'=>$currentDate,
+            'status'=>0,
+            'statas'=>0,
         ]);
+        return redirect(url('singleEstimate',$store->id));
+    }
+    public function singleEstimate($id){
+        $estimate = Quotation::find($id);
+        $products = product::all();
+        $ducts = Qproduct::where('quotation_id',$id)->get();
+        $quote = Quotation::find($id);
+        return view('admin.quotation',[
+            'estimate'=>$estimate,
+            'products'=>$products,
+            'ducts'=>$ducts,
+            'quote'=>$quote,
+        ]);
+    }
+    public function getAmount(Request $request){
+        $output ="";
+        $getProduct = Product::find($request->id);
+        $output='
+            <input type="text" value="'.$getProduct->amount.'" class="form-control" id="amount">
 
+        ';
+        return response($output);
     }
     public function viewQuotation(){
-        $quotations = Quotation::where('statas',0)->get();
+        $quotations = Quotation::orderByDesc('id')->get();
         $dates = Invoice::all();
         foreach ($dates as $date){
 
@@ -818,6 +844,12 @@ class AdminController extends Controller
         return view('admin.allQuotes',[
             'quotations'=>$quotations
         ]);
+    }
+    public function deleteQ($id){
+        $del = Quotation::find($id);
+        $deleteProducts = Qproduct::where('quotation_id',$id)->delete();
+        $del->delete();
+        return redirect(url('viewQuotation'))->with('success','ESTIMATE DELETE SUCCESS');
     }
     public function expiredQuotes(){
         $quotations = Quotation::where('status');
@@ -1567,6 +1599,14 @@ class AdminController extends Controller
     public function delE(Request $request){
         $output = "";
         $userId = Expense::find($request->id);
+        $output = '
+        <input type=hidden value='.$userId->id.' name=userid>
+        ';
+        return response($output);
+    }
+    public function delP(Request $request){
+        $output = "";
+        $userId = Product::find($request->id);
         $output = '
         <input type=hidden value='.$userId->id.' name=userid>
         ';

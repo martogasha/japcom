@@ -12,6 +12,7 @@
                     <li>All Quotations</li>
                 </ul>
             </div>
+            @include('flash-message')
             <!-- Breadcubs Area End Here -->
             <!-- Student Table Area Start Here -->
             <div class="card height-auto">
@@ -81,10 +82,13 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="{{url('quotes',$quotation->id)}}"><i
                                                     class="fas fa-eye text-orange-red"></i>View</a>
-                                            <a class="dropdown-item" href="#"><i
+                                            <a class="dropdown-item" href="{{url('singleEstimate',$quotation->id)}}"><i
                                                     class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                            <a class="dropdown-item" href="#"><i
-                                                    class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                                            <form action="{{url('deleteQ', $quotation->id)}}" method="post" id="delQ">
+                                                @csrf
+                                            <a class="dropdown-item" href="javascript:document.getElementById('delQ').submit();"><i
+                                                    class="fas fa-redo-alt text-orange-peel"></i>Delete</a>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
