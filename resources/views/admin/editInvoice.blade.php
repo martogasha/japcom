@@ -569,7 +569,7 @@
         $value = $(this).attr('id');
         $.ajax({
             type:"get",
-            url:"{{url('getIProducts')}}",
+            url:"{{url('getQProducts')}}",
             data:{'id':$value},
             success:function (data) {
                 $('#basic1').html(data);

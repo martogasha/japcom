@@ -74,7 +74,7 @@
                                     <input type="hidden" value="{{$quotation->id}}" id="invoice_id">
                                 <td>00{{$quotation->id}}</td>
                                 <td>{{$quotation->quotation->name}}</td>
-                                <td>SH {{$quotation->amount}}</td>
+                                    <td>SH {{\App\Models\Qproduct::where('quotation_id',$quotation->quotation_id)->sum('total')}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"

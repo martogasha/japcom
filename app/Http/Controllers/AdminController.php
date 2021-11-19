@@ -336,9 +336,12 @@ class AdminController extends Controller
     }
     public function editQProduct(Request $request){
         $edit = Qproduct::find($request->id);
+        $quantity = $request->quantity;
+        $amount = $request->amount;
         $edit->name = $request->name;
         $edit->quantity = $request->quantity;
         $edit->amount = $request->amount;
+        $edit->total = $quantity*$amount;
         $edit->save();
         return redirect()->back()->with('success','Updated');
     }
