@@ -84,7 +84,7 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="{{url('printInvoice',$quotation->id)}}"><i
                                                     class="fas fa-eye text-orange-red"></i>View</a>
-                                            <a class="dropdown-item view" href="#updateInvoiceDueDate" id="{{$quotation->id}}" data-toggle="modal"><i
+                                            <a class="dropdown-item" href="{{url('singleInvoice',$quotation->id)}}"><i
                                                     class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                             <a class="dropdown-item" href="#"><i
                                                     class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>

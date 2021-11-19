@@ -265,13 +265,6 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
-        $editQuotation = Quotation::find($request->id);
-        $editQuotation->name = $request->customer_name;
-        $editQuotation->estimate_date = $request->estimated_date;
-        $editQuotation->expiry_date = $request->expiry_date;
-        $editQuotation->status =0;
-        $editQuotation->statas =0;
-        $editQuotation->save();
         $name = Product::where('id',$request->product_name)->first();
         $store = Qproduct::create([
            'name'=>$name->name,
@@ -793,6 +786,35 @@ class AdminController extends Controller
             'quote'=>$quote,
         ]);
     }
+    public function editQuotes(Request $request){
+        $edit= Quotation::find($request->id);
+        $edit->name = $request->name;
+        $edit->estimate_date = $request->estimate_date;
+        $edit->expiry_date = $request->expiry_date;
+        $edit->save();
+    }
+    public function editInv(Request $request){
+        $edit= Inv::find($request->id);
+        $editQuotationName = Quotation::where('id',$edit->quotation_id)->update(['name'=>$request->name]);
+        $edit->invoice_date = $request->estimate_date;
+        $edit->payment_due = $request->expiry_date;
+        $edit->amount = $request->amount;
+        $edit->status =0;
+        $edit->statas =0;
+        $edit->save();
+    }
+    public function singleInvoice($id){
+        $estimate = Inv::find($id);
+        $products = product::all();
+        $ducts = Qproduct::where('quotation_id',$estimate->quotation_id)->get();
+        $quote = Inv::find($id);
+        return view('admin.editInvoice',[
+            'estimate'=>$estimate,
+            'products'=>$products,
+            'ducts'=>$ducts,
+            'quote'=>$quote,
+        ]);
+    }
     public function getAmount(Request $request){
         $output ="";
         $getProduct = Product::find($request->id);
@@ -803,41 +825,46 @@ class AdminController extends Controller
         return response($output);
     }
     public function viewQuotation(){
-        $quotations = Quotation::orderByDesc('id')->get();
-        $dates = Invoice::all();
-        foreach ($dates as $date){
+        if (Auth::check()){
+            $quotations = Quotation::orderByDesc('id')->get();
+            $dates = Invoice::all();
+            foreach ($dates as $date){
 
-            // Declare and define two dates
-            $date1 = strtotime($date->current_time);
-            $date2 = strtotime($date->payment_due);
+                // Declare and define two dates
+                $date1 = strtotime($date->current_time);
+                $date2 = strtotime($date->payment_due);
 
 // Formulate the Difference between two dates
-            $diff = abs($date2 - $date1);
+                $diff = abs($date2 - $date1);
 
 
 // To get the year divide the resultant date into
 // total seconds in a year (365*60*60*24)
-            $years = floor($diff / (365*60*60*24));
+                $years = floor($diff / (365*60*60*24));
 
 
 // To get the month, subtract it with years and
 // divide the resultant date into
 // total seconds in a month (30*60*60*24)
-            $months = floor(($diff - $years * 365*60*60*24)
-                / (30*60*60*24));
+                $months = floor(($diff - $years * 365*60*60*24)
+                    / (30*60*60*24));
 
 
 // To get the day, subtract it with years and
 // months and divide the resultant date into
 // total seconds in a days (60*60*24)
-            $days = floor(($diff - $years * 365*60*60*24 -
-                    $months*30*60*60*24)/ (60*60*24));
+                $days = floor(($diff - $years * 365*60*60*24 -
+                        $months*30*60*60*24)/ (60*60*24));
 
-            $update = Invoice::where('id',$date->id)->update(['time_difference'=>$days]);
+                $update = Invoice::where('id',$date->id)->update(['time_difference'=>$days]);
+            }
+            return view('admin.viewQuotes',[
+                'quotations'=>$quotations
+            ]);
         }
-        return view('admin.viewQuotes',[
-            'quotations'=>$quotations
-        ]);
+        else{
+            return redirect(url('login'));
+        }
     }
     public function allQuotes(){
         $quotations = Quotation::all();
@@ -858,10 +885,17 @@ class AdminController extends Controller
         ]);
     }
     public function viewInvoice(){
-        $quotations = Inv::where('status',0)->get();
-        return view('admin.viewInvoice',[
-            'quotations'=>$quotations
-        ]);
+        if (Auth::check()){
+            $quotations = Inv::where('status',0)->get();
+            return view('admin.viewInvoice',[
+                'quotations'=>$quotations
+            ]);
+        }
+        else{
+            return redirect(url('login'));
+
+        }
+
     }
     public function printInvoice($id){
         $quote = Inv::where('id',$id)->first();
@@ -951,7 +985,7 @@ class AdminController extends Controller
             }
         }
     }
-    public function quotes($id){
+    public function quotes(Request $request,$id){
         $quote = Quotation::where('id',$id)->first();
         $products = Qproduct::where('quotation_id',$quote->id)->get();
         $total = Qproduct::where('quotation_id',$quote->id)->sum('total');

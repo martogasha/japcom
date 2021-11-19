@@ -10,7 +10,7 @@
                         <a href="{{url('admin')}}">Home</a>
                     </li>
                     <li>All Quotations</li>
-                    <<button class="btn btn-success" style="float: right" data-toggle="modal" data-target="#invoiceModal">INVOICE</button>
+                    <button class="btn btn-success" style="float: right" data-toggle="modal" data-target="#invoiceModal">INVOICE</button>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
@@ -46,6 +46,10 @@
                                     <a class="btn bg-white btn-light mx-1px text-95" href="#" id="cmd">
                                         <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
                                         Export
+                                    </a>
+                                    <a class="btn bg-white btn-light mx-1px text-95" href="{{url('singleEstimate',$quote->id)}}" id="PDF">
+                                        <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                                        Edit
                                     </a>
                                 </div>
                             </div>
@@ -383,7 +387,6 @@
 </body>
 <script>
     $('#expiry_date').on('change',function () {
-        alert('ok')
     })
     window.onload = function () {
         document.getElementById("cmd")
