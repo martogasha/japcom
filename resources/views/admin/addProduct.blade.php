@@ -4,7 +4,7 @@
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Add New Customer</h3>
+                <h3>Add Product</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Add New Customer</h3>
+                            <h3>Add Product</h3>
                         </div>
 
                     </div>
