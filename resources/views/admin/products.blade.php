@@ -4,7 +4,7 @@
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Customers</h3>
+                <h3>Products</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
