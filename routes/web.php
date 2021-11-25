@@ -94,7 +94,7 @@ Route::post('updateInvoiceDueDate', [AdminController::class, 'updateInvoiceDueDa
 Route::get('getInvoiceId', [AdminController::class, 'getInvoiceId']);
 Route::get('getInvoice', [AdminController::class, 'getInvoice']);
 Route::get('invoicePayment/{id}', [AdminController::class, 'invoicePayment']);
-Route::post('storeExpense', [AdminController::class, 'storeExpense']);
+Route::post('f', [AdminController::class, 'storeExpense']);
 Route::get('customerDetail/{id}', [AdminController::class, 'customerDetail']);
 Route::post('deleteQ/{id}', [AdminController::class, 'deleteQ']);
 Route::get('downloadPdf', [AdminController::class, 'downloadPdf']);

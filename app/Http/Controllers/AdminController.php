@@ -758,11 +758,13 @@ class AdminController extends Controller
     }
     public function storeExpense(Request $request){
         $currentMonth = date('m');
+        $currentYear = date('Y');
         $storeExpense = Expense::create([
             'details'=>$request->input('details'),
             'amount'=>$request->input('amount'),
             'date'=>$request->input('date'),
             'currentMonth'=>$currentMonth,
+            'currentYear'=>$currentYear,
         ]);
         return redirect()->back()->with('success','EXPENSES ADDED SUCCESSFULLY');
     }
