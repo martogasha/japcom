@@ -1654,7 +1654,7 @@ class AdminController extends Controller
         return response($output);
     }
     public function deleteC(Request $request){
-        $deleteUser = User::where('id',$request->userid)->update(['role'=>22]);
+        $deleteUser = User::where('id',$request->userid)->delete();
         return redirect(url('customers'))->with('success','CUSTOMER DELETED SUCCESS');
 
     }
