@@ -1149,6 +1149,8 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
+        $finalAmount = $request->amount_supposed_to_pay + $request->previous_balance;
+        $bal = $finalAmount - $request->amount;
         $mpesa = Mpesa::where('senderPhoneNumber',$request->phone)->first();
         $currentMonth = date('m');
         $currentYear = date('Y');
@@ -1166,8 +1168,8 @@ class AdminController extends Controller
             'date_to_send_sms'=>$request->sms_date,
             'amount'=>$request->amount,
             'package_amount'=>$request->amount_supposed_to_pay,
-            'amount_supposed_to_be_paid'=>$request->amount_supposed_to_pay - $request->amount,
-            'balance'=>$request->amount_supposed_to_pay - $request->amount,
+            'amount_supposed_to_be_paid'=>$finalAmount - $request->amount,
+            'balance'=>$bal,
             'role'=>2,
             'password'=>Hash::make('123456'),
         ]);
@@ -1187,15 +1189,15 @@ class AdminController extends Controller
         }
         $createInvoice = Invoice::create([
             'invoice_date'=>$paymentDate,
-            'amount'=>$request->amount_supposed_to_pay,
+            'amount'=>$finalAmount,
             'user_id'=>$store->id,
             'usage_time'=>$usage_time,
-            'balance'=>$request->amount_supposed_to_pay,
+            'balance'=>$finalAmount,
             'status'=>0,
             'statas'=>0,
         ]);
         $nextDate =  date('d-m-Y', strtotime($request->due_date));
-        $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
+        $updateBalance = User::where('id',$store->id)->update(['balance'=>$finalAmount]);
         $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);
         $updatePaymentDate = User::where('id',$store->id)->update(['payment_date'=>0]);
         $updateDueDate = User::where('id',$store->id)->update(['due_date'=>$nextDate]);

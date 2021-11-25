@@ -82,6 +82,10 @@
                                 <input type="text" placeholder="Ksh" class="form-control" id="amount_supposed_to_pay">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Previous Balance</label>
+                                <input type="text" placeholder="Ksh" class="form-control" id="balance_carried">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Amount Paid</label>
                                 <input type="text" value="{{$customer->amount}}" class="form-control" id="amount">
                             </div>
@@ -220,11 +224,12 @@
             var days  = datediff/1000/60/60/24;
             var amount = $('#amount').val();
             var amount_supposed_to_pay = $('#amount_supposed_to_pay').val();
+            var previous_balance = $('#balance_carried').val();
             rounded_date = Math.ceil(days);
             $.ajax({
                 type:"get",
                 url:"{{url('storeCustomerOne')}}",
-                data:{'first_name':first_name,'last_name':last_name,'phone':phone,'email':email,'location':location,'bandwidth':bandwidth,'payment_date':payment_date,'due_date':due_date,'sms_date':sms_date,'time_difference':rounded_date,'amount':amount,'amount_supposed_to_pay':amount_supposed_to_pay},
+                data:{'first_name':first_name,'last_name':last_name,'phone':phone,'email':email,'location':location,'bandwidth':bandwidth,'payment_date':payment_date,'due_date':due_date,'sms_date':sms_date,'time_difference':rounded_date,'amount':amount,'amount_supposed_to_pay':amount_supposed_to_pay, 'previous_balance':previous_balance},
                 success:function (data) {
                     alert('Customer Added Success');
                     location.reload();
