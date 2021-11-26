@@ -90,7 +90,12 @@
                                         <div class="col-sm-6">
                                             <div>
                                                 <span class="text-sm text-grey-m2 align-middle">BILL TO:</span>
+                                                @if(!is_null($quote->quotation_id))
                                                 <span class="text-600 text-110 text-blue align-middle"  ><br>{{$quote->quotation->name}}</span>
+                                                @else
+                                                    <span class="text-600 text-110 text-blue align-middle"  ><br>{{$quote->name}}</span>
+
+                                                @endif
                                             </div>
                                         </div>
                                         <!-- /.col -->

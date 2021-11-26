@@ -213,6 +213,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="card dashboard-card-seven">
+                        <div class="social-media bg-twitter hover-twitter" style="background-color: yellowgreen">
+                            <div class="media media-none--lg">
+
+                                <div class="media-body space-sm">
+                                    <h6 class="item-title">Debt</h6>
+                                </div>
+                            </div>
+                            <span>KSH</span>
+                            <div class="social-like">{{$debt}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row gutters-20" id="basic">
 

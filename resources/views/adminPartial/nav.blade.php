@@ -349,6 +349,10 @@
                                 <a href="{{url('viewInvoice')}}" class="nav-link"><i
                                         class="fas fa-angle-right"></i>All invoices</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{url('createInvoice')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Create Invoices</a>
+                            </li>
                         </ul>
                     </li>
                     @endif

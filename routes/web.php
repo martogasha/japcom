@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MpesaController;
+use App\Http\Controllers\QuotationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::get('/', [IndexController::class, 'index']);
 
 //admin routes
 Route::get('admin', [AdminController::class, 'admin']);
+Route::get('createInvoice', [AdminController::class, 'cInvoice']);
 Route::get('editUser/{id}', [AdminController::class, 'editUser']);
 Route::post('editEmployee/{id}', [AdminController::class, 'editEmployee'])->name('editEmployee');
 Route::get('editCustomerDetail/{id}', [AdminController::class, 'editCustomerDetail'])->name('editCustomerDetail');
@@ -86,6 +88,7 @@ Route::post('storeProduct', [AdminController::class, 'storeProduct'])->name('sto
 Route::post('makeCashPayment', [AdminController::class, 'makeCashPayment'])->name('makeCashPayment');
 Route::post('storeEmployee', [AdminController::class, 'storeEmployee'])->name('storeEmployee');
 Route::get('storeQuotation', [AdminController::class, 'storeQuotation']);
+Route::get('storeInvoice', [AdminController::class, 'storeInvoice']);
 Route::get('storeCustomer', [AdminController::class, 'storeCustomer']);
 Route::get('storeCustomerOne', [AdminController::class, 'storeCustomerOne']);
 Route::get('dueDate', [AdminController::class, 'dueDate']);

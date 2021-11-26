@@ -9,6 +9,7 @@ class Inv extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'name',
         'quotation_id',
         'invoice_date',
         'payment_due',

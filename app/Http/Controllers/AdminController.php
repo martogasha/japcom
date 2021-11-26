@@ -36,6 +36,7 @@ class AdminController extends Controller
               $mpesa = Mpesa::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
               $cash = Cash::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
               $expense = Expense::where('currentMonth',$currentMonth)->where('currentYear',$currentYeah)->sum('amount');
+              $debt = User::where('balance','>',0)->sum('balance');
               $total = $mpesa + $cash;
               $net =$total - $expense;
                 return view('admin.index',[
@@ -44,6 +45,7 @@ class AdminController extends Controller
                     'cash'=>$cash,
                     'expense'=>$expense,
                     'net'=>$net,
+                    'debt'=>$debt,
                 ]);
             }
         }
@@ -272,6 +274,21 @@ class AdminController extends Controller
            'amount'=>$request->amount,
            'total'=>$request->amount*$request->quantity,
            'quotation_id'=>$request->id,
+        ]);
+        return redirect()->back()->with('success','saved Success');
+    }
+    public function storeInvoice(Request $request){
+        if ($request->ajax()){
+            $output = "";
+        }
+        $name = Product::where('id',$request->product_name)->first();
+        $store = Qproduct::create([
+           'name'=>$name->name,
+           'quantity'=>$request->quantity,
+           'amount'=>$request->amount,
+           'total'=>$request->amount*$request->quantity,
+           'invoice_id'=>$request->id,
+           'quotation_id'=>0,
         ]);
         return redirect()->back()->with('success','saved Success');
     }
@@ -779,6 +796,18 @@ class AdminController extends Controller
         ]);
         return redirect(url('singleEstimate',$store->id));
     }
+    public function cInvoice(){
+        $currentDate = Carbon::now()->format('d/m/Y');
+        $store = Inv::create([
+            'name'=>'Enter Name',
+            'invoice_date'=>$currentDate,
+            'payment_due'=>$currentDate,
+            'amount'=>0,
+            'status'=>0,
+            'statas'=>0,
+        ]);
+        return redirect(url('singleInvoice',$store->id));
+    }
     public function singleEstimate($id){
         $estimate = Quotation::find($id);
         $products = product::all();
@@ -800,7 +829,7 @@ class AdminController extends Controller
     }
     public function editInv(Request $request){
         $edit= Inv::find($request->id);
-        $editQuotationName = Quotation::where('id',$edit->quotation_id)->update(['name'=>$request->name]);
+        $editQuotationName = Inv::where('id',$edit->id)->update(['name'=>$request->name]);
         $edit->invoice_date = $request->estimate_date;
         $edit->payment_due = $request->expiry_date;
         $edit->amount = $request->amount;
@@ -811,7 +840,8 @@ class AdminController extends Controller
     public function singleInvoice($id){
         $estimate = Inv::find($id);
         $products = product::all();
-        $ducts = Qproduct::where('quotation_id',$estimate->quotation_id)->get();
+        $ducts = Qproduct::where('quotation_id',$estimate->quotation_id)->orWhere('invoice_id',$id)->get();
+        $test = Qproduct::where('invoice_id',$id)->get();
         $quote = Inv::find($id);
         return view('admin.editInvoice',[
             'estimate'=>$estimate,
@@ -904,8 +934,8 @@ class AdminController extends Controller
     }
     public function printInvoice($id){
         $quote = Inv::where('id',$id)->first();
-        $products = Qproduct::where('quotation_id',$quote->quotation_id)->get();
-        $total = Qproduct::where('quotation_id',$quote->quotation_id)->sum('total');
+        $products = Qproduct::where('quotation_id',$quote->quotation_id)->orWhere('invoice_id',$id)->get();
+        $total = Qproduct::where('quotation_id',$quote->quotation_id)->orWhere('invoice_id',$id)->sum('total');
         return view('admin.invoice',[
             'quote'=>$quote,
             'products'=>$products,

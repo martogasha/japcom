@@ -73,9 +73,15 @@
                                     <input type="hidden" value="{{$quotation->payment_due}}" id="payment_due">
                                     <input type="hidden" value="{{$quotation->id}}" id="invoice_id">
                                 <td>00{{$quotation->id}}</td>
+                                @if(!is_null($quotation->quotation_id))
                                 <td>{{$quotation->quotation->name}}</td>
                                     <td>SH {{\App\Models\Qproduct::where('quotation_id',$quotation->quotation_id)->sum('total')}}</td>
                                 <td>
+                                    @else
+                                    <td>{{$quotation->name}}</td>
+                                    <td>SH {{\App\Models\Qproduct::where('invoice_id',$quotation->id)->sum('total')}}</td>
+                                    <td>
+                                        @endif
                                     <div class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                            aria-expanded="false">

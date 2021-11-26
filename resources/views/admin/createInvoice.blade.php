@@ -1,121 +1,99 @@
 @include('adminPartial.nav')
 <title>Invoice | Japcom</title>
-<!-- Sidebar Area End Here -->
-<div class="dashboard-content-one">
-    <!-- Breadcubs Area Start Here -->
-    <div class="breadcrumbs-area">
-        <h3>Invoice</h3>
-        <ul>
-            <li>
-                <a href="{{url('admin')}}">Home</a>
-            </li>
-            <li>Invoice</li>
-        </ul>
-    </div>
-@include('flash-message')
-<!-- Breadcubs Area End Here -->
-    <!-- Add New Teacher Area Start Here -->
-    <div class="card height-auto">
-        <div class="card-body">
-            <div class="heading-layout1">
-                <div class="item-title">
-                    <h3>Edit Invoice</h3>
-                </div>
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button"
-                       data-toggle="dropdown" aria-expanded="false">...</a>
-
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                    </div>
-                </div>
+        <!-- Sidebar Area End Here -->
+        <div class="dashboard-content-one">
+            <!-- Breadcubs Area Start Here -->
+            <div class="breadcrumbs-area">
+                <h3>Invoice</h3>
+                <ul>
+                    <li>
+                        <a href="{{url('admin')}}">Home</a>
+                    </li>
+                    <li>Invoice</li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                    <label>Name of Customer *</label>
-                    <input type="text" value="{{$estimate->name}}" class="form-control" id="customer_name">
-                    <input type="hidden" value="{{$estimate->id}}" id="estimateId">
-                    <input type="hidden" value="{{$estimate->amount}}" id="invoiceAmount">
-                </div>
-                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                    <div class="form-group">
-                        <label for="dob">Invoiced Date *</label>
-                        <input type="text" name=date value="{{$estimate->invoice_date}}" class="form-control air-datepicker" id="estimated_date">
-                        <i class="far fa-calendar-alt"></i>
+            @include('flash-message')
+            <!-- Breadcubs Area End Here -->
+            <!-- Add New Teacher Area Start Here -->
+            <div class="card height-auto">
+                <div class="card-body">
+                    <div class="heading-layout1">
+                        <div class="item-title">
+                            <h3>Create Invoice</h3>
+                        </div>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-expanded="false">...</a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                    <div class="form-group">
-                        <label for="dob">Expiry Date *</label>
-                        <input type="text" name=date value="{{$estimate->payment_due}}" class="form-control air-datepicker" id="expiry_date">
-                        <i class="far fa-calendar-alt"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xl-3 col-lg-12 col-12 form-group">
-                    <label>Product *</label>
-                    <select class="select2" id="product_name">
-                        <option>Select product</option>
-                        @foreach($products as $product)
-                            <option value="{{$product->id}}">{{$product->name}}</option>
-                        @endforeach
-                    </select>
-
-                </div>
-                <div class="col-xl-3 col-lg-12 col-12 form-group">
-                    <label>Amount *</label>
-                    <div id="amountDiv">
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-12 col-12 form-group">
-                    <label>Quantity *</label>
-                    <select class="select2" id="quantity">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success" id="storeQuotationButton">Add</button>
-            </div>
-            <div class="table-responsive">
-                <table class="table display data-table text-nowrap">
-                    <thead>
-                    <tr>
-
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Amount</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($ducts as $product)
-                        @if($product->quotation_id!=0)
-                        <tr>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->quantity}}</td>
-                            <td>Ksh: {{$product->amount}}</td>
-                            <td>Ksh: {{$product->amount*$product->quantity}}</td>
-
-                            <td>
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                       aria-expanded="false">
-                                        <span class="flaticon-more-button-of-three-dots"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item view" id="{{$product->id}}" href="#editModal" data-toggle="modal">Edit</a>
-                                        <a class="dropdown-item delete" id="{{$product->id}}">Remove</a>
-                                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-6 col-12 form-group">
+                            <label>Name of Customer *</label>
+                            <input type="text" value="{{$estimate->name}}" class="form-control" id="customer_name">
+                            <input type="hidden" value="{{$estimate->id}}" id="estimateId">
+                        </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">Estimate Date *</label>
+                                    <input type="text" name=date value="{{$estimate->estimate_date}}" class="form-control air-datepicker" id="estimated_date">
+                                    <i class="far fa-calendar-alt"></i>
                                 </div>
-                            </td>
-                        </tr>
-                        @else
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <div class="form-group">
+                                    <label for="dob">Expiry Date *</label>
+                                        <input type="text" name=date value="{{$estimate->expiry_date}}" class="form-control air-datepicker" id="expiry_date">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                            </div>
+                    </div>
+
+                        <div class="row">
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Product *</label>
+                            <select class="select2" id="product_name">
+                                <option>Select product</option>
+                            @foreach($products as $product)
+                                <option value="{{$product->id}}">{{$product->name}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Amount *</label>
+                            <div id="amountDiv">
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <label>Quantity *</label>
+                            <select class="select2" id="quantity">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                            <button type="submit" class="btn btn-success" id="storeQuotationButton">Add</button>
+                        </div>
+                    <div class="table-responsive">
+                        <table class="table display data-table text-nowrap">
+                            <thead>
+                            <tr>
+
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($ducts as $product)
                             <tr>
                                 <td>{{$product->name}}</td>
                                 <td>{{$product->quantity}}</td>
@@ -135,55 +113,53 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
 
-                        @endif
-                    @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-12 form-group mg-t-8">
-                <div class="row">
-                    <a href="{{url('printInvoice',$quote->id)}}"><button class="btn-fill-lg bg-blue-dark btn-hover-yellow">view</button></a>
-                    <button class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark" id="editQuotation" style="margin-left: 20px">Save</button>
-                    <form action="{{url('deleteQ', $quote->id)}}" method="post">
-                        @csrf
-                        <button type="submit" style="margin-left: 15px" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Delete</button>
-                    </form>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 form-group mg-t-8">
+                        <div class="row">
+                            <a href="{{url('quotes',$quote->id)}}"><button class="btn-fill-lg bg-blue-dark btn-hover-yellow">view</button></a>
+                            <button class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark" id="editQuotation" style="margin-left: 20px">Save</button>
+                        <form action="{{url('deleteQ', $quote->id)}}" method="post">
+                            @csrf
+                            <button type="submit" style="margin-left: 15px" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Delete</button>
+                        </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Add New Teacher Area End Here -->
+            <footer class="footer-wrap-layout1">
+                <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
+            </footer>
         </div>
     </div>
-
-    <!-- Add New Teacher Area End Here -->
-    <footer class="footer-wrap-layout1">
-        <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
-    </footer>
-</div>
-</div>
-<!-- Page Area End Here -->
+    <!-- Page Area End Here -->
 </div>
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <form action="{{route('editQProduct')}}" method="post">
         @csrf
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="basic1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="basic1">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </div>
+    </div>
     </form>
 </div>
 <div class="modal fade" id="spinner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -527,20 +503,20 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle" style="color: red">ARE YOU SURE</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="deleteP">DELETE</button>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color: red">ARE YOU SURE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="deleteP">DELETE</button>
+                </div>
             </div>
         </div>
-    </div>
 </div>
 
 
@@ -571,13 +547,12 @@
         $estimate_date = $('#estimated_date').val();
         $expiry_date = $('#expiry_date').val();
         $id = $('#estimateId').val();
-        $amount = $('#invoiceAmount').val();
         $.ajax({
             type:"get",
-            url:"{{url('editInv')}}",
-            data:{'name':$name, 'estimate_date':$estimate_date,'expiry_date':$expiry_date,'id':$id,'amount':$amount},
+            url:"{{url('editQuotes')}}",
+            data:{'name':$name, 'estimate_date':$estimate_date,'expiry_date':$expiry_date,'id':$id},
             success:function (data) {
-                $('#spinner').modal('hide');
+            $('#spinner').modal('hide');
                 location.reload();
             },
             error:function (error) {
@@ -589,7 +564,7 @@
         });
     });
     $(document).on('click','.view',function () {
-        $value = $(this).attr('id');
+       $value = $(this).attr('id');
         $.ajax({
             type:"get",
             url:"{{url('getQProducts')}}",
@@ -641,16 +616,16 @@
         });
     });
     $('#storeQuotationButton').click(function () {
-        var customer_name = $('#customer_name').val();
-        var estimated_date = $('#estimated_date').val();
-        var expiry_date = $('#expiry_date').val();
-        var product_name = $('#product_name').val();
-        var quantity = $('#quantity').val();
-        var amount = $('#amount').val();
-        var id = $('#estimateId').val();
+       var customer_name = $('#customer_name').val();
+       var estimated_date = $('#estimated_date').val();
+       var expiry_date = $('#expiry_date').val();
+       var product_name = $('#product_name').val();
+       var quantity = $('#quantity').val();
+       var amount = $('#amount').val();
+       var id = $('#estimateId').val();
         $.ajax({
             type:"get",
-            url:"{{url('storeInvoice')}}",
+            url:"{{url('storeQuotation')}}",
             data:{'customer_name':customer_name,'estimated_date':estimated_date,'expiry_date':expiry_date,'product_name':product_name,'quantity':quantity,'amount':amount,'id':id},
             success:function (data) {
                 location.reload();
