@@ -60,7 +60,7 @@
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <div class="form-group">
                                     <label for="dob">Payment Date *</label>
-                                    <input type="date"                   class="form-control" id="payment_date"/>
+                                    <input type="date" class="form-control" id="payment_date"/>
                                 </div>
                             </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">

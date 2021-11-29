@@ -1056,6 +1056,8 @@ class AdminController extends Controller
         if ($request->ajax()){
             $output = "";
         }
+        $finalAmount = $request->amount_supposed_to_pay + $request->previous_balance;
+        $bal = $finalAmount - $request->amount;
         $currentMonth = date('m');
         $currentYear = date('Y');
         $paymentDate =  date('d-m-Y', strtotime($request->payment_date));
@@ -1072,8 +1074,8 @@ class AdminController extends Controller
            'date_to_send_sms'=>$request->sms_date,
            'amount'=>$request->amount,
            'package_amount'=>$request->amount_supposed_to_pay,
-           'amount_supposed_to_be_paid'=>$request->amount_supposed_to_pay - $request->amount,
-           'balance'=>$request->amount_supposed_to_pay - $request->amount,
+           'amount_supposed_to_be_paid'=>$finalAmount - $request->amount,
+           'balance'=>$bal,
            'role'=>2,
            'password'=>Hash::make('123456'),
         ]);
@@ -1096,12 +1098,12 @@ class AdminController extends Controller
             'amount'=>$request->amount_supposed_to_pay,
             'user_id'=>$store->id,
             'usage_time'=>$usage_time,
-            'balance'=>$request->amount_supposed_to_pay,
+            'balance'=>$finalAmount,
             'status'=>0,
             'statas'=>0,
         ]);
         $nextDate =  date('d-m-Y', strtotime($request->due_date));
-        $updateBalance = User::where('id',$store->id)->update(['balance'=>$request->amount_supposed_to_pay]);
+        $updateBalance = User::where('id',$store->id)->update(['balance'=>$bal]);
         $updateAmount = User::where('id',$store->id)->update(['amount'=>0]);
         $updatePaymentDate = User::where('id',$store->id)->update(['payment_date'=>0]);
             $updateDueDate = User::where('id',$store->id)->update(['due_date'=>$nextDate]);
@@ -1634,6 +1636,8 @@ class AdminController extends Controller
     }
     public function editC(Request $request, $id){
         $edit = User::find($id);
+        $bal = $edit->balance;
+        $currentBal = $bal + $request->cBalance;
         $edit->first_name = $request->first_name;
         $edit->last_name = $request->last_name;
         $edit->email = $request->email;
@@ -1642,6 +1646,7 @@ class AdminController extends Controller
         $edit->bandwidth = $request->bandwidth;
         $edit->payment_date = $request->payment_date;
         $edit->due_date = $request->due_date;
+        $edit->balance = $currentBal;
         $edit->save();
         return redirect(url('customers'))->with('success','CUSTOMER EDIT SUCCESS');
     }

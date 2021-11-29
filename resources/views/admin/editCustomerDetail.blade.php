@@ -65,8 +65,13 @@
 
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>balance *</label>
-                                <input type="text" value={{$customer->balance}} class="form-control" name="bandwidth"/>
+                                <label>Current Balance *</label>
+                                <input type="text" value={{$customer->balance}} class="form-control"/>
+
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Add Balance *</label>
+                                <input type="text" class="form-control" name="cBalance" placeholder="Ksh"/>
 
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
