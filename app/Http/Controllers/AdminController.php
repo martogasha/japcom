@@ -1066,6 +1066,7 @@ class AdminController extends Controller
            'last_name'=>$request->last_name,
            'email'=>$request->email,
            'phone'=>$request->phone,
+           'phoneOne'=>$request->phoneOne,
            'location'=>$request->location,
            'bandwidth'=>$request->bandwidth,
            'payment_date'=>$paymentDate,
@@ -1192,6 +1193,7 @@ class AdminController extends Controller
             'last_name'=>$request->last_name,
             'email'=>$request->email,
             'phone'=>$request->phone,
+            'phoneOne'=>$request->phoneOne,
             'location'=>$request->location,
             'bandwidth'=>$request->bandwidth,
             'payment_date'=>$paymentDate,
@@ -1642,6 +1644,7 @@ class AdminController extends Controller
         $edit->last_name = $request->last_name;
         $edit->email = $request->email;
         $edit->phone = $request->phone;
+        $edit->phoneOne = $request->phoneOne;
         $edit->location = $request->location;
         $edit->bandwidth = $request->bandwidth;
         $edit->payment_date = $request->payment_date;

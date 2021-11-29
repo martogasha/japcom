@@ -46,7 +46,11 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Phone</label>
-                                <input type="text" placeholder="712345678" class="form-control" id="phone">
+                                <input type="text" placeholder="+254712345678" class="form-control" id="phone">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Phone 2</label>
+                                <input type="text" placeholder="+254712345678" class="form-control" id="phoneOne">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Location</label>
@@ -203,6 +207,7 @@
             var first_name = $('#first_name').val();
             var last_name = $('#last_name').val();
             var phone = $('#phone').val();
+            var phoneOne = $('#phoneOne').val();
             var email = $('#email').val();
             var location = $('#location').val();
             var bandwidth = $('#bandwidth').val();
@@ -232,7 +237,7 @@
             $.ajax({
                 type:"get",
                 url:"{{url('storeCustomer')}}",
-                data:{'first_name':first_name,'last_name':last_name,'phone':phone,'email':email,'location':location,'bandwidth':bandwidth,'payment_date':payment_date,'due_date':due_date,'sms_date':sms_date,'time_difference':rounded_date,'amount':amount,'amount_supposed_to_pay':amount_supposed_to_pay, 'previous_balance':previous_balance},
+                data:{'first_name':first_name,'last_name':last_name,'phone':phone,'phoneOne':phoneOne,'email':email,'location':location,'bandwidth':bandwidth,'payment_date':payment_date,'due_date':due_date,'sms_date':sms_date,'time_difference':rounded_date,'amount':amount,'amount_supposed_to_pay':amount_supposed_to_pay, 'previous_balance':previous_balance},
                 success:function (data) {
                     alert('Customer Added Success');
                     location.reload();

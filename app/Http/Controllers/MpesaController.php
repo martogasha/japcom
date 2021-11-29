@@ -71,7 +71,7 @@ class MpesaController extends Controller
         $currentMonth = date('m');
         $currentYear = date('Y');
         if (is_null($chechIfExists)) {
-            $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->first();
+            $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->orWhere('phoneOne', $input[0]['event']['resource']['sender_phone_number'])->first();
             if (!is_null($getUserIdentification)){
                 $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
                 if (!is_null($getInvoice)) {
