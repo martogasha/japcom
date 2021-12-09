@@ -50,6 +50,7 @@
                             </thead>
                             <tbody>
                             @foreach($cashs as $cash)
+                                @if(!is_null(\App\Models\User::find($cash->user_id)))
                             <tr>
 
                                 <td>{{$cash->user->first_name}} {{$cash->user->last_name}}</td>
@@ -57,6 +58,7 @@
                                 <td>{{$cash->date}}</td>
                                 <td><a href="{{url('cashReceipt',$cash->id)}}"><button class="btn btn-success">Receipt</button></a></td>
                             </tr>
+                                @endif
                             @endforeach
 
                                                     </tbody>
