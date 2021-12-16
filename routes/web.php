@@ -59,6 +59,7 @@ Route::get('addEmployee', [AdminController::class, 'addEmployee']);
 Route::get('employees', [AdminController::class, 'employees']);
 Route::get('addCash', [AdminController::class, 'addCash']);
 Route::get('bill', [AdminController::class, 'bill']);
+    Route::get('autoBill', [AdminController::class, 'autoBill']);
 Route::get('getQProducts', [AdminController::class, 'getQProducts']);
 Route::get('getIProducts', [AdminController::class, 'getIProducts']);
 Route::post('billing', [AdminController::class, 'billing'])->name('billing');
