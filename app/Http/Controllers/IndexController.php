@@ -73,14 +73,14 @@ class IndexController extends Controller
         }
         return redirect()->back()->with('success','ITEM SUCCESSFULLY REMOVED FROM CART');
     }
-    public function checkout(){
-        $oldCart = Session::get('cat');
-        $cart = new Cat($oldCart);
-        return view('client.checkout',[
-            'products'=>$cart->item,
-            'totalPrice'=>$cart->totalPrice,
-        ]);
-    }
+        public function checkout(){
+            $oldCart = Session::get('cat');
+            $cart = new Cat($oldCart);
+            return view('client.checkout',[
+                'products'=>$cart->item,
+                'totalPrice'=>$cart->totalPrice,
+            ]);
+        }
     public function account(){
         return view('client.account');
     }
