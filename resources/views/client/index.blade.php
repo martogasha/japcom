@@ -111,7 +111,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-6 col-lg-8">
                             <div class="slide-content-inner">
-                                <h4 data-animate="fadeInUp" data-delay=".05">Best Internet Service Provider In KENYA</h4>
+                                <h4 data-animate="fadeInUp" data-delay=".05">Best Internet Service Provider In Kenya</h4>
                                 <h2 data-animate="fadeInUp" data-delay=".3">Don’t Suffer The Buffer Speeds Up to 1 Gbps with Unlimited Data</h2>
                                 <a data-animate="fadeInUp" data-delay=".6" href="#" class="btn">Learn More</a>
                             </div>
