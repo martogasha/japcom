@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="ass/css/font-awesome.min.css">
     <link rel="stylesheet" href="ass/plugins/swiper/swiper.min.css">
     <link rel="stylesheet" href="ass/plugins/magnific-popup/magnific-popup.min.css">
-    <link rel="stylesheet" href="ass/plugins/color-switcher/color-switcher.css">
     <link rel="stylesheet" href="ass/css/style.css">
     <link rel="stylesheet" href="ass/css/responsive.css">
     <link rel="stylesheet" href="ass/css/colors/theme-color-1.css">
@@ -343,7 +342,6 @@
 <script src="ass/plugins/swiper/swiper.min.js"></script>
 <script src="ass/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="ass/plugins/parsley/parsley.min.js"></script>
-<script src="ass/plugins/color-switcher/color-switcher.js"></script>
 <script src="ass/plugins/retinajs/retina.min.js"></script>
 <script src="ass/plugins/isotope/isotope.pkgd.min.js"></script>
 <script src="ass/js/menu.min.js"></script>
