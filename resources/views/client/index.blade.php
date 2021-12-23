@@ -92,7 +92,7 @@
                     <!-- Header Call -->
                     <div class="header-call text-right">
                         <span>Call Now</span>
-                        <a href="tel:+1234567890">0729381059</a>
+                        <a href="tel:+254729381059">0729381059</a>
                     </div>
                 </div>
             </div>
