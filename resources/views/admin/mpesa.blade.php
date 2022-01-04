@@ -44,8 +44,11 @@
                             </div>
                         </div>
                     </form>
+                    @if(isset($start_date))
+                        <h3>Total from <b style="color: red">{{date('d-m-Y', strtotime($start_date))}}</b> to <b style="color: red">{{date('d-m-Y', strtotime($end_date))}}</b> = <b>SH {{$total}}</b></h3>
+                    @else
                         <h3>Total for {{\Carbon\Carbon::now()->format('F')}} = <b>SH {{$total}}</b></h3>
-                    </form>
+                    @endif
                     <div class="table-responsive">
                         <div class="col-lg-12 col-12 form-group">
                             <label>Search (<b>Name, Phone Number, Amount, Mpesa code, Date...etc</b>)</label>

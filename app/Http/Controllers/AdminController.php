@@ -1677,15 +1677,15 @@ class AdminController extends Controller
         ]);
     }
     public function filterMpesa(Request $request){
-        $startDate = $request->start_date;
-        $endDate = $request->end_date;
-        $start_date = date("d/m/Y", strtotime($startDate));
-        $end_date = date("d/m/Y", strtotime($endDate));
-        $invoices  = Mpesa::whereBetween('originationTime', array($start_date, $end_date))->get();
-        $total  = Mpesa::whereBetween('originationTime', array($start_date, $end_date))->sum('amount');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $invoices  = Mpesa::whereBetween('created_at', array($start_date, $end_date))->get();
+        $total  = Mpesa::whereBetween('created_at', array($start_date, $end_date))->sum('amount');
         return view('admin.mpesa',[
             'mpesas'=>$invoices,
             'total'=>$total,
+            'start_date'=>$start_date,
+            'end_date'=>$end_date,
         ]);
     }
     public function getReceipt($id){
