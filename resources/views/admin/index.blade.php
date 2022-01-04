@@ -372,6 +372,40 @@
 
         });
     });
+    $('#year').on('change',function () {
+        $year = $(this).val();
+        $month = $('#month').val();
+        $.ajax({
+            type:"get",
+            url:"{{url('ajax')}}",
+            data:{'yeah':$year,'month':$month},
+            success:function (data) {
+                $('#report').hide();
+                $('#basic').html(data);
+                $.ajax({
+                    type:"get",
+                    url:"{{url('showMonth')}}",
+                    data:{'year':$year,'month':$month},
+                    success:function (data) {
+                        $('#hideMonth').hide();
+                        $('#showMonth').html(data);
+                    },
+                    error:function (error) {
+                        console.log(error)
+                        alert('error')
+
+                    }
+
+                });
+            },
+            error:function (error) {
+                console.log(error)
+                alert('error')
+
+            }
+
+        });
+    });
 </script>
 
 
