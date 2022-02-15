@@ -128,7 +128,6 @@ Route::post('deleteExpense', [AdminController::class, 'deleteExpense']);
 Route::post('deleteProduct', [AdminController::class, 'deleteProduct']);
 Route::get('currentYear', [AdminController::class, 'currentYear']);
 Route::get('ajax', [AdminController::class, 'ajax']);
-Route::get('ajax', [AdminController::class, 'ajax']);
 Route::get('showMonth', [AdminController::class, 'showMonth']);
 Route::get('mpesa', [MpesaController::class, 'index']);
 Route::get('cash', [CashController::class, 'index']);

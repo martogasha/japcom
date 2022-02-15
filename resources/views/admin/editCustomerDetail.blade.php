@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Package Amount *</label>
-                                <input type="text" value={{$customer->amount}} class="form-control" name="bandwidth"/>
+                                <input type="text" value={{$customer->package_amount}} class="form-control" name="bandwidth"/>
 
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
