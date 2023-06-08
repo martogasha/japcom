@@ -61,8 +61,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div>
-                                                <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo">
-                                                <span class="text-600 text-110 text-blue align-middle"><br style="color:blue">Japcom Networks Limited</span>
+                                                <span class="text-sm text-grey-m2 align-middle"><img src="{{asset('img/logo.jpg')}}" alt="logo"></span>
                                             </div>
                                         </div>
                                         <!-- /.col -->
@@ -74,11 +73,10 @@
                                                     INVOICE
                                                 </div>
 
-                                                <div class="my-2"></i> <span class="text-600 text-90" style="color: black">JAPCOM NETWORKS</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">Nairobi, Nairobi Area 00100<br></div>
-                                                <div class="my-2"></i> <span class="text-600 text-90" >Kenya</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">0729381059/0717749765/0729444986</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90" >sales@jnl.co.ke</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90" style="color: black">Dolex Technologies Limited</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Kagio<br></div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">0708525144</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90" >dolextech@outlook.com</div>
 
                                             </div>
                                         </div>
@@ -104,10 +102,10 @@
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2">
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                                    Estimate Number :0{{$quote->id}}
+                                                    Invoice Number :0{{$quote->id}}
                                                 </div>
 
-                                                <div class="my-2"></i> <span class="text-600 text-90">Estimate Date:</span> {{$quote->invoice_date}}</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{$quote->invoice_date}}</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> {{$quote->payment_due}}</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH{{$total}}.00</b></div>
 
