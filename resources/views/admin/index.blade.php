@@ -132,19 +132,22 @@
                 </div>
             </div>
             <div class="row gutters-20" id="report">
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="card dashboard-card-seven">
-                        <div class="social-media bg-fb hover-fb" style="background-color: dodgerblue">
-                            <div class="media media-none--lg">
-                                <div class="media-body space-sm">
-                                    <h6 class="item-title">Customers</h6>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <a href="{{url('customers')}}">
+                        <div class="card dashboard-card-seven">
+                            <div class="social-media bg-fb hover-fb" style="background-color: dodgerblue">
+                                <div class="media media-none--lg">
+                                    <div class="media-body space-sm">
+                                        <h6 class="item-title">Customers</h6>
+                                    </div>
                                 </div>
+                                <div class="social-like">{{\App\Models\User::where('role',2)->count()}}</div>
                             </div>
-                            <div class="social-like">{{\App\Models\User::where('role',2)->count()}}</div>
                         </div>
+                        </a>
                     </div>
-                </div>
                 <div class="col-lg-3 col-sm-6 col-12">
+                    <a href="{{url('employees')}}">
                     <div class="card dashboard-card-seven">
                         <div class="social-media bg-twitter hover-twitter" style="background-color: mediumseagreen">
                             <div class="media media-none--lg">
@@ -156,6 +159,7 @@
                             <div class="social-like">{{\App\Models\User::where('role',1)->count()}}</div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">
@@ -172,6 +176,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
+                    <a href="{{url('mpesa')}}">
                     <div class="card dashboard-card-seven">
                         <div class="social-media bg-twitter hover-twitter" style="background-color: hotpink">
                             <div class="media media-none--lg">
@@ -184,8 +189,10 @@
                             <div class="social-like">{{$mpesa}}</div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
+                    <a href="{{url('cash')}}">
                     <div class="card dashboard-card-seven">
                         <div class="social-media bg-twitter hover-twitter" style="background-color: mediumpurple">
                             <div class="media media-none--lg">
@@ -198,8 +205,10 @@
                             <div class="social-like">{{$cash}}</div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
+                    <a href="{{url('expenses')}}">
                     <div class="card dashboard-card-seven">
                         <div class="social-media bg-twitter hover-twitter">
                             <div class="media media-none--lg">
@@ -212,6 +221,7 @@
                             <div class="social-like">{{$expense}}</div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="card dashboard-card-seven">

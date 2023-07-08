@@ -77,8 +77,8 @@
                                                 </div>
 
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black">Dolex Technologies Limited</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">Kagio<br></div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">0708525144</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Nairobi<br></div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">0705430907</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" >dolextech@outlook.com</div>
 
                                             </div>

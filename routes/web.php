@@ -58,6 +58,7 @@ Route::get('mpesaReceipt/{id}', [AdminController::class, 'mpesaReceipt']);
 Route::get('addEmployee', [AdminController::class, 'addEmployee']);
 Route::get('employees', [AdminController::class, 'employees']);
 Route::get('addCash', [AdminController::class, 'addCash']);
+Route::get('addMpesa', [AdminController::class, 'addMpesa']);
 Route::get('bill', [AdminController::class, 'bill']);
     Route::get('autoBill', [AdminController::class, 'autoBill']);
 Route::get('getQProducts', [AdminController::class, 'getQProducts']);
@@ -87,6 +88,7 @@ Route::post('storeCart', [IndexController::class, 'storeCart'])->name('storeCart
 Route::get('productDetail/{id}', [AdminController::class, 'productDetail']);
 Route::post('storeProduct', [AdminController::class, 'storeProduct'])->name('storeProduct');
 Route::post('makeCashPayment', [AdminController::class, 'makeCashPayment'])->name('makeCashPayment');
+Route::post('makeMpesaPayment', [AdminController::class, 'makeMpesaPayment'])->name('makeMpesaPayment');
 Route::post('storeEmployee', [AdminController::class, 'storeEmployee'])->name('storeEmployee');
 Route::get('storeQuotation', [AdminController::class, 'storeQuotation']);
 Route::get('storeInvoice', [AdminController::class, 'storeInvoice']);

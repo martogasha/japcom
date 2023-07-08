@@ -22,6 +22,8 @@
                             <h3>Mpesa Payments</h3>
                         </div>
                         <div class="dropdown">
+                            <a href="{{url('addMpesa')}}"><button class="btn btn-primary">Add Mpesa Payment</button></a>
+
                             <a href="{{url('mpesa')}}"><button class="btn btn-success">All Mpesa Records</button></a>
                         </div>
                     </div>
