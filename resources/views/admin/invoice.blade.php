@@ -74,8 +74,10 @@
                                                 </div>
 
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black">Dolex Technologies Limited</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90" style="color: black">Business No: 400200</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90" style="color: black">Account No: 40025143</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90">Kagio<br></div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">0708525144</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">0703725501</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" >dolextech@outlook.com</div>
 
                                             </div>
@@ -102,11 +104,10 @@
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2">
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                                    Invoice Number :0{{$quote->id}}
+                                                    Invoice Number :0567
                                                 </div>
 
-                                                <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{$quote->invoice_date}}</div>
-                                                <div class="my-2"></i> <span class="text-600 text-90">Expires On:</span> {{$quote->payment_due}}</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{date('d/m/Y', strtotime($quote->invoice_date))}}</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH{{$total}}.00</b></div>
 
                                             </div>

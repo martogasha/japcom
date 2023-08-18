@@ -54,7 +54,7 @@
                                 <th>Amount</th>
                                 <th>Payment Date</th>
                                 <th>Due Date</th>
-                                <th>Condition</th>
+                                <th>Phone</th>
                             </tr>
                             </thead>
                             <tbody id="myTable">
