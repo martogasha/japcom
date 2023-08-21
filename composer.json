@@ -8,7 +8,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "brick/math": "^0.11.0",
-        "doctrine/dbal": "^3.2",
+        "doctrine/dbal": "^3.6.6",
         "dompdf/dompdf": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
