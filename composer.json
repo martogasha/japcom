@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "composer-runtime-api": "^2",
         "brick/math": "^0.11.0",
         "doctrine/dbal": "^3.6.6",
         "dompdf/dompdf": "^1.0",

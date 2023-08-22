@@ -107,7 +107,7 @@
                                                     Invoice Number :0567
                                                 </div>
 
-                                                <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{date('d/m/Y', strtotime($quote->invoice_date))}}</div>
+                                                <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{$quote->invoice_date}}</div>
                                                 <div class="my-2"></i> <span class="text-600 text-90" style="color: black"><b>Grand Total (KES):</b></span> <b style="color: black">SH{{$total}}.00</b></div>
 
                                             </div>
