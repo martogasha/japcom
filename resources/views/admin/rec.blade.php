@@ -4,15 +4,7 @@
 
 <div class="page-content container">
     <div class="page-header text-blue-d2">
-        <h1 class="page-title text-secondary-d1">
-            Receipt
-            <small class="page-info">
-                <i class="fa fa-angle-double-right text-80"></i>
-                ID: 0{{$receipt->id}}
-            </small>
-        </h1>
-
-        <div class="page-tools">
+             <div class="page-tools">
             <div class="action-buttons">
                 <a class="btn bg-white btn-light mx-1px text-95" href="#" data-title="Print">
                     <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
@@ -44,14 +36,11 @@
                             <span class="text-sm text-grey-m2 align-middle">To:</span>
                             <span class="text-600 text-110 text-blue align-middle">{{$receipt->user->first_name}} {{$receipt->user->first_name}}</span>
                         </div>
+                        <div class="my-1"> <b class="text-600">{{$receipt->user->phone}}</b></div>
                         <div class="text-grey-m2">
                             <div class="my-1">
                                 {{$receipt->user->bandwidth}}Mbps
                             </div>
-                            <div class="my-1">
-                                '{{$receipt->user->location}}
-                            </div>
-                            <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{{$receipt->user->phone}}</b></div>
                         </div>
                     </div>
                     <!-- /.col -->

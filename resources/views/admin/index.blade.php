@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                             <span>KSH</span>
-                            <div class="social-like">{{$net}}</div>
+                            <div class="social-like"></div>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                                 </div>
                             </div>
                             <span>KSH</span>
-                            <div class="social-like">{{$mpesa}}</div>
+                            <div class="social-like"></div>
                         </div>
                     </div>
                     </a>
@@ -202,7 +202,7 @@
                                 </div>
                             </div>
                             <span>KSH</span>
-                            <div class="social-like">{{$cash}}</div>
+                            <div class="social-like"></div>
                         </div>
                     </div>
                     </a>
@@ -218,7 +218,7 @@
                                 </div>
                             </div>
                             <span>KSH</span>
-                            <div class="social-like">{{$expense}}</div>
+                            <div class="social-like"></div>
                         </div>
                     </div>
                     </a>
