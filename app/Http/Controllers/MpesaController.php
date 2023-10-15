@@ -33,37 +33,28 @@ class MpesaController extends Controller
 
     }
     public function subscribe(){
-        $options = [
-            'clientId' => 'Y4oqKYiZbuy5jH3yTojM6sdi0MLlmey_Rkrx6bpOj1g',
-            'clientSecret' => 'eeF7KX3QE9bmOWnEI4FY6zfskzsbaYp9hiMZIXRz6QY',
-            'apiKey' => '7d36be1a6e076c4aca556ee07818b21b4e58bcfe',
-            'baseUrl' => 'https://api.kopokopo.com'
-        ];
-        $K2 = new K2($options);
-        $tokens = $K2->TokenService();
-        $result = $tokens->getToken();
-        $access = $result['data'];
-        $accessToken = $access['accessToken'];
-        $webhooks = $K2->Webhooks();
-        $response = $webhooks->subscribe([
-            'eventType' => 'buygoods_transaction_received',
-            'url' => 'https://jnl.co.ke/api/storeWebhooks',
-            'scope' => 'till',
-            'scopeReference' => '526055',
-            'accessToken' => $accessToken,
-        ]);
-        $location = $response['location'];
-        $stk = $K2->StkService();
-        $options = [
-            'location' => $location,
-            'accessToken' => $accessToken,
-        ];
-        $response = $stk->getStatus($options);
-        dd($response);
+//YOU MPESA API KEYS
+        $consumerKey = "HZKs4kTilx4xoc8CGKgR8t3Jkxe6A5Yp"; //Fill with your app Consumer Key
+        $consumerSecret = "R2xDmkzkVtBAeU4C"; //Fill with your app Consumer Secret
+//ACCESS TOKEN URL
+        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        $headers = ['Content-Type:application/json; charset=utf8'];
+        $curl = curl_init($access_token_url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($curl, CURLOPT_HEADER, FALSE);
+        curl_setopt($curl, CURLOPT_USERPWD, $consumerKey . ':' . $consumerSecret);
+        $result = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $result = json_decode($result);
+        $access_token = $result->access_token;
+        dd($access_token);
+        curl_close($curl);
     }
     public function storeWebhooks(Request $request)
     {
         $duplicate = $request->json()->all();
+        Log::info($duplicate);
         $dub = array($duplicate);
         $input = array_unique($dub);
         $dateFormat = $input[0]['event']['resource']['origination_time'];
@@ -293,7 +284,7 @@ class MpesaController extends Controller
 
         $webhooks = $K2->Webhooks();
 
-        $json_str = file_get_contents('https://jnl.co.ke/api/storeWebhooks');
+        $json_str = file_get_contents('https://admin.dolextech.com/api/storeWebhooks');
 
         $response = $webhooks->webhookHandler($json_str, $_SERVER['vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds']);
         dd($response);
