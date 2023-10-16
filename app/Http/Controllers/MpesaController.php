@@ -46,6 +46,7 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_USERPWD, $consumerKey . ':' . $consumerSecret);
         $result = curl_exec($curl);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $result = json_decode($result);
         $access_token = $result->access_token;
         curl_close($curl);
 
