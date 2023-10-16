@@ -48,6 +48,8 @@ class MpesaController extends Controller
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result = json_decode($result);
         $access_token = $result->access_token;
+        Log::info($access_token);
+
         curl_close($curl);
 
         $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
