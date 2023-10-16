@@ -48,14 +48,12 @@ class MpesaController extends Controller
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result = json_decode($result);
         $access_token = $result->access_token;
-        Log::info($access_token);
-
         curl_close($curl);
 
         $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
         $BusinessShortCode = '6589582';
         $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
-        $validationUrl = '';
+        $validationUrl = 'https://admin.dolextech.com/api/authenticate';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $registerurl);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -304,14 +302,6 @@ class MpesaController extends Controller
 
     }
     public function authenticate(){
-        global $K2;
-        global $response;
 
-        $webhooks = $K2->Webhooks();
-
-        $json_str = file_get_contents('https://admin.dolextech.com/api/storeWebhooks');
-
-        $response = $webhooks->webhookHandler($json_str, $_SERVER['vaoQShrNB_sJvdNWZVliGzc1_RFzmX8dtMEbkl4ETds']);
-        dd($response);
     }
 }
