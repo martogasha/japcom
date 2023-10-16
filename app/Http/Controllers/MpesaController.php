@@ -37,7 +37,7 @@ class MpesaController extends Controller
         $consumerKey = "HZKs4kTilx4xoc8CGKgR8t3Jkxe6A5Yp"; //Fill with your app Consumer Key
         $consumerSecret = "R2xDmkzkVtBAeU4C"; //Fill with your app Consumer Secret
 //ACCESS TOKEN URL
-        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate';
         $headers = ['Content-Type:application/json; charset=utf8'];
         $curl = curl_init($access_token_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -48,8 +48,29 @@ class MpesaController extends Controller
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result = json_decode($result);
         $access_token = $result->access_token;
-        dd($access_token);
         curl_close($curl);
+
+        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
+        $BusinessShortCode = '6589582';
+        $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
+        $validationUrl = '';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $registerurl);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type:application/json',
+            'Authorization:Bearer ' . $access_token
+        ));
+        $data = array(
+            'ShortCode' => $BusinessShortCode,
+            'ResponseType' => 'Completed',
+            'ConfirmationURL' => $confirmationUrl,
+            'ValidationURL' => $validationUrl
+        );
+        $data_string = json_encode($data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        echo $curl_response = curl_exec($curl);
     }
     public function storeWebhooks(Request $request)
     {
