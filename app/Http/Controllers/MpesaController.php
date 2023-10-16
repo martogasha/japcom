@@ -54,8 +54,7 @@ class MpesaController extends Controller
     public function storeWebhooks(Request $request)
     {
         $stkCallbackResponse = $request->all();
-        $data = json_decode($stkCallbackResponse);
-        Log::info($data);
+        Log::info($stkCallbackResponse);
         $duplicate = $request->json()->all();
         Log::info($duplicate);
         $dub = array($duplicate);
