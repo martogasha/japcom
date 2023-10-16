@@ -37,7 +37,7 @@ class MpesaController extends Controller
         $consumerKey = "HZKs4kTilx4xoc8CGKgR8t3Jkxe6A5Yp"; //Fill with your app Consumer Key
         $consumerSecret = "R2xDmkzkVtBAeU4C"; //Fill with your app Consumer Secret
 //ACCESS TOKEN URL
-        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate';
+        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
         $headers = ['Content-Type:application/json; charset=utf8'];
         $curl = curl_init($access_token_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -46,7 +46,8 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_USERPWD, $consumerKey . ':' . $consumerSecret);
         $result = curl_exec($curl);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        Log::info($result);
+        $result = json_decode($result);
+        $access_token = $result->access_token;
         curl_close($curl);
 
         $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
