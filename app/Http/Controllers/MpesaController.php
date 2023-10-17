@@ -293,8 +293,8 @@ class MpesaController extends Controller
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $registerurl);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type:application/json',
-            'Authorization:Bearer ' . ODh7btzIqtcB95AW4tnGurGVINjV
+            'Content-Type:application/json; charset=utf8',
+            'Authorization:Bearer ' . 'ODh7btzIqtcB95AW4tnGurGVINjV'
         ));
         $data = array(
             'ShortCode' => $BusinessShortCode,
