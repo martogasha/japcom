@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 //mpesa routes
 Route::get('webhook', [MpesaController::class, 'subscribe']);
+Route::get('register', [MpesaController::class, 'register']);
 Route::get('getWebhooks', [MpesaController::class, 'getWebhooks']);
 Route::get('authenticate', [MpesaController::class, 'authenticate']);
 Route::post('storeWebhooks', [MpesaController::class, 'storeWebhooks']);

@@ -48,29 +48,10 @@ class MpesaController extends Controller
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $result = json_decode($result);
         $access_token = $result->access_token;
+        Log::info($access_token);
         curl_close($curl);
 
-        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
-        $BusinessShortCode = '6589582';
-        $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
-        $validationUrl = 'https://admin.dolextech.com/api/authenticate';
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $registerurl);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type:application/json',
-            'Authorization:Bearer ' . $access_token
-        ));
-        $data = array(
-            'ShortCode' => $BusinessShortCode,
-            'ResponseType' => 'Completed',
-            'ConfirmationURL' => $confirmationUrl,
-            'ValidationURL' => $validationUrl
-        );
-        $data_string = json_encode($data);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-        echo $curl_response = curl_exec($curl);
+
     }
     public function storeWebhooks(Request $request)
     {
@@ -303,5 +284,28 @@ class MpesaController extends Controller
     }
     public function authenticate(){
 
+    }
+    public function register(){
+        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
+        $BusinessShortCode = '6589582';
+        $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
+        $validationUrl = 'https://admin.dolextech.com/api/authenticate';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $registerurl);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type:application/json',
+            'Authorization:Bearer ' . ''
+        ));
+        $data = array(
+            'ShortCode' => $BusinessShortCode,
+            'ResponseType' => 'Completed',
+            'ConfirmationURL' => $confirmationUrl,
+            'ValidationURL' => $validationUrl
+        );
+        $data_string = json_encode($data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        echo $curl_response = curl_exec($curl);
     }
 }
