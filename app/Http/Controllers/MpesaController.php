@@ -34,10 +34,10 @@ class MpesaController extends Controller
     }
     public function subscribe(){
 //YOU MPESA API KEYS
-        $consumerKey = "PgguIXHfuPamEAzn6MTbGUOrZnsL09Gb"; //Fill with your app Consumer Key
-        $consumerSecret = "1jHRWbkQcsTLnLg8"; //Fill with your app Consumer Secret
+        $consumerKey = "HZKs4kTilx4xoc8CGKgR8t3Jkxe6A5Yp"; //Fill with your app Consumer Key
+        $consumerSecret = "R2xDmkzkVtBAeU4C"; //Fill with your app Consumer Secret
 //ACCESS TOKEN URL
-        $access_token_url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+        $access_token_url = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
         $headers = ['Content-Type:application/json; charset=utf8'];
         $curl = curl_init($access_token_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -49,7 +49,7 @@ class MpesaController extends Controller
         $result = json_decode($result);
         $access_token = $result->access_token;
         Log::info($access_token);
-        $registerurl = 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl';
+        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
         $BusinessShortCode = '6589582';
         $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
         $validationUrl = 'https://admin.dolextech.com/api/authenticate';
