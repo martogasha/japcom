@@ -49,7 +49,7 @@ class MpesaController extends Controller
         $result = json_decode($result);
         $access_token = $result->access_token;
         Log::info($access_token);
-        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
+        $registerurl = 'https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl';
         $BusinessShortCode = '6589582';
         $confirmationUrl = 'https://admin.dolextech.com/api/storeWebhooks';
         $validationUrl = 'https://admin.dolextech.com/api/authenticate';
