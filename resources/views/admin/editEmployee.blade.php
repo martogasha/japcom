@@ -112,7 +112,7 @@
                                 <input type="email" value="{{$user->email}}" class="form-control" name="email">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Phone</label>
+                                <label>Account No:</label>
                                 <input type="text" value="{{$user->phone}}" class="form-control" name="phone">
                             </div>
                             @if($user->role==0)
