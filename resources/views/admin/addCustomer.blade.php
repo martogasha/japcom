@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Account No:</label>
-                                <input type="text" placeholder="+254712345678" class="form-control" id="phone">
+                                <input type="text" placeholder="DK1..." class="form-control" id="phone">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Location</label>
