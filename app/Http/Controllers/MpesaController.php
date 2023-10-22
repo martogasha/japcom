@@ -75,35 +75,30 @@ class MpesaController extends Controller
     }
     public function storeWebhooks(Request $request)
     {
-        $stkCallbackResponse = $request->all();
-        Log::info($stkCallbackResponse['MSISDN']);
-        $duplicate = $request->json()->all();
-        Log::info($duplicate);
-        $dub = array($duplicate);
-        $input = array_unique($dub);
-        $dateFormat = $input[0]['event']['resource']['origination_time'];
-        $chechIfExists = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+        $input = $request->all();
+        $dateFormat = $input['TransTime'];
+        $chechIfExists = Mpesa::where('reference', $input['TransID'])->first();
         $currentMonth = date('m');
         $currentYear = date('Y');
         if (is_null($chechIfExists)) {
-            $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->orWhere('phoneOne', $input[0]['event']['resource']['sender_phone_number'])->first();
+            $getUserIdentification = User::where('phone', $input['BillRefNumber'])->orWhere('phoneOne', $input['BillRefNumber'])->first();
             if (!is_null($getUserIdentification)){
                 $getInvoice = Invoice::where('user_id', $getUserIdentification->id)->where('status', 0)->first();
                 if (!is_null($getInvoice)) {
-                    $chechIfExist = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+                    $chechIfExist = Mpesa::where('reference', $input['TransID'])->first();
                     if (is_null($chechIfExist)){
-                        $currentBalance = $getInvoice->balance - $input[0]['event']['resource']['amount'];
+                        $currentBalance = $getInvoice->balance - $input['TransAmount'];
                         $createPayment = Mpesa::create([
-                            'reference' => $input[0]['event']['resource']['reference'],
+                            'reference' => $input['TransID'],
                             'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                            'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                            'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                            'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                            'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                            'amount' => $input[0]['event']['resource']['amount'],
-                            'status' => $input[0]['event']['resource']['status'],
-                            'system' => $input[0]['event']['resource']['system'],
-                            'currency' => $input[0]['event']['resource']['currency'],
+                            'senderFirstName' => $input['FirstName'],
+                            'senderMiddleName' => '',
+                            'senderLastName' => '',
+                            'senderPhoneNumber' => $input['MSISDN'],
+                            'amount' => $input['TransAmount'],
+                            'status' => '',
+                            'system' => '',
+                            'currency' => '',
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
@@ -112,7 +107,7 @@ class MpesaController extends Controller
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
-                            'reference' => $input[0]['event']['resource']['reference'],
+                            'reference' => $input['TransID'],
                             'date' => $createPayment->originationTime,
                             'amount' => $createPayment->amount,
                             'status' => 1,
@@ -142,7 +137,7 @@ class MpesaController extends Controller
                                     $createPay1 = Payment::create([
                                         'user_id' => $getUserIdentification->id,
                                         'invoice_id' => $getIn->id,
-                                        'reference' => $input[0]['event']['resource']['reference'],
+                                        'reference' => $input['TransID'],
                                         'date' => date("d-m-Y", strtotime($dateFormat)),
                                         'amount' => $getI->balance * -1,
                                         'status' => 1,
@@ -176,7 +171,7 @@ class MpesaController extends Controller
                                                 $createP = Payment::create([
                                                     'user_id' => $getUserIdentification->id,
                                                     'invoice_id' => $getIn2->id,
-                                                    'reference' => $input[0]['event']['resource']['reference'],
+                                                    'reference' => $input['TransID'],
                                                     'date' => date("d-m-Y", strtotime($dateFormat)),
                                                     'amount' => $getI2->balance * -1,
                                                     'status' => 1,
@@ -208,7 +203,7 @@ class MpesaController extends Controller
                                                             $createP1 = Payment::create([
                                                                 'invoice_id' => $getIn3->id,
                                                                 'user_id' => $getUserIdentification->id,
-                                                                'reference' => $input[0]['event']['resource']['reference'],
+                                                                'reference' => $input['TransID'],
                                                                 'date' => date("d-m-Y", strtotime($dateFormat)),
                                                                 'amount' => $getI3->balance * -1,
                                                                 'status' => 1,
@@ -250,23 +245,23 @@ class MpesaController extends Controller
                     }
                 }
                 else {
-                    $getUserIdentification = User::where('phone', $input[0]['event']['resource']['sender_phone_number'])->orWhere('phoneOne', $input[0]['event']['resource']['sender_phone_number'])->first();
+                    $getUserIdentification = User::where('phone', $input['BillRefNumber'])->orWhere('phoneOne', $input['BillRefNumber'])->first();
                     if (!is_null($getUserIdentification)){
                         $getUser = User::find($getUserIdentification->id);
-                        $chechIfEx = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+                        $chechIfEx = Mpesa::where('reference', $input['TransID'])->first();
                         if (is_null($chechIfEx)) {
-                            $currentBalance = $getUser->balance - $input[0]['event']['resource']['amount'];
+                            $currentBalance = $getUser->balance - $input['TransAmount'];
                             $createPayment = Mpesa::create([
-                                'reference' => $input[0]['event']['resource']['reference'],
+                                'reference' => $input['TransID'],
                                 'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                                'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                                'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                                'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                                'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                                'amount' => $input[0]['event']['resource']['amount'],
-                                'status' => $input[0]['event']['resource']['status'],
-                                'system' => $input[0]['event']['resource']['system'],
-                                'currency' => $input[0]['event']['resource']['currency'],
+                                'senderFirstName' => $input['FirstName'],
+                                'senderMiddleName' => '',
+                                'senderLastName' => '',
+                                'senderPhoneNumber' => $input['MSISDN'],
+                                'amount' => $input['TransAmount'],
+                                'status' => '',
+                                'system' => '',
+                                'currency' => '',
                                 'currentMonth' => $currentMonth,
                                 'currentYear' =>$currentYear,
                             ]);
@@ -281,19 +276,19 @@ class MpesaController extends Controller
 
             }
             else{
-                $chechIfE = Mpesa::where('reference', $input[0]['event']['resource']['reference'])->first();
+                $chechIfE = Mpesa::where('reference', $input['TransID'])->first();
                 if (is_null($chechIfE)){
                     $createPay = Mpesa::create([
-                        'reference' => $input[0]['event']['resource']['reference'],
+                        'reference' => $input['TransID'],
                         'originationTime' => date("d-m-Y", strtotime($dateFormat)),
-                        'senderFirstName' => $input[0]['event']['resource']['sender_first_name'],
-                        'senderMiddleName' => $input[0]['event']['resource']['sender_middle_name'],
-                        'senderLastName' => $input[0]['event']['resource']['sender_last_name'],
-                        'senderPhoneNumber' => $input[0]['event']['resource']['sender_phone_number'],
-                        'amount' => $input[0]['event']['resource']['amount'],
-                        'status' => $input[0]['event']['resource']['status'],
-                        'system' => $input[0]['event']['resource']['system'],
-                        'currency' => $input[0]['event']['resource']['currency'],
+                        'senderFirstName' => $input['TransID'],
+                        'senderMiddleName' => '',
+                        'senderLastName' => '',
+                        'senderPhoneNumber' => $input['MSISDN'],
+                        'amount' => $input['TransAmount'],
+                        'status' => '',
+                        'system' => '',
+                        'currency' => '',
                         'currentMonth' =>$currentMonth,
                         'currentYear' =>$currentYear,
                     ]);
