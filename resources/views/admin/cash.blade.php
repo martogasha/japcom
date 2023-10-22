@@ -68,8 +68,8 @@
             </div>
             <!-- Student Table Area End Here -->
             <footer class="footer-wrap-layout1">
-                <div class="copyright">© Copyrights <a href="#">akkhor</a> 2019. All rights reserved. Designed by <a
-                        href="#">PsdBosS</a></div>
+                <div class="copyright">© Copyrights <a href="#">Dolex</a> 2023. All rights reserved. Designed by <a
+                        href="#">Dolex Technologies</a></div>
             </footer>
         </div>
     </div>
