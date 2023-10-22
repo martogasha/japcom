@@ -47,20 +47,9 @@
                                 <input type="email" value={{$customer->email}} class="form-control" name="email">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Phone</label>
+                                <label>Account No:</label>
                                 <input type="text" value={{$customer->phone}} class="form-control" name="phone">
                             </div>
-                            @if(!is_null($customer->phoneOne))
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Phone 2</label>
-                                <input type="text" value={{$customer->phoneOne}} class="form-control" name="phoneOne">
-                            </div>
-                            @else
-                                <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                    <label>Phone 2</label>
-                                    <input type="text" class="form-control" name="phoneOne" placeholder="+254712345678">
-                                </div>
-                                @endif
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Location</label>
                                 <input type="text" value={{$customer->location}} class="form-control" name="location">

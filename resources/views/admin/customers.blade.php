@@ -49,7 +49,7 @@
                                 <th>Status</th>
                                 <th>Balance</th>
                                 <th>Name</th>
-                                <th>Address</th>
+                                <th>Address & A/c</th>
                                 <th>Package</th>
                                 <th>Amount</th>
                                 <th>Payment Date</th>
@@ -78,7 +78,7 @@
 
                                 @endif
                                 <td>{{$customer->first_name}} {{$customer->last_name}}</td>
-                                <td>{{$customer->location}}</td>
+                                <td>{{$customer->location}}(<b style="color: green">{{$customer->phone}}</b>)</td>
                                 <td>{{$customer->bandwidth}} Mbps</td>
                                     @if($customer->amount!=0)
                                 <td>Ksh: {{$customer->amount}}</td>
