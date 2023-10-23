@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('billing')->everyMinute();
+         $schedule->command('billing')->daily();
     }
 
     /**
