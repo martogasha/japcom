@@ -106,6 +106,36 @@
                                         </td>
 
                                     </tr>
+                                @elseif($invoice->statas==1)
+                                    <tr>
+                                        <td>
+                                            <span class="badge badge-primary">{{\Carbon\Carbon::parse($invoice->invoice_date)->format('F Y')}}</span>
+                                        </td>
+
+                                        <td>Invoice
+                                            <hr>
+                                            <p class="text-muted mb-0">Payment</p>
+                                        </td>
+                                        <td>Ksh {{$invoice->amount}}
+                                            <hr>
+
+                                                <span class="badge badge-danger">TERMINATED</span>
+
+                                        </td>
+                                        <td>{{$invoice->invoice_date}}
+                                            <hr>
+
+                                                <span class="badge badge-danger">TERMINATED</span>
+
+                                        </td>
+
+                                            <td><span class="badge badge-danger">TERMINATED</span></td>
+
+                                        <td>
+                                            <a href="{{url('invoicePayment',$invoice->id)}}"> <button class="btn btn-info">View Payments</button></a>
+                                        </td>
+
+                                    </tr>
                                 @else
                                     <tr>
                                         <td>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\Controller;
 use App\Models\Cash;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class CashController extends Controller

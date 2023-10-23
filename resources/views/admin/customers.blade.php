@@ -62,6 +62,9 @@
                             <tr>
                                 @if($customer->balance>0 && $customer->balance<$customer->package_amount)
                                     <td class="badge badge-pill badge-warning d-block mg-t-8">Pending</td>
+                                @elseif($customer->package_amount==null)
+                                    <td class="badge badge-pill badge-danger d-block mg-t-8">Terminated</td>
+
                                 @else
                                     @if($customer->balance<=0)
                                         <td class="badge badge-pill badge-success d-block mg-t-8">Paid</td>
@@ -70,10 +73,15 @@
                                             <td class="badge badge-pill badge-danger d-block mg-t-8">UnPaid</td>
                                         @endif
                                     @endif
+
                                 @endif
-                                @if($customer->balance<=0)
-                                    <td><b style="color: green">Ksh: {{$customer->balance}}</b></td>
-                                @else
+                                    @if($customer->package_amount==null)
+                                        <td><b style="color: red">TERMINATED</b></td>
+
+                                    @elseif($customer->balance<=0)
+                                        <td><b style="color: green">Ksh: {{$customer->balance}}</b></td>
+
+                                    @else
                                     <td><b style="color: red">Ksh: {{$customer->balance}}</b></td>
 
                                 @endif
@@ -108,7 +116,7 @@
                                                     class="fas fa-book-open text-orange-red"></i>View</a>
                                             <a class="dropdown-item" href="{{url('editCustomerDetail',$customer->id)}}"><i
                                                     class="fas fa-edit text-blue"></i>Edit</a>
-                                            <button type="button" class="btn btn-danger btn-lg btn-block view" id="{{$customer->id}}" data-toggle="modal" data-target="#west">Delete</button>
+                                            <button type="button" class="btn btn-danger btn-lg btn-block view" id="{{$customer->id}}" data-toggle="modal" data-target="#west">Terminate</button>
 
                                         </div>
                                     </div>

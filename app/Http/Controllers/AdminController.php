@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cat;
+use App\Exceptions\Controller;
 use App\Models\Cash;
 use App\Models\Expense;
 use App\Models\Inv;
@@ -15,14 +16,11 @@ use App\Models\Qproduct;
 use App\Models\Quotation;
 use App\Models\User;
 use Carbon\Carbon;
-use Faker\Provider\DateTime;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Session;
-use Dompdf\Dompdf;
-use function GuzzleHttp\Promise\all;
 
 
 class AdminController extends Controller
@@ -2007,8 +2005,9 @@ class AdminController extends Controller
         return response($output);
     }
     public function deleteC(Request $request){
-        $deleteUser = User::where('id',$request->userid)->delete();
-        return redirect(url('customers'))->with('success','CUSTOMER DELETED SUCCESS');
+        $deleteUser = User::where('id',$request->userid)->update(['package_amount'=>null]);
+        $deleteInvoice = Invoice::where('user_id',$request->userid)->update(['statas',1]);
+        return redirect(url('customers'))->with('success','CUSTOMER TERMINATED SUCCESS');
 
     }
 

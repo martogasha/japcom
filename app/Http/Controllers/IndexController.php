@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cat;
+use App\Exceptions\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Session;
