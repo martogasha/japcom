@@ -104,7 +104,7 @@
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2">
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                                    Invoice Number :0768
+                                                    Invoice Number :0850
                                                 </div>
 
                                                 <div class="my-2"></i> <span class="text-600 text-90">Invoice Date:</span> {{$quote->invoice_date}}</div>

@@ -52,7 +52,7 @@
                                 <th>Address & A/c</th>
                                 <th>Package</th>
                                 <th>Amount</th>
-                                <th>Payment Date</th>
+                                <th>Phone No:</th>
                                 <th>Due Date</th>
                                 <th>Phone</th>
                             </tr>
@@ -94,11 +94,7 @@
                                         <td><span class="badge badge-danger">Not Paid</span></td>
 
                                     @endif
-                                    @if($customer->payment_date==0)
-                                <td><span class="badge badge-danger">Not Paid</span></td>
-                                    @else
-                                        <td>{{date('d/m/Y', strtotime($customer->payment_date))}}</td>
-                                    @endif
+                                <td><span class="badge badge-success">{{$customer->phoneOne}}</span></td>
                                     @if($customer->due_date==0)
                                         <td><span class="badge badge-danger">Not Paid</span>
                                         </td>

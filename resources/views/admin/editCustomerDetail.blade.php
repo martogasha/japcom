@@ -51,6 +51,10 @@
                                 <input type="text" value={{$customer->phone}} class="form-control" name="phone">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Phone No:</label>
+                                <input type="text" value={{$customer->phoneOne}} class="form-control" name="phoneOne">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Location</label>
                                 <input type="text" value={{$customer->location}} class="form-control" name="location">
                             </div>

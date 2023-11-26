@@ -22,8 +22,7 @@
         <div class="row mt-4" id="rrr">
             <div class="col-sm-6">
                 <div>
-                    <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/jp.png')}}" alt="logo"></span>
-                    <span class="text-600 text-110 text-blue align-middle"><br style="color:blue">Japcom Networks Limited</span>
+                    <span class="text-sm text-grey-m2 align-middle" style="padding-left: 70px"><img src="{{asset('img/logo.jpg')}}" alt="logo"></span>
                 </div>
             </div>
             <div class="col-12 col-lg-10 offset-lg-1">
@@ -36,7 +35,6 @@
                             <span class="text-sm text-grey-m2 align-middle">To:</span>
                             <span class="text-600 text-110 text-blue align-middle">{{$receipt->user->first_name}} {{$receipt->user->first_name}}</span>
                         </div>
-                        <div class="my-1"> <b class="text-600">{{$receipt->user->phone}}</b></div>
                         <div class="text-grey-m2">
                             <div class="my-1">
                                 {{$receipt->user->bandwidth}}Mbps
@@ -52,11 +50,11 @@
                                 Receipt
                             </div>
 
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> 0{{$receipt->id}}</div>
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> 0806</div>
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> {{$receipt->date}}</div>
                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">{{$receipt->payment_method}}</span></div>
-                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Transaction:</span> <b>{{$receipt->reference}}</b></div>
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Transaction:</span> <b>RKH1N2C7N9</b></div>
 
                         </div>
                     </div>

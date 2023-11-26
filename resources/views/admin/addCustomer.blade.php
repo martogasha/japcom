@@ -49,6 +49,10 @@
                                 <input type="text" placeholder="DK1..." class="form-control" id="phone">
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Phone No:</label>
+                                <input type="text" placeholder="0712345678" class="form-control" id="phoneOne">
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Location</label>
                                 <input type="text" placeholder="Location" class="form-control" id="location">
                             </div>
